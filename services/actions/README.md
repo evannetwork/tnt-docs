@@ -1,5 +1,7 @@
 # Actions
 
+TBD. add endpoint descriptions here.
+
 {% api-method method="post" host="https://api.cakes.com" path="/v1/cakes/:id" %}
 {% api-method-summary %}
 Get Cakes
