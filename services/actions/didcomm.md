@@ -2,6 +2,10 @@
 
 The DIDComm action type provides the functionality to sent encrypted DIDComm messages to your partners.
 
+
+
+WAHWHHAWHAWHWAHAWHAWHAWWH
+
 ## Requirements
 
 * register on [TRUST&TRACE](https://app.trust-trace.com)
