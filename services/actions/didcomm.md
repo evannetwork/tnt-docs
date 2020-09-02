@@ -61,6 +61,21 @@ Send message
 {% api-method-description %}
 To sent a message over the action thread, use the **uuid** path parameter with the **command** flag.  
 The data parameter must include a message object, that includes basically the following data:
+
+```json
+{
+  "@type": "protocol of the DIDComm message (e.g. <did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/issue-credential>)"
+}
+```
+
+The following fields will be prefilled, if not set:
+- **@id**: random uuid
+- **~thread**: defaults to `{ thid: actionUuid }`
+
+Besides that, everything else can be added to the message object. E.g.:
+- **publicKey**: any key (e.g. for did exchange)
+- **presentations~attach**: any decorators
+
 {% endapi-method-description %}
 
 {% api-method-spec %}
