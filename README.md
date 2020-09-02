@@ -9,7 +9,7 @@ description: >-
 
 ## Whats TRUST&TRACE?
 
-TRUST&TRACE helps companies to operate efficiently and sustainably by creating a trustworthy digital business network in which autonomous business partners can securely share the provenance and properties of their products. All relevant data across the supply chain is made available in a confidential yet auditable manner. Thus, it can be used consistently along the line from supply quality management to procurement to corporate communications and social responsibility.
+TRUST&TRACE helps companies to operate efficiently and sustainably by creating a trustworthy digital business network in which autonomous business partners can securely share the provenance and properties of their products. All relevant data across the supply chain is made available in a confidential yet auditable manner. Thus, it can be used consistently along the line from supply quality management to procurement to corporate communications and social responsibility.
 
 Trustworthiness is realized by transferring trust from the real world to the digital world. This is guaranteed by independent trusted third parties who digitally confirm company data, certificates and regulatory compliance and in return expand their existing business model digitally.
 
