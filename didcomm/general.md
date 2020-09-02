@@ -1,6 +1,6 @@
 # General
 
-The complete communication that is made by TRUST&TRACE, internally and externally, is done via [DIDComm protocl](https://github.com/decentralized-identity/DIDComm-js/blob/master/docs/README.md). With this protocol every kind of message, including attachments, can be exchanged securely.
+The complete communication that is made by TRUST&TRACE, internally and externally, is done via [DIDComm protocol](https://github.com/decentralized-identity/DIDComm-js/blob/master/docs/README.md). With this protocol every kind of message, including attachments, can be exchanged securely.
 
 ## TNT DIDComm service endpoint
 
