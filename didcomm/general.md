@@ -1,10 +1,12 @@
 # General
 
-The complete communication that is made by TRUST&TRACE, internally and externally, is done via [DIDComm protocol](https://github.com/decentralized-identity/DIDComm-js/blob/master/docs/README.md). With this protocol every kind of message, including attachments, can be exchanged securely.
+The complete communication that is made by TRUST&TRACE, internally and externally, is done via [DIDComm protocl](https://github.com/decentralized-identity/DIDComm-js/blob/master/docs/README.md). With this protocol every kind of message, including attachments, can be exchanged securely.
+
+Thats overwritten.
 
 ## TNT DIDComm service endpoint
 
-DIDComm messages can be sent to TRUST&TRACE via the specific [DIDComm endpoint](https://tntservices-ce07.azurewebsites.net/api/didcomm). The system will handle and decrypt each message for the registered users and their identities. The business logic of TRUST&TRACE supports these protocols:
+DIDComm messages can be sent to TRUST&TRACE via the specific [DIDComm endpoint](https://tntservices-ce07.azurewebsites.net/api/didcomm). The system will handle and decrypt each message for the registered users and there identities. The business logic of TRUST&TRACE supports these protocols:
 
 * [DID Exchange](https://github.com/hyperledger/aries-rfcs/tree/master/features/0023-did-exchange)
 * [Issue Credential](https://github.com/hyperledger/aries-rfcs/tree/master/features/0036-issue-credential)
