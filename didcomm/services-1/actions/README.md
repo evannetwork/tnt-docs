@@ -14,9 +14,9 @@ TBD.
 
 {% page-ref page="csr.md" %}
 
-{% page-ref page="./" %}
-
-
-
 TBD. add endpoint descriptions here
+
+
+
+
 
