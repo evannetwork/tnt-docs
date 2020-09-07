@@ -2,10 +2,6 @@
 
 The DIDComm action type provides the functionality to send encrypted DIDComm messages to your partners.
 
-
-
-WAHWHHAWHAWHWAHAWHAWHAWWH
-
 ## Requirements
 
 * register on [TRUST&TRACE](https://app.trust-trace.com)
@@ -15,7 +11,7 @@ WAHWHHAWHAWHWAHAWHAWHAWWH
 
 {% api-method method="post" host="https://" path="tntservices-ce07.azurewebsites.net/api/action" %}
 {% api-method-summary %}
-Create Action
+Create Action - "Thread"
 {% endapi-method-summary %}
 
 {% api-method-description %}
@@ -63,8 +59,7 @@ Send message
 {% endapi-method-summary %}
 
 {% api-method-description %}
-To sent a message over the action thread, use the **uuid** path parameter with the **command** flag.  
-The data parameter must include a message object, that includes basically the following data:The following fields will be prefilled, if not set:Besides that, everything else can be added to the message object. E.g.:
+To sent a message over the action thread, use the **uuid** path parameter with the **command** flag.
 {% endapi-method-description %}
 
 {% api-method-spec %}
@@ -94,8 +89,29 @@ must be "**message**"
 
 ```text
 
+
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
+
+The data parameter must include a message object, that at least includes the following data:
+
+```javascript
+{
+  "@type": "protocol of the DIDComm message (e.g. <did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/issue-credential/1.0/issue-credential>)"
+}
+```
+
+The following fields will be prefilled, if not set:
+
+* **@id**: random uuid
+* **~thread**: defaults to `{ thid: actionUuid }`
+
+Besides that, everything else can be added to the message object. E.g.:
+
+* **publicKey**: any key \(e.g. for did exchange\)
+* **presentations~attach**: any decorators
+* ...
+
