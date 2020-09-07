@@ -1,6 +1,6 @@
 # DIDCOMM
 
-The DIDComm action type provides the functionality to sent encrypted DIDComm messages to your partners.
+The DIDComm action type provides the functionality to send encrypted DIDComm messages to your partners.
 
 
 
@@ -99,4 +99,3 @@ must be "**message**"
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
-
