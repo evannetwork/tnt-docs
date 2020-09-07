@@ -22,6 +22,6 @@ Read more about [webhooks](https://github.com/evannetwork/tnt-docs/tree/428ebaad
 
 ## DIDComm action service
 
-Besides the relay, a registered user has also the possiblity to sent messages over TRUST&TRACE and use the built in encryption mechanism. The endpoint just consumes message payload and a receiver, will built a encrypted DIDComm message and sents this out.
+Besides the relay, a registered user has also the possiblity to sent messages over TRUST&TRACE and use the built in encryption mechanism. The endpoint accepts a message and a receiver's DID, builds an encrypted DIDComm message and sends it to the target.
 
 Read more about [DIDComm action](https://github.com/evannetwork/tnt-docs/tree/428ebaad43521b00969685cd576c51ef7fc72bc5/services/actions/didcomm/README.md).
