@@ -6,7 +6,7 @@ Thats overwritten.
 
 ## TNT DIDComm service endpoint
 
-DIDComm messages can be sent to TRUST&TRACE via the specific [DIDComm endpoint](https://tntservices-ce07.azurewebsites.net/api/didcomm). The system will handle and decrypt each message for the registered users and there identities. The business logic of TRUST&TRACE supports these protocols:
+DIDComm messages can be sent to TRUST&TRACE via the specific [DIDComm endpoint](https://tntservices-ce07.azurewebsites.net/api/didcomm). The system will handle and decrypt each message for the registered users and their identities. The business logic of TRUST&TRACE supports these protocols:
 
 * [DID Exchange](https://github.com/hyperledger/aries-rfcs/tree/master/features/0023-did-exchange)
 * [Issue Credential](https://github.com/hyperledger/aries-rfcs/tree/master/features/0036-issue-credential)
