@@ -1,6 +1,6 @@
 # Actions
 
-The action endpoint capsulate several business logics within one endpoint. It will create a new "action" in the database of a specific type, that can be requested with the **command** parameter to execute specific business logic parts.
+The action endpoint capsulates several business logics. It will create a new "action" of a specific type in the database. This action can be requested with the **command** parameter to execute specific business logic parts.
 
 ### DIDComm
 
@@ -15,7 +15,6 @@ TBD.
 {% page-ref page="csr.md" %}
 
 TBD. add endpoint descriptions here
-
 
 
 
