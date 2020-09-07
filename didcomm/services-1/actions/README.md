@@ -4,7 +4,7 @@ The action endpoint capsulate several business logics within one endpoint. It wi
 
 ### DIDComm
 
-The DIDComm action type provides the functionality to sent encrypted DIDComm messages to your partners.
+The DIDComm action type provides the functionality to send encrypted DIDComm messages to your partners.
 
 {% page-ref page="didcomm.md" %}
 
@@ -15,7 +15,6 @@ TBD.
 {% page-ref page="csr.md" %}
 
 TBD. add endpoint descriptions here
-
 
 
 
