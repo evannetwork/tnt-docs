@@ -1,6 +1,6 @@
 # DIDCOMM
 
-The DIDComm action type provides the functionality to sent encrypted DIDComm messages to your partners.
+The DIDComm action type provides the functionality to send encrypted DIDComm messages to your partners.
 
 ## Requirements
 
@@ -114,6 +114,5 @@ Besides that, everything else can be added to the message object. E.g.:
 * **publicKey**: any key \(e.g. for did exchange\)
 * **presentations~attach**: any decorators
 * ...
-
 
 
