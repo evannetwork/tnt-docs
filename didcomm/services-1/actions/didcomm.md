@@ -96,7 +96,7 @@ must be "**message**"
 {% endapi-method-spec %}
 {% endapi-method %}
 
-The data parameter must include a message object, that includes basically the following data:
+The data parameter must include a message object, that at least includes the following data:
 
 ```javascript
 {
@@ -114,5 +114,4 @@ Besides that, everything else can be added to the message object. E.g.:
 * **publicKey**: any key \(e.g. for did exchange\)
 * **presentations~attach**: any decorators
 * ...
-
 
