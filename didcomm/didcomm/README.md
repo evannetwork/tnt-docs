@@ -1,6 +1,6 @@
 # DIDComm
 
-The complete communication that is made by TRUST&TRACE, internally and externally, is done via [DIDComm protocl](https://github.com/decentralized-identity/DIDComm-js/blob/master/docs/README.md). With this protocol every kind of message, including attachments, can be exchanged securely.
+Every communication involving TRUST&TRACE, both internally and externally, is done via [DIDComm protocl](https://github.com/decentralized-identity/DIDComm-js/blob/master/docs/README.md). This allows every type of message, including attachments, to be exchanged securely.
 
 Thats overwritten.
 
@@ -25,4 +25,3 @@ Read more about [webhooks](https://github.com/evannetwork/tnt-docs/tree/428ebaad
 Besides the relay, a registered user has also the possiblity to sent messages over TRUST&TRACE and use the built in encryption mechanism. The endpoint just consumes message payload and a receiver, will built a encrypted DIDComm message and sents this out.
 
 Read more about [DIDComm action](https://github.com/evannetwork/tnt-docs/tree/428ebaad43521b00969685cd576c51ef7fc72bc5/services/actions/didcomm/README.md).
-
