@@ -16,7 +16,7 @@ In general, the DIDComm service endpoint can handle messages of any type. If an 
 
 ## Relay
 
-Users [registered on TRUST&TRACE](https://app.trust-trace.com) can use the system for managing identities and partners and also as DIDComm message provider. Using the relay functionallity, a external system can be attached, that shall be requested on incoming DIDComm messages. As a result of this, the external system does not need to implement any identity, DID-exchange or encryption handling logic. It can just consume data forwarded from the TRUST&TRACE system.
+Users [registered on TRUST&TRACE](https://app.trust-trace.com) can use the system for managing identities and partners, as well as a DIDComm message provider. Using the relay functionality, TRUST&TRACE will forward incoming DIDCOMM messages to an registered external system. As a result of this, the external system does not need to implement any identity, DID-exchange or encryption handling logic. It can just consume data forwarded from the TRUST&TRACE system.
 
 Read more about [webhooks](https://github.com/evannetwork/tnt-docs/tree/428ebaad43521b00969685cd576c51ef7fc72bc5/didcomm/webhooks/README.md).
 
