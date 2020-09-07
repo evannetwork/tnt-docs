@@ -2,7 +2,7 @@
 
 ### What is a Webhook?
 
-It's simply a configuration that will be called via HTTP request for different DIDComm message types. Each webhook can configure a regex to match a specific message type pattern. 
+A webhook simply is a configuration for different DIDComm message types that will be called via an ordinary HTTP request. Each webhook can configure a regex to match a specific message type pattern. 
 
 ### Configure the webhook
 
@@ -96,4 +96,3 @@ await axios({
   },
 });
 ```
-
