@@ -6,7 +6,7 @@ A webhook simply is a configuration for different DIDComm message types that wil
 
 ### Configure the webhook
 
-At first you need to create the webhook configuration with the [settings service](../services-1/settings.md).
+At first you need to create the webhook configuration using the [settings service](../services-1/settings.md).
 
 ### Webhook structure
 
