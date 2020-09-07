@@ -12,7 +12,7 @@ DIDComm messages can be sent to TRUST&TRACE via the specific [DIDComm endpoint](
 * [Issue Credential](https://github.com/hyperledger/aries-rfcs/tree/master/features/0036-issue-credential)
 * [Present Proof](https://github.com/hyperledger/aries-rfcs/tree/master/features/0037-present-proof)
 
-In general the DIDComm service endpoint can handle each message, no matter what type. If a unknown protocol is used, the message will be stored for the user as a general message.
+In general, the DIDComm service endpoint can handle messages of any type. If an unknown protocol is used, the message will be stored for the user as a general message.
 
 ## Relay
 
