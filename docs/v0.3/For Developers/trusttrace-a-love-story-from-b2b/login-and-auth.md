@@ -10,6 +10,8 @@ Before logging in, please register your account on the [TRUST&TRACE](https://app
 
 Usually you want to use a technical API token to not handle login expiration times. But to create such a API token for your account, you will need a JWT token to generate the initial one. Please login via the [login via email] section, to get your JWT token to be able to [generate a API token](#create-api-token) and to [authenticate with this](#login-via-token)
 
+# Login with email and password
+
 ## Create JWT token
 
 Email login is provided as an `Authorization` header in the HTTP requests against the TRUST&TRACE API server.
