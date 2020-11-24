@@ -1,0 +1,13 @@
+{
+  "name": "tnt-docs",
+  "scripts": {
+    "docs:update": "node deploy.js"
+  },
+  "dependencies": {
+    "api": "^2.4.4",
+    "fs-extra": "^9.0.1",
+    "fse": "^4.0.1",
+    "inquirer": "^7.3.3",
+    "rdme": "^3.8.2"
+  }
+}
