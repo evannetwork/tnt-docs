@@ -1,4 +1,5 @@
 const fs = require('fs');
+const fse = require('fs-extra');
 const inquirer = require('inquirer');
 const { execSync } = require('child_process');
 

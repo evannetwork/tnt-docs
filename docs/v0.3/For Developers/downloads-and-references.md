@@ -6,9 +6,4 @@ createdAt: "2020-11-23T07:27:06.084Z"
 updatedAt: "2020-11-23T07:27:06.084Z"
 ---
 
-jahoooooooooooo geil
-
-1234
-1234
-1
-234
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/trusttrace-a-love-story-from-b2b/images/credentials_0.png)
