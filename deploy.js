@@ -10,6 +10,7 @@ const excluded = [
   'Documentation',
   'ESG Certificates',
   'Getting Started',
+  'downloads-and-references',
 ];
 
 const deployDocs = async () => {
