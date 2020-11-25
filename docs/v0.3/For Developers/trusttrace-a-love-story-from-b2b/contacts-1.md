@@ -1,104 +1,56 @@
 ---
 title: "Contacts"
-slug: "contacts-1"
+slug: "contacts-and-identities-1"
 hidden: false
 createdAt: "2020-11-23T07:30:27.283Z"
 updatedAt: "2020-11-23T07:47:57.177Z"
 ---
-Contacts are your business partners, that you can communicate with via the DIDCOMM protocol. To share certificates, both parties (sender and receiver) need to have the other party in their contacts. Adding contacts has three steps:
-[block:api-header]
-{
-  "title": "Create a Contact"
-}
-[/block]
-- [Create a Contact] entry for you (which is basically like an entry in your mobile phone's address book)
-- you send a business partner an invitation, signalling that you want to cooperate with him or her: [Invite a Contact] (which could be compared to giving your phone number to someone) 
-- the partner accepts the invitation, which allows secure communication between you two, this can only be done from the [TRUST&TRACE UI] at the moment (continuing with the mobile phone example, your business partner adds you to his or her address book)
 
-[Create a Contact]: ref:create-a-contact
-[Invite a Contact]: ref:invite-a-contact
-[TRUST&TRACE UI]: https://app.trust-trace.com
+Contacts are your business partners, that you can communicate with via the DIDCOMM protocol. To share certificates, both parties (sender and receiver) need to have the other party in their contacts. To get connected to any business partner, you have two possibilities:
 
-# Create a Contact
+### Invitation via DID
 
-To create a new contact, you can use the [Contact] endpoint. Remember that you need to have a valid authentication token as described in [Login and receive a JWT Token].
+If you know your partners DID address, you can simply send a invitation request to this user. If the other party is also managed on TRUST&TRACE, the system will handle the did exchange and key pair generation by its self. If the other party is managed by an external didcomm provider, TRUST&TRACE will exchange didcomm messages for did exchange with the external agent for you. [Continue here](https://github.com/hyperledger/aries-rfcs/tree/master/features/0023-did-exchange), to read more about the protocol.
 
-```js
-const data = JSON.stringify({
-  "contactData": {
-    "email": "my.partner@example.com",
-    "displayName": "My Partner",
-    "internalRef": "reference-to-this-partner-in-my-system-eg-customer123"
-  }
-});
+1. [Get my identity] - Whats a identity on TRUST&TRACE and how can i work with it?
+2. [Create a Contact] - entry for you (which is basically like an entry in your mobile phone's address book)
+3. [Send DID invitation] - you use the TRUS&TRACE invitation logic to send a DIDComm message invitiation
+4. [Listen for updates] - short introduction in listening for didcomm messages
 
-const xhr = new XMLHttpRequest();
+### Invitation via Email
 
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
-});
+If you don't know the partners DID, you can use the TRUST&TRACE email invitation service. A invitation mail including an invitationId is sent to the other party. You can also provide this invitationId directly to your partner or to an external system, if you need a more automated invitation process.
 
-xhr.open("POST", "https://api.trust-trace.com/api/v1/contact");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("content-type", "application/json");
-xhr.setRequestHeader("tnt-subscription-key", "$ALICE_SUBSCRIPTION_KEY");
+1. [Get my identity] - Whats a identity on TRUST&TRACE and how can i work with it?
+2. [Create a Contact]: entry for you (which is basically like an entry in your mobile phone's address book)
+3. [Send invitation]: you send a business partner an invitation, signalling that you want to cooperate with him or her: [Invite a Contact] (which could be compared to giving your phone number to someone)
+4. [Answer invitation]: the partner accepts the invitation, which allows secure communication between you two, this can only be done from the [TRUST&TRACE UI] at the moment (continuing with the mobile phone example, your business partner adds you to his or her address book)
 
-xhr.send(data);
-```
+# General
 
-Which will return our new contact:
+## Identities
 
-```json
-{
-  "type": "COMPANY",
-  "displayName": "My Partner",
-  "email": "my.partner@example.com",
-  "status": "REQUESTED",
-  "internalRef": "reference-to-this-partner-in-my-system-eg-customer123",
-  "principal": "4d57cc61-e61a-4358-87ad-091824710de3",
-  "createdBy": null,
-  "updatedBy": null,
-  "did": null,
-  "method": null,
-  "plugin": null,
-  "note": null,
-  "inviteMessage": null,
-  "tags": null,
-  "createdAt": "2020-09-18T07:03:05.909Z",
-  "updatedAt": "2020-09-18T07:03:05.909Z",
-  "uuid": "797ca7df-4416-4628-9e8c-d01d75c1591c"
-}
-```
+For a general description about identities, please read the [identities on TRUST&TRACE] section. Each principal can manage several identities and give interaction permissions to each account seperatly. An identity is your acting instance in a principal. If we compare principals to companies, identities are like legal persons in this company, while your account is a natural person. Your account acts as one of those legal persons in the context of the company. As every account gets a default identity in principals created by it, we just have to fetch it:
 
-[Contact]: ref:contact
-[Login and receive a JWT Token]: ref:login-and-receive-a-jwt-token
-[block:api-header]
-{
-  "title": "Send Invitation via Mail"
-}
-[/block]
-To link your new contact from the last step to a business partner, you have to invite this partner. To do so you pass the reference of the contact and the identity you are making this invitation from into the invitation call. An invitation email with an invitation token will be sent to the contact.
-
-An identity is your acting instance in a principal. If we compare principals to companies, identities are like legal persons in this company, while your account is a natural person. Your account acts as one of those legal persons in the context of the company. As every account gets a default identity in principals created by it, we just have to fetch it:
+Everything that is related to credentials needs a identity to work with. You can either pass the identity did or the internal TRUST&TRACE identifier to pass into `identityId` parameter for the respective API calls. In the whole following examples we will use identity did to work with the API. Use the following functionality to load all your registered identities:
 
 ```js
-const data = null;
+  const url = 'http://localhost:7070/identity/all';
+  const method = 'GET';
+  const subscriptionKey = '010e78af828742df91cf8145b8c05a92';
 
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
-});
-
-xhr.open("GET", "https://api.trust-trace.com/api/v1/identity/all");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("tnt-subscription-key", "$ALICE_SUBSCRIPTION_KEY");
-
-xhr.send(data);
+  (async () => {
+    const fetch = require('node-fetch');
+    const result = await fetch(url, {
+      method,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'tnt-subscription-key': subscriptionKey,
+      },
+    });
+    console.log(JSON.stringify(await result.json(), null, 2));
+  })();
 ```
 
 Which will return our (only) identity in this principal.
@@ -111,11 +63,11 @@ Which will return our (only) identity in this principal.
   "hits": [
     {
       "createdBy": null,
-      "createdAt": "2020-09-21T09:39:37.972Z",
+      "createdAt": "2020-11-24T14:57:49.060Z",
       "updatedBy": null,
-      "updatedAt": "2020-09-21T09:40:09.249Z",
-      "uuid": "046973cf-2190-49b0-b668-7ff46ba8495b",
-      "did": "did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483",
+      "updatedAt": "2020-11-24T14:58:31.526Z",
+      "uuid": "f8393822-90fe-4d12-829f-0999b9b4a092",
+      "did": "did:evan:testcore:0x88bA82Abc8E4a297f6603c783760D0433F7a1C1A",
       "method": "did:evan",
       "keyMethod": "",
       "status": "ACTIVE",
@@ -125,6 +77,81 @@ Which will return our (only) identity in this principal.
   ]
 }
 ```
+
+## Create a Contact
+
+First step before you are able to work with your partners is a contact instances, where the invitation logic can work on. If you already know your partners did, you can directly use it for the contact creation. DID will be also filled up after finishing the did exchange. Keep in mind, like for the identities, we will we will use the contacts did as reference for API calls in the other sections.
+
+To create a new contact, you can use the [Contact] endpoint. Remember that you need to have a valid authentication token as described in [Login and receive a JWT Token].
+
+```js
+const url = 'http://localhost:7070/contact';
+const method = 'POST';
+const subscriptionKey = '010e78af828742df91cf8145b8c05a92';
+const payload = {
+  email: 'my.partner@example.com',
+  displayName: 'My Partner',
+  internalRef: 'reference-to-this-partner-in-my-system-eg-customer123',
+  did: 'did:evan:...'
+};
+
+(async () => {
+  const fetch = require('node-fetch');
+  const result = await fetch(url, {
+    method,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'tnt-subscription-key': subscriptionKey,
+    },
+    body: JSON.stringify(payload),
+  });
+  console.log(JSON.stringify(await result.json(), null, 2));
+})();
+```
+
+Which will return our new contact:
+
+```json
+{
+  "type": "COMPANY",
+  "displayName": "My Partner",
+  "email": "my.partner@example.com",
+  "status": "REQUESTED",
+  "internalRef": "reference-to-this-partner-in-my-system-eg-customer123",
+  "principal": "9bb12ebd-2e17-46f1-a8b1-b009cf79b363",
+  "createdBy": null,
+  "updatedBy": null,
+  "did": null,
+  "method": null,
+  "plugin": null,
+  "note": null,
+  "inviteMessage": null,
+  "tags": null,
+  "createdAt": "2020-11-25T08:02:12.760Z",
+  "updatedAt": "2020-11-25T08:02:12.760Z",
+  "uuid": "6a46ae03-dcf2-4dee-8b43-bd09081f0c66"
+}
+```
+
+[Contact]: ref:contact
+[Login and receive a JWT Token]: ref:login-and-receive-a-jwt-token
+
+# Invition via DID
+
+During the invitation process, TRUST&TRACE will handle the following states internally or with an external DIDComm agent.
+
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/trusttrace-a-love-story-from-b2b/images/contacts_did_exchange.png)
+
+## Send DID invitation
+
+To send a invitation via did, you can use the following code:
+
+## Listen for accepts
+
+# Invitation via Email
+
+## Send invitation
 
 Now we can use the `uuid` from our identity to create an invitation:
 
@@ -186,11 +213,9 @@ Which returns an invitation action:
 Now the server will send an email to the invited partner. This partner can then open the link in the email and accept the invitation. For technical automation, the invitation can be also accepted using the [invitation endpoint].
 
 [invitation endpoint]: ref:accept-invitation
-[block:api-header]
-{
-  "title": "Answer Invitation"
-}
-[/block]
+
+# Answer Invitation
+
 When having a look at the `data` part of the result from [invitation], the data object will include the following data.
 
 ```json
@@ -278,15 +303,20 @@ Which also returns an invitation action:
 
 Afterwards, the invitation action status will be set to DONE and the did field within the contact will be filled with the corresponding identity did.
 
-[invitation answer endpoint]: ref:post_action-invitation-answer 
+[invitation answer endpoint]: ref:post_action-invitation-answer
 [invitation]: ref:invite-a-contact
 [create a contact]: ref:create-a-contact
-[block:api-header]
-{
-  "title": "Send Invitation via DIDComm"
-}
-[/block]
 
-[block:api-header]
-{}
-[/block]
+# Send Invitation via DIDComm
+
+[Answer invitation]: not_set
+[Create a Contact]: not_set
+[Get my identity]: not_set
+[Get my identity]: not_set
+[identities on TRUST&TRACE]: not_set
+[Invite a Contact]: ref:invite-a-contact
+[Listen for updates]: not_set
+[Send DID invitation]: not_set
+[Send Invitation via DIDComm]: ref:send-invitation-via-didcomm
+[Send invitation]: not_set
+[TRUST&TRACE UI]: <https://app.trust-trace.coma>

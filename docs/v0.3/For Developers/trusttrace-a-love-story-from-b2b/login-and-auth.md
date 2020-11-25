@@ -8,7 +8,7 @@ updatedAt: "2020-11-24T10:41:35.422Z"
 
 Before logging in, please register your account on the [TRUST&TRACE](https://app.trust-trace.com). After that, you have the possibility to authenticate technically via email and password or with an API token.
 
-Usually you want to use a technical API token to not handle login expiration times. But to create such a API token for your account, you will need a JWT token to generate the initial one. Please login via the [login via email] section, to get your JWT token to be able to [generate a API token](#create-api-token) and to [authenticate with this](#login-via-token)
+Usually you want to use a technical API token to not handle login expiration times. But to create such a API token for your account, you will need a JWT token to generate the initial one. Please login via the [login via email] section, to get your JWT token to be able to [generate a API token](#create-api-token) and to [authenticate with token](#authentication-with-api-token).
 
 # Login with email and password
 
@@ -126,7 +126,9 @@ Which would output:
 }
 ```
 
-# Create API token
+# Using API token
+
+## Create API token
 
 To be able to API tokens, they have to be created on TNT beforehand with the [API token] endpoint. This usually has to be done once after logging in via email.
 
@@ -184,7 +186,7 @@ Which would output something like:
 }
 ```
 
-# Authentication with API token
+## Authentication with API token
 
 API tokens can be used to authenticate against TNT endpoints. API tokens are created once as described below in "Creating API token" below.
 
