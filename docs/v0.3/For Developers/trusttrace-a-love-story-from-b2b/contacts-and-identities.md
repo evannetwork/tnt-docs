@@ -14,7 +14,7 @@ If you know your partners DID address, you can simply send a invitation request 
 
 1. [Get my identity] - Whats a identity on TRUST&TRACE and how can i work with it?
 2. [Create a Contact] - entry for you (which is basically like an entry in your mobile phone's address book)
-3. [Send DID invitation] - you use the TRUS&TRACE invitation logic to send a DIDComm message invitiation
+3. [Send DID invitation] - you use the TRUST&TRACE invitation logic to send a DIDComm message invitation
 4. [Listen for updates] - short introduction in listening for didcomm messages
 
 ### Invitation via Email
@@ -30,7 +30,7 @@ If you don't know the partners DID, you can use the TRUST&TRACE email invitation
 
 ## Identities
 
-For a general description about identities, please read the [identities on TRUST&TRACE] section. Each principal can manage several identities and give interaction permissions to each account seperatly. An identity is your acting instance in a principal. If we compare principals to companies, identities are like legal persons in this company, while your account is a natural person. Your account acts as one of those legal persons in the context of the company. As every account gets a default identity in principals created by it, we just have to fetch it.
+For a general description about identities, please read the [identities on TRUST&TRACE] section. Each principal can manage several identities and give interaction permissions to each account separatly. An identity is your acting instance in a principal. If we compare principals to companies, identities are like legal persons in this company, while your account is a natural person. Your account acts as one of those legal persons in the context of the company. As every account gets a default identity in principals created by it, we just have to fetch it.
 
 Everything that is related to credentials needs a identity to work with. You can either pass the identity did or the internal TRUST&TRACE identifier to pass into `identityId` parameter for the respective API calls. In the whole following examples we will use identity did to work with the API. Use the following functionality to load all your registered identities:
 

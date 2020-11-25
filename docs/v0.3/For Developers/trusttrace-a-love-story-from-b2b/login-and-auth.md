@@ -105,7 +105,7 @@ xhr.send(data);
 
 Which would output:
 
-```text
+```json
 {
   "createdBy": null,
   "createdAt": "2020-11-24T07:55:00.835Z",

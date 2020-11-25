@@ -32,6 +32,10 @@ To implement the protocol fully, is sometimes quite stressful. TRUST&TRACE offer
 
 If you are fully involed into the full specification and want to communicate with TRUST&TRACE over the general DIDComm protocol, please read [TRUST&TRACE with external partners].
 
+# REST API
+
+TRUST&TRACE is build on a scalable infrastructure and provides a REST API for any interaction. With a documentation built up on [swagger], each endpoint has a detailed documentation about parameters and results. Also a [postman collection] is provided to easily try out the system to go [trough the examples].
+
 # Logical Architecture
 
 ## Principal and Accounts
@@ -50,26 +54,53 @@ Everything that is related to credentials needs a identity to work with. You can
 
 ## Contacts
 
+Every communication with any partner takes place under one contact within the system. Before you can work with a contact, you need to connect this contact with a real did. To do so, please read the following: [Contacts and Identities]. All future communication and the whole message encryption and encryption and key handling will take place within this context. When you are working the API you can either use the did or the TRUST&TRACE specific uuid.
+
 ## Actions
+
+Actions representing a capsulated business case or a grouping for different credentials. Once executed, they handle sending of credentials in a specific manner and categorizes the whole communication within one thread. TRUST&TRACE supports currently the following business cases functionalities:
+
+- [CSR] - requesting certificates from your partner
+- [DIDCOMM] - ppen a DIDComm communication channel that handles message decryption / encryption
+- [Invitation] - requests a DID exchange for
+- [NCE] - handler for validating and sending [NCE formatted DIDComm messages]
+- [ORDER-TRACING] - NCE formatted for tracing orders
 
 ## Asynchronious Workers
 
+Calculating cryptographic proofs or identity contracts on a blockchain can take several seconds and sometimes up to one minute. To be able to provide the user a fluent user experience, each endpoint that is doing such things, like the [identity service] or [credential service] will return directly the respective TRUST&TRACE entity with the status DRAFT. Until the background process is done, pending algorithm will continue. (like creating a credential after the credential schema was created or sending out a didcomm message, when a did exchange with a contact was finished).
+
 # Credential Management
 
+The following section will shortly explain the basic concepts and functionalities of credential templates, definitions and the credentials itself.
+
+Tbd.
+
 ## Schemas - Data Formats
+Tbd.
 
 ## Asset-Data: Credentials & Presentations
+Tbd.
 
-## DIDComm
-
-## Relay
-
-[messaging protocol]: https://identity.foundation/didcomm-messaging
-[Getting Started with Trust&Trace]: ./getting-started
-[registering on Trust&Trace]: https://app.trust-trace.com
-[login via API]: ./login-and-auth
+[Contacts and Identities]: ./contacts-and-identities
 [generate a technical user]: ./login-and-auth
+[Getting Started with Trust&Trace]: ./getting-started
 [identities on evan.network]: https://evannetwork.github.io/docs/developers/concepts/Identities.html
-[W3C DID working draft]: https://w3c.github.io/did-core/
-[TRUST&TRACE with external partners]: ./talking-didcomm
+[login via API]: ./login-and-auth
+[messaging protocol]: https://identity.foundation/didcomm-messaging
+[registering on Trust&Trace]: https://app.trust-trace.com
 [self sovereign identities]: ./self-sovereign-identities
+[TRUST&TRACE with external partners]: ./talking-didcomm
+[W3C DID working draft]: https://w3c.github.io/did-core/
+[Invitation]: ./login-and-auth
+[Master data]: ../reference#npe
+[CSR]: ../reference#csr
+[ORDER-TRACING]: ../reference#npe
+[NCE]: ../reference#npe
+[DIDCOMM]: ../reference#didcomm-2
+[NCE formatted DIDComm messages]: https://github.com/evannetwork/public-concepts/blob/master/Negotiated%20Credential%20Exchange/negotiated_credential_exchange.md
+[identity service]: ../reference#identity
+[credential service]: ../reference#credential
+[swagger]: ./downloads-and-references
+[postman collection]: ./downloads-and-references
+[trough the examples]: ./trusttrace-a-love-story-from-b2b
