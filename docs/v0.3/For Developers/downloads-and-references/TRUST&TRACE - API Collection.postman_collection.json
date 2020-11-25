@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "2c59593f-d881-4169-8a64-bcf0392c146d",
+		"name": "TRUST&TRACE - API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login and Auth",
+			"item": [
+				{
+					"name": "Login via E-Mail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{USER_2_EMAIL}}\",\n    \"password\": \"{{USER_2_PASSWORD}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{AUTH_URL}}/login",
+							"host": [
+								"{{AUTH_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Account",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InR5cGUiOiJhY2NvdW50IiwidXVpZCI6IjhhZmExNGFlLTVlN2YtNGJiMy04YWUwLTlkYWY1YTBiNGIwMSIsInByaW5jaXBhbFV1aWQiOiIzMWFmZmNjZC0yYTIzLTQyYjktODk4NS1iYjNiOWI5ZDg4M2QifSwiaWF0IjoxNjA2MjkxMTEyLCJleHAiOjE2MDYzNzc1MTJ9.O9-k6F8nOuf6JHWdQ_HM-rTyjQ56yc6a2Vf9d6FZ_Js",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{USER_1_EMAIL}}\",\n    \"password\": \"{{USER_1_PASSWORD}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/account/ec8ea556-6ff8-4c48-9d05-5ff5314a8680",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"account",
+								"ec8ea556-6ff8-4c48-9d05-5ff5314a8680"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create API key",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InR5cGUiOiJhY2NvdW50IiwidXVpZCI6IjhhZmExNGFlLTVlN2YtNGJiMy04YWUwLTlkYWY1YTBiNGIwMSIsInByaW5jaXBhbFV1aWQiOiIzMWFmZmNjZC0yYTIzLTQyYjktODk4NS1iYjNiOWI5ZDg4M2QifSwiaWF0IjoxNjA2MjkxMTEyLCJleHAiOjE2MDYzNzc1MTJ9.O9-k6F8nOuf6JHWdQ_HM-rTyjQ56yc6a2Vf9d6FZ_Js",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"displayName\": \"api-key-1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api-token",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Account via Token",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "010e78af828742df91cf8145b8c05a92"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/account/e1d98fe4-091f-4394-b474-cca0b796fd9c",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"account",
+								"e1d98fe4-091f-4394-b474-cca0b796fd9c"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Contacts",
+			"item": [
+				{
+					"name": "Create contact",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"my.partner@example.com\",\n    \"displayName\": \"My Partner\",\n    \"internalRef\": \"reference-to-this-partner-in-my-system-eg-customer123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/contact",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"contact"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get identities",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/identity/all",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"identity",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invite with did",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"from\": \"f8393822-90fe-4d12-829f-0999b9b4a092\",\n    \"config\": {\n        \"did\": \"did:evan:testcore:0xBcF90A276911c291dfFbb91B1Ed2E289aF26b639\",\n        \"contactUuid\": \"93989f50-f8c0-4e28-9396-2fb019c1b06d\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/action/INVITATION",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"action",
+								"INVITATION"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invite with email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"from\": \"f8393822-90fe-4d12-829f-0999b9b4a092\",\n    \"config\": {\n        \"email\": \"test+2@test.de\",\n        \"contactUuid\": \"93989f50-f8c0-4e28-9396-2fb019c1b06d\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/action/invitation",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"action",
+								"invitation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Answer Invitation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"config\": {\n      \"contactUuid\": \"1e86afa4-a468-49f0-8b8a-7ce97c314ea7\",\n      \"invitation\": {\n        \"recipientKeys\": [\n          \"2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa\"\n        ],\n        \"from\": \"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\n        \"@id\": \"932677bc-ba47-45e3-9cdf-ee090e27b0ce\",\n        \"serviceEndpoint\": \"http://localhost:7070/api/didcomm\"\n      },\n      \"invitationId\": \"bf736cab-a735-4a77-9580-7494cfb71fc4\"\n    },\n    \"from\": \"707d87b2-262a-4903-98e6-bd7969acaaeb\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/action/invitation",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"action",
+								"invitation"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Generic Information Templates",
+			"item": [],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f204848f-b94c-4f7b-a8c6-0e9520d4d5ff",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "af89d979-d739-4456-88fd-4bb0d6678a29",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "be86088c-151d-41f0-9845-37085469d6d4",
+			"key": "API_URL",
+			"value": "http://localhost:7070"
+		},
+		{
+			"id": "c31269a5-de15-4d6b-80de-a79cfb38fa89",
+			"key": "USER_1_EMAIL",
+			"value": "test+1@test.de"
+		},
+		{
+			"id": "4577d9c6-367c-4a42-b01e-1ec336b6c96e",
+			"key": "USER_2_EMAIL",
+			"value": "test+2@test.de"
+		},
+		{
+			"id": "0ad04ea0-0b19-47d8-97ff-b4b62445f036",
+			"key": "USER_1_PASSWORD",
+			"value": "test+1@test.de"
+		},
+		{
+			"id": "51207a38-c814-48c8-b16a-de984266abca",
+			"key": "USER_2_PASSWORD",
+			"value": "test+2@test.de"
+		},
+		{
+			"id": "f2cfbc5e-d634-4f08-ad38-f788d768950e",
+			"key": "USER_1_SUBSCRIPTION",
+			"value": "010e78af828742df91cf8145b8c05a92"
+		},
+		{
+			"id": "93a01b26-7807-429b-bdbe-3e5124beae29",
+			"key": "USER_2_SUBSCRIPTION",
+			"value": "c88a5286b5d24480a65295b9a8c01e0a"
+		},
+		{
+			"id": "3f9abc99-cd4f-402d-b3f3-418c694ac9be",
+			"key": "AUTH_URL",
+			"value": "http://localhost:7070"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

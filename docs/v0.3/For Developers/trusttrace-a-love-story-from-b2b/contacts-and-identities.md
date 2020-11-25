@@ -15,7 +15,7 @@ If you know your partners DID address, you can simply send a invitation request 
 1. [Get my identity] - Whats a identity on TRUST&TRACE and how can i work with it?
 2. [Create a Contact] - entry for you (which is basically like an entry in your mobile phone's address book)
 3. [Send DID invitation] - you use the TRUST&TRACE invitation logic to send a DIDComm message invitation
-4. [Listen for updates] - short introduction in listening for didcomm messages
+4. [Listen for accepts] - short introduction in listening for didcomm messages
 
 ### Invitation via Email
 
@@ -145,9 +145,63 @@ During the invitation process, TRUST&TRACE will handle the following states inte
 
 ## Send DID invitation
 
-To send a invitation via did, you can use the following code:
+To send a invitation via did, you can use the invitation action. After that, TRUST&TRACE will handle your request internally and you can start requesting services with the internal contact id or with the did. All interactions that requires a finished did exchange, like sending didcomm messages, will be on hold and automatically sent out, when the did exchange has finished.
+
+```js
+const url = 'http://localhost:7070/contact';
+const method = 'POST';
+const subscriptionKey = '010e78af828742df91cf8145b8c05a92';
+const payload = {
+  from: '4df8c436-1c5f-4a2b-ba75-4bce37256490',
+  to: 'did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98',
+  config: {
+    did: 'did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98',
+    contactUuid: 'e2162a9d-07e6-4162-9bb7-62c06ab68ab8'
+  }
+};
+
+(async () => {
+  const fetch = require('node-fetch');
+  const result = await fetch(url, {
+    method,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'tnt-subscription-key': subscriptionKey,
+    },
+    body: JSON.stringify(payload),
+  });
+  console.log(JSON.stringify(await result.json(), null, 2));
+})();
+```
+
+This will return the referenced action entity:
+
+```json
+{
+  "createdBy": "9a8ae067-4992-453c-a5f5-92cf7a1a70a2",
+  "createdAt": "2020-11-25T15:24:33.647Z",
+  "updatedBy": "9a8ae067-4992-453c-a5f5-92cf7a1a70a2",
+  "updatedAt": "2020-11-25T15:24:33.647Z",
+  "uuid": "f7e0f650-6a42-4d54-a890-01d8ac50fcbc",
+  "principalUuid": "b06024d2-dcdd-4b87-8888-61bce894e41c",
+  "from": "4df8c436-1c5f-4a2b-ba75-4bce37256490",
+  "to": "did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98",
+  "type": "INVITATION",
+  "typeVersion": "1",
+  "direction": "OUTGOING",
+  "referenceID": "d5d5e66c-fd71-4e93-bcc2-ce86f06da3ff",
+  "config": "{\"did\":\"did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98\",\"contactUuid\":\"e2162a9d-07e6-4162-9bb7-62c06ab68ab8\"}",
+  "status": "ACTIVE",
+  "typeStatus": "",
+  "data": "{}",
+  "tags": null
+}
+```
 
 ## Listen for accepts
+
+If Bob has a external didcomm agent or wants to use TRUST&TRACE to react for incoming didcomm messages, he can register a webhook. Please have a look at this section: [Webhooks].
 
 # Invitation via Email
 
@@ -156,34 +210,31 @@ To send a invitation via did, you can use the following code:
 Now we can use the `uuid` from our identity to create an invitation:
 
 ```js
-const data = JSON.stringify({
-  "config": {
-    "contactUuid": "797ca7df-4416-4628-9e8c-d01d75c1591c",
-    "email": "account2@example.com",
-    "inviteName": "Account 1"
-  },
-  "from": "046973cf-2190-49b0-b668-7ff46ba8495b"
-});
+const url = 'http://localhost:7070/invitation';
+  const method = 'POST';
+  const subscriptionKey = '010e78af828742df91cf8145b8c05a92';
+  const payload = {
+    config: {
+      contactUuid: "797ca7df-4416-4628-9e8c-d01d75c1591c",
+      email: "account2@example.com",
+      inviteName: "Account 1"
+    },
+    from: "046973cf-2190-49b0-b668-7ff46ba8495b"
+  };
 
-const sendInvite = async function(inviteData) {
-  return new Promise((resolve) => {
-    const xhr = new XMLHttpRequest();
-
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === this.DONE) {
-        const parsed = JSON.parse(this.responseText);
-        resolve(parsed);
-      }
+  (async () => {
+    const fetch = require('node-fetch');
+    const result = await fetch(url, {
+      method,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'tnt-subscription-key': subscriptionKey,
+      },
+      body: JSON.stringify(payload),
     });
-
-    xhr.open("POST", "https://api.trust-trace.com/api/v1/invitation");
-    xhr.setRequestHeader("accept", "application/json");
-    xhr.setRequestHeader("content-type", "application/json");
-    xhr.setRequestHeader("tnt-subscription-key", "$ALICE_SUBSCRIPTION_KEY");
-
-    xhr.send(inviteData);
-  });
-}
+    console.log(JSON.stringify(await result.json(), null, 2));
+  })();
 ```
 
 Which returns an invitation action:
@@ -214,7 +265,7 @@ Now the server will send an email to the invited partner. This partner can then 
 
 [invitation endpoint]: ref:accept-invitation
 
-# Answer Invitation
+## Answer Invitation
 
 When having a look at the `data` part of the result from [invitation], the data object will include the following data.
 
@@ -240,41 +291,38 @@ To accept the invitation, your invited partner needs the `invitationId` and the 
 The other party (`account2@example.com`), can use this information to request the [invitation answer endpoint] by it self. But first, account 2 also needs to [create a contact], that can be used to accept the invitation. Here we assume, that this step already has been done and created a contact with the `uuid` `1e86afa4-a468-49f0-8b8a-7ce97c314ea7`.
 
 ```js
-const data = JSON.stringify({
-  "config": {
-    "contactUuid": "1e86afa4-a468-49f0-8b8a-7ce97c314ea7",
-    "invitation": {
-      "recipientKeys": [
-        "2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa"
-      ],
-      "from": "did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483",
-      "@id": "932677bc-ba47-45e3-9cdf-ee090e27b0ce",
-      "serviceEndpoint": "http://localhost:7070/api/didcomm"
+  const url = 'http://localhost:7070/invitation';
+  const method = 'POST';
+  const subscriptionKey = '010e78af828742df91cf8145b8c05a92';
+  const payload = {
+    config: {
+      contactUuid: '1e86afa4-a468-49f0-8b8a-7ce97c314ea7',
+      invitation: {
+        recipientKeys: [
+          '2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa'
+        ],
+        from: 'did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483',
+        '@id': '932677bc-ba47-45e3-9cdf-ee090e27b0ce',
+        serviceEndpoint: 'http://localhost:7070/api/didcomm'
+      },
+      invitationId: 'bf736cab-a735-4a77-9580-7494cfb71fc4'
     },
-    "invitationId": "bf736cab-a735-4a77-9580-7494cfb71fc4"
-  },
-  "from": "707d87b2-262a-4903-98e6-bd7969acaaeb"
-});
+    from: '707d87b2-262a-4903-98e6-bd7969acaaeb'
+  };
 
-const answerInvitation = async function(inviteData) {
-  return new Promise((resolve) => {
-    const xhr = new XMLHttpRequest();
-
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === this.DONE) {
-        const parsed = JSON.parse(this.responseText);
-        resolve(parsed);
-      }
+  (async () => {
+    const fetch = require('node-fetch');
+    const result = await fetch(url, {
+      method,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'tnt-subscription-key': subscriptionKey,
+      },
+      body: JSON.stringify(payload),
     });
-
-    xhr.open("POST", "https://api.trust-trace.com/api/v1/invitation");
-    xhr.setRequestHeader("accept", "application/json");
-    xhr.setRequestHeader("content-type", "application/json");
-    xhr.setRequestHeader("tnt-subscription-key", "$BOB_SUBSCRIPTION_KEY");
-
-    xhr.send(inviteData);
-  });
-}
+    console.log(JSON.stringify(await result.json(), null, 2));
+  })();
 ```
 
 Which also returns an invitation action:
@@ -303,20 +351,17 @@ Which also returns an invitation action:
 
 Afterwards, the invitation action status will be set to DONE and the did field within the contact will be filled with the corresponding identity did.
 
+[Answer invitation]: #answer-invitation
+[Create a Contact]: #create-a-contact
+[create a contact]: #create-a-contact
+[Get my identity]: #identities
+[identities on TRUST&TRACE]: ./kick-start#kick-start
 [invitation answer endpoint]: ref:post_action-invitation-answer
 [invitation]: ref:invite-a-contact
-[create a contact]: ref:create-a-contact
-
-# Send Invitation via DIDComm
-
-[Answer invitation]: not_set
-[Create a Contact]: not_set
-[Get my identity]: not_set
-[Get my identity]: not_set
-[identities on TRUST&TRACE]: not_set
-[Invite a Contact]: ref:invite-a-contact
-[Listen for updates]: not_set
-[Send DID invitation]: not_set
-[Send Invitation via DIDComm]: ref:send-invitation-via-didcomm
-[Send invitation]: not_set
-[TRUST&TRACE UI]: <https://app.trust-trace.coma>
+[Invite a Contact]: #send-invitation
+[Listen for accepts]: #listen-for-accepts
+[Send DID invitation]: #invition-via-did
+[Send Invitation via DIDComm]: #send-did-invitation
+[Send invitation]: #send-invitation
+[TRUST&TRACE UI]: https://app.trust-trace.com
+[Webhooks]: ./relay
