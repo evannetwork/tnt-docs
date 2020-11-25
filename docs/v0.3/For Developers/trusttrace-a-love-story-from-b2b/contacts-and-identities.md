@@ -1,6 +1,6 @@
 ---
-title: "Contacts"
-slug: "contacts-and-identities-1"
+title: "Contacts and Identities"
+slug: "contacts-and-identities"
 hidden: false
 createdAt: "2020-11-23T07:30:27.283Z"
 updatedAt: "2020-11-23T07:47:57.177Z"
@@ -30,7 +30,7 @@ If you don't know the partners DID, you can use the TRUST&TRACE email invitation
 
 ## Identities
 
-For a general description about identities, please read the [identities on TRUST&TRACE] section. Each principal can manage several identities and give interaction permissions to each account seperatly. An identity is your acting instance in a principal. If we compare principals to companies, identities are like legal persons in this company, while your account is a natural person. Your account acts as one of those legal persons in the context of the company. As every account gets a default identity in principals created by it, we just have to fetch it:
+For a general description about identities, please read the [identities on TRUST&TRACE] section. Each principal can manage several identities and give interaction permissions to each account seperatly. An identity is your acting instance in a principal. If we compare principals to companies, identities are like legal persons in this company, while your account is a natural person. Your account acts as one of those legal persons in the context of the company. As every account gets a default identity in principals created by it, we just have to fetch it.
 
 Everything that is related to credentials needs a identity to work with. You can either pass the identity did or the internal TRUST&TRACE identifier to pass into `identityId` parameter for the respective API calls. In the whole following examples we will use identity did to work with the API. Use the following functionality to load all your registered identities:
 
