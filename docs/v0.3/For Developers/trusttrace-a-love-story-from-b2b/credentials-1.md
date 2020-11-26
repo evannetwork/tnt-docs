@@ -238,6 +238,16 @@ From this we get the new credential:
 
 If you want to share a credential with another user, you can just send it via didcomm. But at first, you need to find your credential. Use the credential endpoint to query for your credentials:
 
+```js
+sendAndLogRequest({
+  url: 'http://localhost:7070/credential/all',
+  method: 'GET',
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
+```
+
 ```json
 {
   "total": {
@@ -269,7 +279,7 @@ If you want to share a credential with another user, you can just send it via di
 You can now parse the value of this asset data and share this one via the didcomm action endpoint and the [Issue Credential Protocol]. Important to note at this point is, that the didcomm message is sent via the didcomm [business service endpoint]. This endpoint covers the full contact loading, message encryption and send logic. If you want to do this by your self, please head over to:
 
 ```js
-const credential = result.hits[0].value;
+const credential = JSON.parse(result.hits[0].value);
 
 sendAndLogRequest({
   url: 'http://localhost:7070/didcomm',
@@ -298,5 +308,115 @@ sendAndLogRequest({
 });
 ```
 
+# Request and create a credential
+
+To request a credential, you need to send a credential request to your partner. To to do this easy, you can again use the generic [didcomm endpoint] of TRUST&TRACE to attach the credential information that should be proofed.
+
+```js
+const credential = JSON.parse(result.hits[0].value);
+
+sendAndLogRequest({
+  url: 'http://localhost:7070/didcomm',
+  method: 'POST',
+  body: {
+    type: 'DIDCOMM',
+    from: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
+    to: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
+    command: 'message',
+    data: {
+      message: {
+        '@type': 'request-credential',
+        'requests~attach': [{
+          'mime-type': 'application/json',
+          data: {
+            schemaDid: 'did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0',
+            credentialValues: {
+              invoiceId: '2020-12345',
+              payedAmount: '1234.56 EUR',
+              paymentDate: '2020-01-23'
+            },
+          },
+        }],
+        '~thread': {
+          thid: 'share thread',
+        }
+      },
+    },
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
+```
+
+The receiver can then use this credential to issue the credential for the receiver. Important at this point is, that the service will automatically send the credential to the receive, when a contact is specified. To get the respective credential, please read the [previous section](#share-a-existing-credential).
+
+```js
+sendAndLogRequest({
+  url: 'http://localhost:7070/credential',
+  method: 'POST',
+  body: {
+    schemaId: 'did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0',
+    identityId: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
+    contactId: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
+    credentialValues: attachment.credentialValues,
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
+```
+
+# Export a credential
+
+If you know the asset-data uuid that is attached to the wanted credential, you can just load the single credential like in the samples above. You can also load all credentials with the following request:
+
+```js
+sendAndLogRequest({
+  url: 'http://localhost:7070/credential/all',
+  method: 'GET',
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
+```
+
+This will return something like this.
+
+```json
+{
+  "total": {
+    "value": 2
+  },
+  "hits": [
+    {
+      "createdBy": null,
+      "createdAt": "2020-11-26T13:32:21.741Z",
+      "updatedBy": null,
+      "updatedAt": "2020-11-26T13:35:34.347Z",
+      "uuid": "657a6988-741c-4d77-b88e-7d48691a91cb",
+      "principalUuid": "b06024d2-dcdd-4b87-8888-61bce894e41c",
+      "assetRefId": "6208ac32-8448-4c3d-8f5d-63659e4b390d",
+      "type": "CREDENTIAL",
+      "status": "ACTIVE",
+      "value": "{\"credential\":{\"@conte...884\"}}}",
+      "subject": "4df8c436-1c5f-4a2b-ba75-4bce37256490",
+      "issuer": "4df8c436-1c5f-4a2b-ba75-4bce37256490",
+      "verifier": null,
+      "issueDate": null,
+      "expirationDate": null
+    },
+    ...
+  ]
+}
+```
+
+You can get the credential from the value of the asset-data.
+
+```js
+const credential = JSON.parse(result.hits[0].value);
+```
+
 [Issue Credential Protocol]:https://github.com/hyperledger/aries-rfcs/tree/master/features/0036-issue-credential
 [business service endpoint]: ./talking-didcomm
+[didcomm endpoint]: ../reference#didcomm-2

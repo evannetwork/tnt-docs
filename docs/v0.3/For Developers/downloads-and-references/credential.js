@@ -81,19 +81,54 @@ sendAndLogRequest({
 
 // request a credential
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential-definition',
+  url: 'http://localhost:7070/didcomm',
   method: 'POST',
   body: {
-    schemaId: 'Billing Data',
-    identityId: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC'
+    type: 'DIDCOMM',
+    from: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
+    to: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
+    command: 'message',
+    data: {
+      message: {
+        '@type': 'request-credential',
+        'requests~attach': [{
+          'mime-type': 'application/json',
+          data: {
+            schemaDid: leiTemplate.templateDid,
+            leiData: sampleLei,
+          },
+        }],
+        '~thread': {
+          thid: 'share thread',
+        }
+      },
+    },
   },
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
   },
 });
 
-// receive credential request
-
 // create a credential for a partner
+sendAndLogRequest({
+  url: 'http://localhost:7070/credential',
+  method: 'POST',
+  body: {
+    schemaId: 'did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0',
+    identityId: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
+    contactId: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
+    credentialValues: attachment.credentialValues,
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
 
-// export a credential
+// load all credentials
+sendAndLogRequest({
+  url: 'http://localhost:7070/credential/all',
+  method: 'GET',
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
