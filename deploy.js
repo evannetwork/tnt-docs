@@ -5,11 +5,12 @@ const { execSync } = require('child_process');
 
 const excluded = [
   '.DS_Store',
-  'API Services',
+  'Account and Identity Services',
   'Auth Services',
+  'Business Services',
+  'Credential Services',
   'Documentation',
   'ESG Certificates',
-  'Getting Started',
   'downloads-and-references',
 ];
 

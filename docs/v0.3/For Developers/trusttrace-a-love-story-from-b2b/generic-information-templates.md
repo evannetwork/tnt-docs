@@ -5,11 +5,9 @@ hidden: false
 createdAt: "2020-11-23T07:33:17.871Z"
 updatedAt: "2020-11-23T07:46:35.580Z"
 ---
-[block:api-header]
-{
-  "title": "Credential Templates"
-}
-[/block]
+
+# Credential Template
+
 If you have tested the [TRUST&TRACE UI] a bit and tried out the [CSR assessment], you might have noticed, that exchanging certificates starts with requesting them instead of just sending them to the contact.
 
 Requesting credential requires a credential schema - you need to have a schema for the data you are requesting from you contacts. In the [CSR assessment] you can see a list of default credential schemata that you could use, but we are going to create our own schema here with the [Schema's POST] endpoint. In this example we will create a schema to issue credentials with data about payments:
