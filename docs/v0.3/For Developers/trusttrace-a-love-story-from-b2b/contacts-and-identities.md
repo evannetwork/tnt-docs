@@ -35,22 +35,13 @@ For a general description about identities, please read the [identities on TRUST
 Everything that is related to credentials needs a identity to work with. You can either pass the identity did or the internal TRUST&TRACE identifier to pass into `identityId` parameter for the respective API calls. In the whole following examples we will use identity did to work with the API. Use the following functionality to load all your registered identities:
 
 ```js
-  const url = 'http://localhost:7070/identity/all';
-  const method = 'GET';
-  const subscriptionKey = '010e78af828742df91cf8145b8c05a92';
-
-  (async () => {
-    const fetch = require('node-fetch');
-    const result = await fetch(url, {
-      method,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'tnt-subscription-key': subscriptionKey,
-      },
-    });
-    console.log(JSON.stringify(await result.json(), null, 2));
-  })();
+sendAndLogRequest({
+  url: 'http://localhost:7070/identity/all',
+  method: 'GET',
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
 ```
 
 Which will return our (only) identity in this principal.
@@ -85,29 +76,18 @@ First step before you are able to work with your partners is a contact instances
 To create a new contact, you can use the [Contact] endpoint. Remember that you need to have a valid authentication token as described in [Login and receive a JWT Token].
 
 ```js
-const url = 'http://localhost:7070/contact';
-const method = 'POST';
-const subscriptionKey = '010e78af828742df91cf8145b8c05a92';
-const payload = {
-  email: 'my.partner@example.com',
-  displayName: 'My Partner',
-  internalRef: 'reference-to-this-partner-in-my-system-eg-customer123',
-  did: 'did:evan:...'
-};
-
-(async () => {
-  const fetch = require('node-fetch');
-  const result = await fetch(url, {
-    method,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'tnt-subscription-key': subscriptionKey,
-    },
-    body: JSON.stringify(payload),
-  });
-  console.log(JSON.stringify(await result.json(), null, 2));
-})();
+sendAndLogRequest({
+  url: 'http://localhost:7070/contact',
+  method: 'POST',
+  body: {
+    email: 'my.partner@example.com',
+    displayName: 'My Partner',
+    internalRef: 'reference-to-this-partner-in-my-system-eg-customer123'
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
 ```
 
 Which will return our new contact:
@@ -148,31 +128,21 @@ During the invitation process, TRUST&TRACE will handle the following states inte
 To send a invitation via did, you can use the invitation action. After that, TRUST&TRACE will handle your request internally and you can start requesting services with the internal contact id or with the did. All interactions that requires a finished did exchange, like sending didcomm messages, will be on hold and automatically sent out, when the did exchange has finished.
 
 ```js
-const url = 'http://localhost:7070/contact';
-const method = 'POST';
-const subscriptionKey = '010e78af828742df91cf8145b8c05a92';
-const payload = {
-  from: '4df8c436-1c5f-4a2b-ba75-4bce37256490',
-  to: 'did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98',
-  config: {
-    did: 'did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98',
-    contactUuid: 'e2162a9d-07e6-4162-9bb7-62c06ab68ab8'
-  }
-};
-
-(async () => {
-  const fetch = require('node-fetch');
-  const result = await fetch(url, {
-    method,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'tnt-subscription-key': subscriptionKey,
-    },
-    body: JSON.stringify(payload),
-  });
-  console.log(JSON.stringify(await result.json(), null, 2));
-})();
+sendAndLogRequest({
+  url: 'http://localhost:7070/invitation',
+  method: 'POST',
+  body: {
+    from: '4df8c436-1c5f-4a2b-ba75-4bce37256490',
+    to: 'did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98',
+    config: {
+      did: 'did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98',
+      contactUuid: 'e2162a9d-07e6-4162-9bb7-62c06ab68ab8'
+    }
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
 ```
 
 This will return the referenced action entity:
@@ -210,31 +180,21 @@ If Bob has a external didcomm agent or wants to use TRUST&TRACE to react for inc
 Now we can use the `uuid` from our identity to create an invitation:
 
 ```js
-const url = 'http://localhost:7070/invitation';
-  const method = 'POST';
-  const subscriptionKey = '010e78af828742df91cf8145b8c05a92';
-  const payload = {
+sendAndLogRequest({
+  url: 'http://localhost:7070/invitation',
+  method: 'POST',
+  body: {
     config: {
       contactUuid: "797ca7df-4416-4628-9e8c-d01d75c1591c",
       email: "account2@example.com",
       inviteName: "Account 1"
     },
     from: "046973cf-2190-49b0-b668-7ff46ba8495b"
-  };
-
-  (async () => {
-    const fetch = require('node-fetch');
-    const result = await fetch(url, {
-      method,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'tnt-subscription-key': subscriptionKey,
-      },
-      body: JSON.stringify(payload),
-    });
-    console.log(JSON.stringify(await result.json(), null, 2));
-  })();
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
 ```
 
 Which returns an invitation action:
@@ -291,10 +251,10 @@ To accept the invitation, your invited partner needs the `invitationId` and the 
 The other party (`account2@example.com`), can use this information to request the [invitation answer endpoint] by it self. But first, account 2 also needs to [create a contact], that can be used to accept the invitation. Here we assume, that this step already has been done and created a contact with the `uuid` `1e86afa4-a468-49f0-8b8a-7ce97c314ea7`.
 
 ```js
-  const url = 'http://localhost:7070/invitation';
-  const method = 'POST';
-  const subscriptionKey = '010e78af828742df91cf8145b8c05a92';
-  const payload = {
+sendAndLogRequest({
+  url: 'http://localhost:7070/invitation',
+  method: 'POST',
+  body: {
     config: {
       contactUuid: '1e86afa4-a468-49f0-8b8a-7ce97c314ea7',
       invitation: {
@@ -306,23 +266,11 @@ The other party (`account2@example.com`), can use this information to request th
         serviceEndpoint: 'http://localhost:7070/api/didcomm'
       },
       invitationId: 'bf736cab-a735-4a77-9580-7494cfb71fc4'
-    },
-    from: '707d87b2-262a-4903-98e6-bd7969acaaeb'
-  };
-
-  (async () => {
-    const fetch = require('node-fetch');
-    const result = await fetch(url, {
-      method,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'tnt-subscription-key': subscriptionKey,
-      },
-      body: JSON.stringify(payload),
-    });
-    console.log(JSON.stringify(await result.json(), null, 2));
-  })();
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
 ```
 
 Which also returns an invitation action:

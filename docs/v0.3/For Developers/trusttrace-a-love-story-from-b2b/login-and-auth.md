@@ -6,9 +6,9 @@ createdAt: "2020-11-23T07:30:21.303Z"
 updatedAt: "2020-11-24T10:41:35.422Z"
 ---
 
-Before logging in, please register your account on the [TRUST&TRACE](https://app.trust-trace.com). After that, you have the possibility to authenticate technically via email and password or with an API token.
+Before Alice and Bob can login, they need to register their account on the [TRUST&TRACE app](https://app.trust-trace.com). After that, they have the possibility to authenticate technically via email and password or with an API token.
 
-Usually you want to use a technical API token to not handle login expiration times. But to create such a API token for your account, you will need a JWT token to generate the initial one. Please login via the [login via email] section, to get your JWT token to be able to [generate a API token](#create-api-token) and to [authenticate with token](#authentication-with-api-token).
+Usually they want to use a technical API token to not handle login expiration times. But to create such a API token for a account, a JWT token to generate the initial one, is needed. So please login via the [login via email] section, to get your JWT token to be able to [generate a API token](#create-api-token) and to [authenticate with token](#authentication-with-api-token).
 
 # Login with email and password
 
@@ -19,25 +19,14 @@ Email login is provided as an `Authorization` header in the HTTP requests agains
 To create a token, pass your `email` address and your `password` you used for your registration to the [email login] like:
 
 ```js
-const url = 'https://api.trust-trace.com/auth/v1/login';
-const method = 'POST';
-const payload = {
-  email: '$YOUR_EMAIL',
-  password: '$YOUR_PASSWORD',
-};
-
-(async () => {
-  const fetch = require('node-fetch');
-  const result = await fetch(url, {
-    method,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  });
-  console.log(JSON.stringify(await result.json(), null, 2));
-})();
+sendAndLogRequest({
+  url: 'http://localhost:7070/login',
+  method: 'POST',
+  body: {
+    email: 'test+1@test.de',
+    password: 'test+1@test.de',
+  }
+});
 
 ```
 
@@ -66,13 +55,13 @@ When decoded, the payload of the JWT token looks like:
 
 ```json
 {
-    "data": {
-        "type": "account",
-        "uuid": "2c9be53a-db78-4fcc-a45b-dedac90e2947",
-        "principalUuid": "990ccd48-94dc-4c21-8589-7d602322517e"
-    },
-    "iat": 1601302566,
-    "exp": 1601388966
+  "data": {
+    "type": "account",
+    "uuid": "2c9be53a-db78-4fcc-a45b-dedac90e2947",
+    "principalUuid": "990ccd48-94dc-4c21-8589-7d602322517e"
+  },
+  "iat": 1601302566,
+  "exp": 1601388966
 }
 ```
 
@@ -86,21 +75,13 @@ The token's payload contains
 With this token we can now perform requests, e.g.
 
 ```js
-const data = null;
-
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(JSON.parse(this.responseText).result.uuid);
-  }
+sendAndLogRequest({
+  url: 'http://localhost:7070/account/ec8ea556-6ff8-4c48-9d05-5ff5314a8680',
+  method: 'GET',
+  headers: {
+    authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InR5cGUiOiJhY2NvdW50IiwidXVpZCI6ImVjOGVhNTU2LTZmZjgtNGM0OC05ZDA1LTVmZjUzMTRhODY4MCIsInByaW5jaXBhbFV1aWQiOiI5YmIxMmViZC0yZTE3LTQ2ZjEtYThiMS1iMDA5Y2Y3OWIzNjMifSwiaWF0IjoxNjA2MjI5ODg5LCJleHAiOjE2MDYzMTYyODl9.WlZqXBb6N0T35Yk6hFCi73y2bidXeHwgc6sDpZATVPg';
+  },
 });
-
-xhr.open("GET", "https://api.trust-trace.com/api/v1/account/$YOUR_ACCOUNT_ID");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InR5cGUiOiJhY2NvdW50IiwidXVpZCI6IjJjOWJlNTNhLWRiNzgtNGZjYy1hNDViLWRlZGFjOTBlMjk0NyIsInByaW5jaXBhbFV1aWQiOiI5OTBjY2Q0OC05NGRjLTRjMjEtODU4OS03ZDYwMjMyMjUxN2UifSwiaWF0IjoxNjAxMzAyNTY2LCJleHAiOjE2MDEzODg5NjZ9.6znHJrDW2NdXaxwpqnN3_0cj0GTVOSt3HhTHF6sjs98");
-
-xhr.send(data);
 ```
 
 Which would output:
@@ -135,26 +116,16 @@ To be able to API tokens, they have to be created on TNT beforehand with the [AP
 The input for this is rather simple, you just to give your API token a display name to be able to manage a list of them later on.
 
 ```js
-  const url = 'http://localhost:7070/api-token';
-  const method = 'POST';
-  const bearer = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InR5cGUiOiJhY2NvdW50IiwidXVpZCI6ImVjOGVhNTU2LTZmZjgtNGM0OC05ZDA1LTVmZjUzMTRhODY4MCIsInByaW5jaXBhbFV1aWQiOiI5YmIxMmViZC0yZTE3LTQ2ZjEtYThiMS1iMDA5Y2Y3OWIzNjMifSwiaWF0IjoxNjA2MjI5ODg5LCJleHAiOjE2MDYzMTYyODl9.WlZqXBb6N0T35Yk6hFCi73y2bidXeHwgc6sDpZATVPg';
-  const payload = {
+sendAndLogRequest({
+  url: 'http://localhost:7070/api-token',
+  method: 'POST',
+  body: {
     displayName: 'api-key-1',
-  };
-
-  (async () => {
-    const fetch = require('node-fetch');
-    const result = await fetch(url, {
-      method,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: bearer,
-      },
-      body: JSON.stringify(payload),
-    });
-    console.log(JSON.stringify(await result.json(), null, 2));
-  })();
+  },
+  headers: {
+    authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InR5cGUiOiJhY2NvdW50IiwidXVpZCI6ImVjOGVhNTU2LTZmZjgtNGM0OC05ZDA1LTVmZjUzMTRhODY4MCIsInByaW5jaXBhbFV1aWQiOiI5YmIxMmViZC0yZTE3LTQ2ZjEtYThiMS1iMDA5Y2Y3OWIzNjMifSwiaWF0IjoxNjA2MjI5ODg5LCJleHAiOjE2MDYzMTYyODl9.WlZqXBb6N0T35Yk6hFCi73y2bidXeHwgc6sDpZATVPg';
+  },
+});
 ```
 
 Which would output something like:
@@ -193,21 +164,16 @@ API tokens can be used to authenticate against TNT endpoints. API tokens are cre
 When used, API tokens have to be provided as a header, `tnt-subscription-key` or as a query parameter with the same name. For example to fetch account data, you can call:
 
 ```js
-  const url = 'http://localhost:7070/account/$YOUR_ACCOUNT_ID';
-  const method = 'GET';
-
-  (async () => {
-    const fetch = require('node-fetch');
-    const result = await fetch(url, {
-      method,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
-      },
-    });
-    console.log(JSON.stringify(await result.json(), null, 2));
-  })();
+sendAndLogRequest({
+  url: 'http://localhost:7070/account/e1d98fe4-091f-4394-b474-cca0b796fd9c',
+  method: 'GET',
+  body: {
+    displayName: 'api-key-1',
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92';
+  },
+});
 ```
 
 Which would return again your account object:

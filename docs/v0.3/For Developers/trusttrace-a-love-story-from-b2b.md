@@ -25,13 +25,42 @@ Feeling a bit lonely with your new accounts? No worries, we have sections, that 
 
 So you're logged in and got a business partner to interact with. Now we can start with the cool stuff and [Create a Credential], which you then can use to [Create a Presentation] to [Send it to a Contact].
 
-P.S. We shall be using Alice and Bob, as the two parties, in the examples presented in this document.
+# Before you start
+
+## Alice and Bob
+
+We shall be using Alice and Bob, as the two parties, in the examples presented in this document.
+
+## Sample Code
+
+The complete sample code is built to work in nodejs. To make the documentation better readable, only the parameters and endpoint configuration is added into the text. Please copy this function into your runtime to use the examples.
+
+```js
+const sendAndLogRequest = ({ url, method, payload, headers }) => {
+  const fetch = require('node-fetch');
+  const result = await fetch(url, {
+    method,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...headers,
+    },
+    body: JSON.stringify(payload),
+  });
+  console.log(JSON.stringify(await result.json(), null, 2));
+};
+```
+
+## Postman collection
+
+When you are not that familiar with nodejs, you can download our [Postman collection] to be able to work with the examples simply using REST.
 
 [Create a Contact]: ./contacts-1#create-a-contact-1
 [Create a Credential]: .//credentials-1
 [Create a Presentation]: ./presentation-1
-[register]: https://app.trust-trace.com/register
 [Invite a Contact]: ./invite-a-contact
 [Login and receive a JWT Token]: ./login-and-auth
+[Postman collection]: ./downloads-and-references
+[register]: https://app.trust-trace.com/register
 [Send it to a Contact]: ./contacts#send-invitation-via-mail
 [TRUST&TRACE]: https://app.trust-trace.com
