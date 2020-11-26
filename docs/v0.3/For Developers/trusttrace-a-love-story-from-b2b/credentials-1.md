@@ -5,209 +5,55 @@ hidden: false
 createdAt: "2020-11-23T07:33:46.351Z"
 updatedAt: "2020-11-23T07:51:17.249Z"
 ---
-What are credentials?
 
-...
-[block:api-header]
-{
-  "title": "Request a Credential"
-}
-[/block]
-Now Alice can request a credential from Bob (referenced by the entry in our contact list).
+When working with credentials, we will mostly encounter the following use cases.
 
-```js
-const data = JSON.stringify({
-  "verifierContactUuid": "37f657b8-dc2f-4f1d-8d20-927393101e74",
-  "proverIdentityUuid": "046973cf-2190-49b0-b668-7ff46ba8495b",
-  "schemaId": "did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98",
-  "revealedAttributes": [ "name" ]
-});
+### Credential vs. Presentation
 
-const xhr = new XMLHttpRequest();
+There is a difference between credentials and presentations. All credentials hold always the complete information and everyone can verify, who created it. A presentation on the other side, can expose information without revealing the any information about the issuer. Also, one presentation can include multiple credentials that are shared with one user.
 
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
-});
+If you want to read more a bout presentations, please head over to the [presentation section]. But keep in mind, a presentation is **always** created out of a credential.
 
-xhr.open("POST", "https://api.trust-trace.com/api/v1/request-presentation");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("tnt-subscription-key", "$ALICE_SUBSCRIPTION_KEY");
-xhr.setRequestHeader("content-type", "application/json");
+### [Create a Self Signed Credential](./create-a-credential)
 
-xhr.send(data);
-```
+Alice can create credential for here self, so called, self signed credentials. One example for this could be, that Alice creates a credential that she really payed a bill.
 
-Which will return:
+### [Sharing a existing credential](./share-a-credential)
 
-```json
-{
-  "uuid": "f3c21b80-67c7-4e85-a67b-f00d157b5ebb",
-  "principalUuid": "990ccd48-94dc-4c21-8589-7d602322517e",
-  "assetRefId": "e0da9d00-1926-44e0-beae-1ab540e441b7",
-  "type": "PROOF_REQUEST",
-  "value": "{\"eventId\":\"e72a0a7e-088c-4c0a-b180-ccada0aea8f3\",\"subProofRequests\":[{\"schema\":\"did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98\"}]}",
-  "subject": "046973cf-2190-49b0-b668-7ff46ba8495b",
-  "issuer": "046973cf-2190-49b0-b668-7ff46ba8495b",
-  "asset": [
-    {
-      "uuid": "cf7b73b5-123a-4cda-9a18-ff2403ce319d",
-      "principalUuid": "990ccd48-94dc-4c21-8589-7d602322517e",
-      "issuer": "046973cf-2190-49b0-b668-7ff46ba8495b",
-      "referenceUri": {
-        "@id": "e72a0a7e-088c-4c0a-b180-ccada0aea8f3",
-        "@type": "presentation",
-        "request_presentations~attach": [
-          {
-            "eventId": "e72a0a7e-088c-4c0a-b180-ccada0aea8f3",
-            "subProofRequests": [
-              {
-                "schema": "did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98"
-              }
-            ]
-          }
-        ],
-        "~thread": {}
-      },
-      "type": "DIDCOMM_MESSAGE",
-      "status": "ACTIVE",
-      "size": 280,
-      "mimeType": "application/json",
-      "action": {
-        "uuid": "d17a2b2d-2bd4-4ad2-817b-f2c6275822d4"
-      },
-      "event": {
-        "uuid": "2660ad4a-ba97-4209-80a2-ad6a4398f01b"
-      }
-    }
-  ],
-  "verifier": "37f657b8-dc2f-4f1d-8d20-927393101e74",
-  "credentialTemplate": {
-    "createdBy": null,
-    "createdAt": "2020-09-22T04:13:21.779Z",
-    "updatedBy": null,
-    "updatedAt": "2020-09-22T04:13:54.318Z",
-    "uuid": "da94855a-8917-406c-95c3-80a2e7beb727",
-    "type": "ZKP",
-    "data": "{\"id\":\"did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98\",\"type\":\"EvanVCSchema\",\"name\":\"Billing Data\",\"author\":\"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\"createdAt\":\"2020-09-22T06:13:36.000Z\",\"description\":\"Details about a payment\",\"properties\":{\"invoiceId\":{\"type\":\"string\"},\"payedAmount\":{\"type\":\"string\"},\"paymentDate\":{\"type\":\"string\"}},\"required\":[\"invoiceId\",\"payedAmount\"],\"additionalProperties\":false,\"proof\":{\"type\":\"EcdsaPublicKeySecp256k1\",\"created\":\"2020-09-22T06:13:36.000Z\",\"proofPurpose\":\"assertionMethod\",\"verificationMethod\":\"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483#key1\",\"jws\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NkstUiJ9.eyJpYXQiOiIyMDIwLTA5LTIyVDA2OjEzOjM2LjAwMFoiLCJkb2MiOnsiaWQiOiJkaWQ6ZXZhbjp6a3A6MHhmYzYwNzM1ODc5ZTJmZGFjYzkzMjcyMTVmODQ0YzdkNDU5MDY3NzIxNWQ2NzliZDA4MmI5YjRjNTVjMWM1ZTk4IiwidHlwZSI6IkV2YW5WQ1NjaGVtYSIsIm5hbWUiOiJCaWxsaW5nIERhdGEiLCJhdXRob3IiOiJkaWQ6ZXZhbjp0ZXN0Y29yZToweDY1Njg1MjNDQ2QwNzg5NTg2RTZlM2M4MjQ2MzkyRDgyOUE1N2Y0ODMiLCJjcmVhdGVkQXQiOiIyMDIwLTA5LTIyVDA2OjEzOjM2LjAwMFoiLCJkZXNjcmlwdGlvbiI6IkRldGFpbHMgYWJvdXQgYSBwYXltZW50IiwicHJvcGVydGllcyI6eyJpbnZvaWNlSWQiOnsidHlwZSI6InN0cmluZyJ9LCJwYXllZEFtb3VudCI6eyJ0eXBlIjoic3RyaW5nIn0sInBheW1lbnREYXRlIjp7InR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbImludm9pY2VJZCIsInBheWVkQW1vdW50Il0sImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZX0sImlzcyI6ImRpZDpldmFuOnRlc3Rjb3JlOjB4NjU2ODUyM0NDZDA3ODk1ODZFNmUzYzgyNDYzOTJEODI5QTU3ZjQ4MyJ9.8qGfamkEnm46Gw6wQRdzDPsL0gy3agiX1Prc5LpW42oJx4vu3ISrRzw5DeWJ8drDwBoFp5tr1kGehAzAwm7ZGxw\"}}",
-    "name": "Billing Data",
-    "config": "{\"uiConfig\":[{\"id\":\"paymentDate\",\"type\":\"TEXT\",\"fieldOptions\":{\"attrs\":{\"label\":\"vc-fields.paymentDate\",\"validationRules\":\"required\"}}},{\"id\":\"payedAmount\",\"type\":\"TEXT\",\"fieldOptions\":{\"attrs\":{\"label\":\"vc-fields.payedAmount\",\"validationRules\":\"required\"}}},{\"id\":\"invoiceId\",\"type\":\"TEXT\",\"fieldOptions\":{\"attrs\":{\"label\":\"vc-fields.invoiceId\",\"validationRules\":\"required\"}}}],\"uiSchema\":{\"invoiceId\":{\"type\":\"string\"},\"payedAmount\":{\"type\":\"string\"},\"paymentDate\":{\"type\":\"string\"}},\"displayName\":\"Billing Data\"}",
-    "templateDid": "did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98",
-    "issuer": "did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483",
-    "status": "ACTIVE"
-  },
-  "status": "DRAFT",
-  "createdBy": null,
-  "updatedBy": null,
-  "issueDate": null,
-  "expirationDate": null,
-  "createdAt": "2020-09-22T04:18:01.559Z",
-  "updatedAt": "2020-09-22T04:18:01.559Z"
-}
-```
+Alice has already a Credential from Bob and wants to share this bill also with third party.
 
-The `uuid` from this points to the Alice's side of the request. A similar request with a different `uuid` has been created on Bob's side.
+### [Request and create a credential](./request-a-credential)
 
-[CSR assessment]: https://dev.trust-trace.com/csr-assessment
-[Schema's POST]: ref:post_schema
-[Schema's GET]: ref:get_schema-uuid
-[TRUST&TRACE UI]: https://app.trust-trace.com
+Lets assume, Bob works for a bank company. Alice alice wants to have a credential, where Bob ensures the correctness of Alice payed bill.
 
-[block:api-header]
-{
-  "title": "Create a Credential"
-}
-[/block]
-In this section we will respond to the credential request with Bob (the one we invited as `account2@example.com`).
+1. So Alice send a credential request via DIDComm to Bob
+2. Bob receives the payment information including the payload of the data to verify.
+3. Bob creates a credential for Alice and sends this back via DIDComm.
+
+### [Export a Credential](./export-a-credential)
+
+Alice wants to download a credential and pack it on her mobile phone, so she can use it to unlock a shared car, with a credential that includes here bill, without any internet connection.
+
+# Create a Self Signed Credential
+
+Alice wants to create a credential using the previous created `Billing Data` template for her self.
 
 ## Credential Definition
 
-The last step created a credential request on Bob's side, which we can fetch with the [Proof Request] endpoint.
+But before she can create the credential it self, she needs a credential definition. The credential definition basically contains cryptographic proofs, in context for the acting identity and the schema you want to use. Based on this credential definition, multiple credentials can be created. Use can use the the credential [Credential Definition] endpoint:
 
 ```js
-const data = null;
-
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
-});
-
-xhr.open("GET", "https://api.trust-trace.com/api/v1/request-presentation/all");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("tnt-subscription-key", "$BOB_SUBSCRIPTION_KEY");
-
-xhr.send(data);
-```
-
-Which gives us the latest request:
-
-```json
-{
-  "total": {
-    "value": 1
+sendAndLogRequest({
+  url: 'http://localhost:7070/credential-definition',
+  method: 'POST',
+  body: {
+    schemaId: 'Billing Data',
+    identityId: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC'
   },
-  "hits": [
-    {
-      "createdBy": null,
-      "createdAt": "2020-09-22T04:18:04.658Z",
-      "updatedBy": null,
-      "updatedAt": "2020-09-22T04:18:04.658Z",
-      "uuid": "a1aa3672-ab0e-40e5-ab3d-eae12167dc2c",
-      "principalUuid": "4ef0bedb-fb4e-4ec4-bd47-0093c0c8825d",
-      "assetRefId": "241e410d-3496-402b-85a9-f86a0a3b2eba",
-      "type": "PROOF_REQUEST",
-      "status": "ACTIVE",
-      "value": "{\"verifier\":\"did:evan:testcore:0xce5C9d0989E642619494e343042615E9D527cde7\",\"prover\":\"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\"createdAt\":\"2020-09-22T06:18:01.000Z\",\"nonce\":\"25720348113076539156715\",\"subProofRequests\":[{\"schema\":\"did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98\",\"revealedAttributes\":[\"name\"]}]}",
-      "subject": "1e86afa4-a468-49f0-8b8a-7ce97c314ea7",
-      "issuer": "1e86afa4-a468-49f0-8b8a-7ce97c314ea7",
-      "verifier": "707d87b2-262a-4903-98e6-bd7969acaaeb",
-      "issueDate": null,
-      "expirationDate": null,
-      "credentialTemplate": {
-        "createdBy": null,
-        "createdAt": "2020-09-22T04:13:21.779Z",
-        "updatedBy": null,
-        "updatedAt": "2020-09-22T04:13:54.318Z",
-        "uuid": "da94855a-8917-406c-95c3-80a2e7beb727",
-        "type": "ZKP",
-        "data": "{\"id\":\"did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98\",\"type\":\"EvanVCSchema\",\"name\":\"Billing Data\",\"author\":\"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\"createdAt\":\"2020-09-22T06:13:36.000Z\",\"description\":\"Details about a payment\",\"properties\":{\"invoiceId\":{\"type\":\"string\"},\"payedAmount\":{\"type\":\"string\"},\"paymentDate\":{\"type\":\"string\"}},\"required\":[\"invoiceId\",\"payedAmount\"],\"additionalProperties\":false,\"proof\":{\"type\":\"EcdsaPublicKeySecp256k1\",\"created\":\"2020-09-22T06:13:36.000Z\",\"proofPurpose\":\"assertionMethod\",\"verificationMethod\":\"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483#key1\",\"jws\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NkstUiJ9.eyJpYXQiOiIyMDIwLTA5LTIyVDA2OjEzOjM2LjAwMFoiLCJkb2MiOnsiaWQiOiJkaWQ6ZXZhbjp6a3A6MHhmYzYwNzM1ODc5ZTJmZGFjYzkzMjcyMTVmODQ0YzdkNDU5MDY3NzIxNWQ2NzliZDA4MmI5YjRjNTVjMWM1ZTk4IiwidHlwZSI6IkV2YW5WQ1NjaGVtYSIsIm5hbWUiOiJCaWxsaW5nIERhdGEiLCJhdXRob3IiOiJkaWQ6ZXZhbjp0ZXN0Y29yZToweDY1Njg1MjNDQ2QwNzg5NTg2RTZlM2M4MjQ2MzkyRDgyOUE1N2Y0ODMiLCJjcmVhdGVkQXQiOiIyMDIwLTA5LTIyVDA2OjEzOjM2LjAwMFoiLCJkZXNjcmlwdGlvbiI6IkRldGFpbHMgYWJvdXQgYSBwYXltZW50IiwicHJvcGVydGllcyI6eyJpbnZvaWNlSWQiOnsidHlwZSI6InN0cmluZyJ9LCJwYXllZEFtb3VudCI6eyJ0eXBlIjoic3RyaW5nIn0sInBheW1lbnREYXRlIjp7InR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbImludm9pY2VJZCIsInBheWVkQW1vdW50Il0sImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZX0sImlzcyI6ImRpZDpldmFuOnRlc3Rjb3JlOjB4NjU2ODUyM0NDZDA3ODk1ODZFNmUzYzgyNDYzOTJEODI5QTU3ZjQ4MyJ9.8qGfamkEnm46Gw6wQRdzDPsL0gy3agiX1Prc5LpW42oJx4vu3ISrRzw5DeWJ8drDwBoFp5tr1kGehAzAwm7ZGxw\"}}",
-        "name": "Billing Data",
-        "config": "{\"uiConfig\":[{\"id\":\"paymentDate\",\"type\":\"TEXT\",\"fieldOptions\":{\"attrs\":{\"label\":\"vc-fields.paymentDate\",\"validationRules\":\"required\"}}},{\"id\":\"payedAmount\",\"type\":\"TEXT\",\"fieldOptions\":{\"attrs\":{\"label\":\"vc-fields.payedAmount\",\"validationRules\":\"required\"}}},{\"id\":\"invoiceId\",\"type\":\"TEXT\",\"fieldOptions\":{\"attrs\":{\"label\":\"vc-fields.invoiceId\",\"validationRules\":\"required\"}}}],\"uiSchema\":{\"invoiceId\":{\"type\":\"string\"},\"payedAmount\":{\"type\":\"string\"},\"paymentDate\":{\"type\":\"string\"}},\"displayName\":\"Billing Data\"}",
-        "templateDid": "did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98",
-        "issuer": "did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483",
-        "status": "ACTIVE"
-      }
-    }
-  ]
-}
-```
-
-From this we can use the `credentialTemplate.uuid` as a credential schema to create a new credential definition. This is required to issue credentials and allow verification of their proofs. To create a credential definition you can use the [Credential Definition] endpoint:
-
-```js
-const data = JSON.stringify({
-  "schemaUuid": "da94855a-8917-406c-95c3-80a2e7beb727",
-  "identityUuid": "707d87b2-262a-4903-98e6-bd7969acaaeb"
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
 });
-
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
-});
-
-xhr.open("POST", "https://api.trust-trace.com/api/v1/credential-definition");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("tnt-subscription-key", "$BOB_SUBSCRIPTION_KEY");
-xhr.setRequestHeader("content-type", "application/json");
-
-xhr.send(data);
 ```
 
 Which produces:
@@ -246,35 +92,22 @@ Which produces:
 
 The `uuid` from this result refers to our newly created credential definition and will be used in the next steps internally. You don't need to provide it in the credential creation request.
 
-## Credential
+## Credential a credential
 
 A schema can be used to create an unlimited amount of credentials, that have the same set of properties and that are created by the same identity. To create a credential with this schema, use the [credential] endpoint:
 
 ```js
-const data = JSON.stringify({
-  "credentialValues": {
-    "invoiceId": "2020-12345",
-    "payedAmount": "1234.56 EUR",
-    "paymentDate": "2020-01-23"
+sendAndLogRequest({
+  url: 'http://localhost:7070/credential',
+  method: 'POST',
+  body: {
+    schemaId: 'Billing Data',
+    identityId: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC'
   },
-  "schemaUuid": "da94855a-8917-406c-95c3-80a2e7beb727",
-  "identityUuid": "707d87b2-262a-4903-98e6-bd7969acaaeb"
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
 });
-
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
-});
-
-xhr.open("POST", "https://api.trust-trace.com/api/v1/credential");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("tnt-subscription-key", "$BOB_SUBSCRIPTION_KEY");
-xhr.setRequestHeader("content-type", "application/json");
-
-xhr.send(data);
 ```
 
 From this we get the new credential:
@@ -401,9 +234,69 @@ From this we get the new credential:
 [Proof Request]: ref:get_request-presentation
 [Schema]: ref:schema
 
-[block:api-header]
+# Share a existing credential
+
+If you want to share a credential with another user, you can just send it via didcomm. But at first, you need to find your credential. Use the credential endpoint to query for your credentials:
+
+```json
 {
-  "title": "Export a Credential"
+  "total": {
+    "value": 2
+  },
+  "hits": [
+    {
+      "createdBy": null,
+      "createdAt": "2020-11-26T13:32:21.741Z",
+      "updatedBy": null,
+      "updatedAt": "2020-11-26T13:35:34.347Z",
+      "uuid": "657a6988-741c-4d77-b88e-7d48691a91cb",
+      "principalUuid": "b06024d2-dcdd-4b87-8888-61bce894e41c",
+      "assetRefId": "6208ac32-8448-4c3d-8f5d-63659e4b390d",
+      "type": "CREDENTIAL",
+      "status": "ACTIVE",
+      "value": "{\"credential\":{\"@conte...884\"}}}",
+      "subject": "4df8c436-1c5f-4a2b-ba75-4bce37256490",
+      "issuer": "4df8c436-1c5f-4a2b-ba75-4bce37256490",
+      "verifier": null,
+      "issueDate": null,
+      "expirationDate": null
+    },
+    ...
+  ]
 }
-[/block]
-Tbd.
+```
+
+You can now parse the value of this asset data and share this one via the didcomm action endpoint and the [Issue Credential Protocol]. Important to note at this point is, that the didcomm message is sent via the didcomm [business service endpoint]. This endpoint covers the full contact loading, message encryption and send logic. If you want to do this by your self, please head over to:
+
+```js
+const credential = result.hits[0].value;
+
+sendAndLogRequest({
+  url: 'http://localhost:7070/didcomm',
+  method: 'POST',
+  body: {
+    type: 'DIDCOMM',
+    from: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
+    to: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
+    command: 'message',
+    data: {
+      message: {
+        '@type': 'request-credential',
+        'requests~attach': [{
+          'mime-type': 'application/json',
+          data: credential,
+        }],
+        '~thread': {
+          thid: 'share thread',
+        }
+      },
+    },
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
+```
+
+[Issue Credential Protocol]:https://github.com/hyperledger/aries-rfcs/tree/master/features/0036-issue-credential
+[business service endpoint]: ./talking-didcomm

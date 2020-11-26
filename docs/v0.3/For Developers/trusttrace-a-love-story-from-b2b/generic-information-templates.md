@@ -13,32 +13,24 @@ If you have tested the [TRUST&TRACE UI] a bit and tried out the [CSR assessment]
 Requesting credential requires a credential schema - you need to have a schema for the data you are requesting from you contacts. In the [CSR assessment] you can see a list of default credential schemata that you could use, but we are going to create our own schema here with the [Schema's POST] endpoint. In this example we will create a schema to issue credentials with data about payments:
 
 ```js
-const data = JSON.stringify({
-  "properties": {
-    "invoiceId": { "type": "string" },
-    "payedAmount": { "type": "string" },
-    "paymentDate": { "type": "string" }
+sendAndLogRequest({
+  url: 'http://localhost:7070/contact',
+  method: 'POST',
+  body: {
+    "properties": {
+      "invoiceId": { "type": "string" },
+      "payedAmount": { "type": "string" },
+      "paymentDate": { "type": "string" }
+    },
+    "name": "Billing Data",
+    "description": "Details about a payment",
+    "identityUuid": "046973cf-2190-49b0-b668-7ff46ba8495b",
+    "requiredProperties": ["invoiceId", "payedAmount"]
   },
-  "name": "Billing Data",
-  "description": "Details about a payment",
-  "identityUuid": "046973cf-2190-49b0-b668-7ff46ba8495b",
-  "requiredProperties": ["invoiceId", "payedAmount"]
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
 });
-
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
-});
-
-xhr.open("POST", "https://api.trust-trace.com/api/v1/schema");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("tnt-subscription-key", "$ALICE_SUBSCRIPTION_KEY");
-xhr.setRequestHeader("content-type", "application/json");
-
-xhr.send(data);
 ```
 
 The result will look as following:
@@ -60,24 +52,16 @@ The result will look as following:
 }
 ```
 
-Creating the actual credential may take a while, so the returned returned result is not yet the full schema (notice the `"status": "DRAFT"`). You can fetch your schema from the [Schema's GET] endpoint with the `uuid`:
+Creating the actual credential may take a while, so the returned returned result is not yet the full schema (notice the `"status": "DRAFT"`). You can fetch your schema from the [Schema's GET] endpoint with the `templateName`, `templateDid`,  `uuid` (but keep in mind: templateDid will be empty until the `DRAFT` state is gone):
 
 ```js
-const data = null;
-
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
+sendAndLogRequest({
+  url: 'http://localhost:7070/schema/Billing Data',
+  method: 'GET',
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
 });
-
-xhr.open("GET", "https://api.trust-trace.com/api/v1/schema/da94855a-8917-406c-95c3-80a2e7beb727");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("tnt-subscription-key", "$ALICE_SUBSCRIPTION_KEY");
-
-xhr.send(data);
 ```
 
 Which will yield something like following (`"status": "ACTIVE"`), as soon as the credential schema is created:
@@ -99,4 +83,45 @@ Which will yield something like following (`"status": "ACTIVE"`), as soon as the
 }
 ```
 
-The `templateDid` is the DID of the credential schema. `templateDid` and `uuid` will be used in the next steps to refer to this schema.
+The `templateDid` is the DID of the credential schema. `templateDid` will be used in the next steps to refer to this schema.
+
+## Loading existing templates
+
+TRUST&TRACE offers a bunch of existing schemas, especially generalized templates for exchanging company master data. To have a look at all existing templates, just replace the `templateDid` from the get request with `all`:
+
+```js
+sendAndLogRequest({
+  url: 'http://localhost:7070/schema/all',
+  method: 'GET',
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
+```
+
+Which will return:
+
+```json
+{
+    "total": {
+        "value": 42
+    },
+    "hits": [
+        {
+            "createdBy": null,
+            "createdAt": "2020-11-26T11:34:13.967Z",
+            "updatedBy": null,
+            "updatedAt": "2020-11-26T11:34:42.274Z",
+            "uuid": "01b1119e-b860-435a-b553-997ce9173e3d",
+            "type": "ZKP",
+            "data": "{\"id\":\"did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0\",\"type\":\"EvanVCSchema\",\"name\":\"Billing Data\",\"author\":\"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\"createdAt\":\"2020-11-26T11:34:24.000Z\",\"description\":\"Details about a payment\",\"properties\":{\"payedAmount\":{\"type\":\"string\"},\"invoiceId\":{\"type\":\"string\"},\"paymentDate\":{\"type\":\"string\"}},\"required\":[\"invoiceId\",\"payedAmount\"],\"additionalProperties\":false,\"proof\":{\"type\":\"EcdsaPublicKeySecp256k1\",\"created\":\"2020-11-26T11:34:24.000Z\",\"proofPurpose\":\"assertionMethod\",\"verificationMethod\":\"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC#key1\",\"jws\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NkstUiJ9.eyJpYXQiOiIyMDIwLTExLTI2VDExOjM0OjI0LjAwMFoiLCJkb2MiOnsiaWQiOiJkaWQ6ZXZhbjp6a3A6MHhjOTgxMjEzZjIxYzI2OTFjM2ViNDc5YmRkMzU4YTI3OWJjNzAxNTdmMTc5MTY5NGNjYTViNzM4M2MwNjcxZmUwIiwidHlwZSI6IkV2YW5WQ1NjaGVtYSIsIm5hbWUiOiJCaWxsaW5nIERhdGEiLCJhdXRob3IiOiJkaWQ6ZXZhbjp0ZXN0Y29yZToweDIxRDMwZDdCRkJiM0VjYzNkYjMwNGM0QWY4RTQxMzI0MDc4MTQ2Y0MiLCJjcmVhdGVkQXQiOiIyMDIwLTExLTI2VDExOjM0OjI0LjAwMFoiLCJkZXNjcmlwdGlvbiI6IkRldGFpbHMgYWJvdXQgYSBwYXltZW50IiwicHJvcGVydGllcyI6eyJwYXllZEFtb3VudCI6eyJ0eXBlIjoic3RyaW5nIn0sImludm9pY2VJZCI6eyJ0eXBlIjoic3RyaW5nIn0sInBheW1lbnREYXRlIjp7InR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbImludm9pY2VJZCIsInBheWVkQW1vdW50Il0sImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZX0sImlzcyI6ImRpZDpldmFuOnRlc3Rjb3JlOjB4MjFEMzBkN0JGQmIzRWNjM2RiMzA0YzRBZjhFNDEzMjQwNzgxNDZjQyJ9.9mzbY4SXFoSvHkf5by66dU7ijeisk60eAqgx7B-4S5jlZPYzESGiGZX0taFamu9TxnTh_H5k0WoowLhZaon03Bw\"}}",
+            "name": "Billing Data",
+            "config": "{\"uiConfig\":[],\"uiSchema\":{\"invoiceId\":{\"type\":\"string\"},\"payedAmount\":{\"type\":\"string\"},\"paymentDate\":{\"type\":\"string\"}},\"displayName\":\"Billing Data\"}",
+            "templateDid": "did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0",
+            "issuer": "did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC",
+            "status": "ACTIVE"
+        },
+        ...
+    ],
+}
+```

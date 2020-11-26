@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"{{USER_2_EMAIL}}\",\n    \"password\": \"{{USER_2_PASSWORD}}\"\n}",
+							"raw": "{\n    \"email\": \"{{USER_1_EMAIL}}\",\n    \"password\": \"{{USER_1_PASSWORD}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -77,7 +77,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InR5cGUiOiJhY2NvdW50IiwidXVpZCI6IjhhZmExNGFlLTVlN2YtNGJiMy04YWUwLTlkYWY1YTBiNGIwMSIsInByaW5jaXBhbFV1aWQiOiIzMWFmZmNjZC0yYTIzLTQyYjktODk4NS1iYjNiOWI5ZDg4M2QifSwiaWF0IjoxNjA2MjkxMTEyLCJleHAiOjE2MDYzNzc1MTJ9.O9-k6F8nOuf6JHWdQ_HM-rTyjQ56yc6a2Vf9d6FZ_Js",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InR5cGUiOiJhY2NvdW50IiwidXVpZCI6IjIwMTc1ZDhkLTVmZDYtNGJhZi05YjZmLWM2OGViOWExMWI3ZiIsInByaW5jaXBhbFV1aWQiOiJiMDYwMjRkMi1kY2RkLTRiODctODg4OC02MWJjZTg5NGU0MWMifSwiaWF0IjoxNjA2MzE2ODAwLCJleHAiOjE2MDY0MDMyMDB9.s0K25efz4I2M9vZO912g5o5RX2isb5wdvOdTwHC1DPc",
 								"type": "text"
 							}
 						],
@@ -142,7 +142,7 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Contacts",
+			"name": "Contacts & Identities",
 			"item": [
 				{
 					"name": "Create contact",
@@ -213,6 +213,42 @@
 					"response": []
 				},
 				{
+					"name": "Get Contacts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/identity/all",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"identity",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Invite with did",
 					"request": {
 						"method": "POST",
@@ -225,7 +261,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"from\": \"f8393822-90fe-4d12-829f-0999b9b4a092\",\n    \"config\": {\n        \"did\": \"did:evan:testcore:0xBcF90A276911c291dfFbb91B1Ed2E289aF26b639\",\n        \"contactUuid\": \"93989f50-f8c0-4e28-9396-2fb019c1b06d\"\n    }\n}",
+							"raw": "{\n    \"from\": \"4df8c436-1c5f-4a2b-ba75-4bce37256490\",\n    \"to\": \"did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98\",\n    \"config\": {\n        \"did\": \"did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98\",\n        \"contactUuid\": \"e2162a9d-07e6-4162-9bb7-62c06ab68ab8\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -312,10 +348,282 @@
 					"response": []
 				}
 			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4f907865-0dc8-4f90-b594-6193c63a2fa3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ef6b08a-9cc0-421a-8dd0-cbfe142a76a8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
 			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Generic Information Templates",
+			"item": [
+				{
+					"name": "Create template",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"properties\": {\n        \"invoiceId\": {\n            \"type\": \"string\"\n        },\n        \"payedAmount\": {\n            \"type\": \"string\"\n        },\n        \"paymentDate\": {\n            \"type\": \"string\"\n        }\n    },\n    \"name\": \"Billing Data\",\n    \"description\": \"Details about a payment\",\n    \"identityId\": \"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\n    \"requiredProperties\": [\n        \"invoiceId\",\n        \"payedAmount\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/action/invitation",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"action",
+								"invitation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Schema",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/identity/all",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"identity",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Schemas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/identity/all",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"identity",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Credentials",
+			"item": [
+				{
+					"name": "Credential Definition",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"schemaId\": \"Billing Data\",\n    \"identityId\": \"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/credential-definition",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"credential-definition"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Self signed Credential",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"credentialValues\": {\n      \"invoiceId\": \"2020-12345\",\n      \"payedAmount\": \"1234.56 EUR\",\n      \"paymentDate\": \"2020-01-23\"\n    },\n    \"schemaId\": \"Billing Data\",\n    \"identityId\": \"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/credential",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"credential"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Credentials",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/asset-data/all",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"asset-data",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Share credential",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"DIDCOMM\",\n  \"from\": \"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\n  \"to\": \"e2162a9d-07e6-4162-9bb7-62c06ab68ab8\",\n  \"command\": \"message\",\n  \"data\": {\n    \"message\": {\n      \"@type\": \"request-credential\",\n      \"requests~attach\": [{\n        \"mime-type\": \"application/json\",\n        \"data\": {\n          \"credential\": {\n            \"@context\": [\n              \"https://www.w3.org/2018/credentials/v1\"\n            ],\n            \"id\": \"7a6a1722-caaa-43f2-8a81-aab8f097bbe4\",\n            \"type\": [\n              \"VerifiableCredential\"\n            ],\n            \"issuer\": \"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\n            \"credentialSubject\": {\n              \"id\": \"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\n              \"data\": {\n                \"paymentDate\": {\n                  \"raw\": \"2020-01-23\",\n                  \"encoded\": \"10841126087327526101253494474326369216674323583635906514931067962875232455837\"\n                },\n                \"payedAmount\": {\n                  \"raw\": \"1234.56 EUR\",\n                  \"encoded\": \"39494260058677908780687632820306938858691371548592967689070312921224627089687\"\n                },\n                \"invoiceId\": {\n                  \"raw\": \"2020-12345\",\n                  \"encoded\": \"39320949615015453279793900290329914158905727254031203907766853297431843256399\"\n                }\n              }\n            },\n            \"credentialSchema\": {\n              \"id\": \"did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0\",\n              \"type\": \"EvanZKPSchema\"\n            },\n            \"signature\": {\n              \"type\": \"CLSignature2019\",\n              \"credentialDefinition\": \"did:evan:zkp:0x634a93eed284d123bc67d6bf48bca2c30d1ca8895736b605ceaf60dd922993e8\",\n              \"signature\": {\n                \"p_credential\": {\n                  \"m_2\": \"61774468336859656386453227588942061066282400236458357504499447533642700810041\",\n                  \"a\": \"5040826509983797696956702898131158884589362164273471262539356984943557139692028120598257628552832044557875381177336327644014176012199286307234138996485265465940840302737693957799680148318087121237248842005819214583536699832482813016329215977369275851372396239286074099024058281782632119573853614400976287510956174986999395122551608768512938383840077017132059488397699390673647422456475924926919180199053736194715055122956250329243242186343477332622881857836760315114185029528002237419337782847469928684415346409928589608795574657282034555626841043779705160674669017393085038676224933165822586283273996914498193916294\",\n                  \"e\": \"259344723055062059907025491480697571938277889515152306249728583105665800713306759149981690559193987143012367913206299323899696942213235956742930117920102603386545582898571085586687\",\n                  \"v\": \"7972757402562128449490254112102017104516105871013724633001449879280202206213306472785593163732599030886340314472721162297115494762341682986838888527806409175915541653075640900066326316325674325563859533434338406300934905057527262277899832774461926349646405700467274549594452232001150459545399866912914877263624034369694472553504839003338145144716522262900652092219534755815223622985753761564132026196730381890148808488807909719013490998638241405676622139099355604275753360573099505551168089627277383763586926350509999886963335374248014151990537562819435150269911253289176967864354434986432282650328033783327813376945042933400770856859954064838881959963042798702204579633744716947161461973679219574927640102177236584521567955760204686649152239423381234938634668786415888416857836555281002927152943803097908209295658860226\"\n                },\n                \"r_credential\": {\n                  \"sigma\": \"1 1070B70A45F9FEFA577EFFCB00BCCD8DE53D2900762537C62C1BC85F686CC8AB 1 102A00B246AD6DB2B21EA9FFF8FC99C187B8EFC4496A1E7AC9BCB0FE204CE641 2 095E45DDF417D05FB10933FFC63D474548B7FFFF7888802F07FFFFFF7D07A8A8\",\n                  \"c\": \"24E4B268CC8295C2C132AA7221B6997764707660B2596DF88325EFD75C979233\",\n                  \"vr_prime_prime\": \"0DB00C287DA9CAF9727C074A76A35886A5F27B3158DE73377417E1DFB73FD568\",\n                  \"witness_signature\": {\n                    \"sigma_i\": \"1 14B0C0958839FA1A0FD4E81EF86480DA4CE8EBB4AA1F531BC0C1EBCBCCFBF764 1 04BD09F03C3286A652FBC392A6A0C7E6C463D31FE7F07B6A4048E01FC3166E25 1 0AC2F3C92BDBA42AD2139636D16985274B0C0BCAF4673A60F2CA15349AB1E522 1 04711417CD2092CE9697320DA61F7653B0700C7D182B893C51A4F4C5282A4A4B 2 095E45DDF417D05FB10933FFC63D474548B7FFFF7888802F07FFFFFF7D07A8A8 1 0000000000000000000000000000000000000000000000000000000000000000\",\n                    \"u_i\": \"1 0E10A7B40F242F36A6A88606CC22F1488CE24AF0A50AFF05B08DDFC057005CAE 1 06B7226AB518A6959E18EC9BF9F3D79294DB78CEF555994B2BF149FEF706C9C6 1 060A34A030185BF797F931DA106E18EA34A9CE464463E849EB0EB76A13705217 1 18FB3334A6ABA0EFA95965272537B0EAB90FC71450142C0725F3BEF94F309D68 2 095E45DDF417D05FB10933FFC63D474548B7FFFF7888802F07FFFFFF7D07A8A8 1 0000000000000000000000000000000000000000000000000000000000000000\",\n                    \"g_i\": \"1 040E185532F71B31178AF6FFD4C0AB0A349CB07D1EDCE0EB080DB697B8348D68 1 12E91F5C18A627E5F429428E43A4E9FC988A48932C193552E75BF293156F9AB3 2 095E45DDF417D05FB10933FFC63D474548B7FFFF7888802F07FFFFFF7D07A8A8\"\n                  },\n                  \"g_i\": \"1 040E185532F71B31178AF6FFD4C0AB0A349CB07D1EDCE0EB080DB697B8348D68 1 12E91F5C18A627E5F429428E43A4E9FC988A48932C193552E75BF293156F9AB3 2 095E45DDF417D05FB10933FFC63D474548B7FFFF7888802F07FFFFFF7D07A8A8\",\n                  \"i\": 1,\n                  \"m2\": \"88931C2B1AF1CB807F11DBEFFB9E51590D12AB92BC3E6089FFA093C33E23E739\"\n                }\n              },\n              \"signatureCorrectnessProof\": {\n                \"se\": \"-1145678320292822624645916502038350123819830866600970792155770759396605932752627390182313189068475599071651124353796206674000866590002516807328682779664387245503432841007059701758189038659344334249461992159224958571535709051603184698368010906645145480068874714937619193058703204111121170939600586137482026367878478194308315491891307562136112658135153418500767322301107800310748660790484770216602237115612458609302815271733566354323645970611169436120922450169948332319102325863172748290575927040752655082463852339086894156088400548944144699333806566351739765670158211168082892879647769766098465178089819280043321165000\",\n                \"c\": \"20255114133371091930396835049438581523996777045641869826647441123779724959690\"\n              },\n              \"issuanceNonce\": \"602303509976507356188815\",\n              \"revocationId\": 1,\n              \"revocationRegistryDefinition\": \"did:evan:zkp:0xc2d74a5f642edb28055c05681f16270b92e065e7edc771362ce755fdceb6b8b6\"\n            }\n          },\n          \"revocationInfo\": {\n            \"definitionId\": \"did:evan:zkp:0xc2d74a5f642edb28055c05681f16270b92e065e7edc771362ce755fdceb6b8b6\",\n            \"nextUnusedId\": 2,\n            \"usedIds\": [\n              1\n            ]\n          },\n          \"revocationState\": {\n            \"credentialId\": \"7a6a1722-caaa-43f2-8a81-aab8f097bbe4\",\n            \"revocationId\": 1,\n            \"updated\": 1606397734,\n            \"delta\": {\n              \"accum\": \"21 12D1A3084551DC84C439DE23B0CD20E5DC5F2AFF92F3CA9484E408FCC4FD1C2EB 21 1288087308F583E39DF4D6B0E62CA793233E904AD6E820B64106001E457F21D49 6 6C1B61939673128E5B6315E0CCC70FEC1D8234B422C4D96EF69C5CCF2C6A9F1E 4 3316B5C4445FA925B1344B0E7A70CDEBBE361FC660D24DFAD50C2E8A945141B4 6 58CE3372F3F10C8718CA8E1874B5D6CD69288A90EDDE120C754718DC4AB3537C 4 26B67CD23DC8CE0AEB4A31DDB1B4DD5C480139ED51CA081E9A2B65F7A932D5AA\"\n            },\n            \"witness\": {\n              \"omega\": \"21 122A1D9CB47BD9961F592B67633EAF5CA15B9AE7AF063D77526E36865D2ABA0EF 21 12AC7E04A732C4BB496661FF1E7EBB4C8F5654F5CBA2F8F3931C3E3615D04B554 6 8798E87ADABF716BBC782BE3F50A79AED8BABCA9077A4A8D3B11288623D1B79C 4 1CCD1128EB1A7F3B5BCFA237A2D584656D8DED1149ABFBB673A8536B7A2AA32E 6 6771FF4122C5DCAF382CE156E3F6134572D88C73645B1DF13264D2B727F91D6B 4 3016FEF76E93E8F979698364EEE495C3231487273454D1889A53F565070B6884\"\n            }\n          }\n        }\n      }],\n      \"~thread\": {\n        \"thid\": \"sgare tg\"\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/action/DIDCOMM",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"action",
+								"DIDCOMM"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Presentations",
 			"item": [],
 			"protocolProfileBehavior": {}
 		}
@@ -344,42 +652,42 @@
 	],
 	"variable": [
 		{
-			"id": "be86088c-151d-41f0-9845-37085469d6d4",
+			"id": "ab20371c-69b9-431f-87d5-91d8e9d724e7",
 			"key": "API_URL",
 			"value": "http://localhost:7070"
 		},
 		{
-			"id": "c31269a5-de15-4d6b-80de-a79cfb38fa89",
+			"id": "c862d6db-258d-4f86-a452-bc7e7963273b",
 			"key": "USER_1_EMAIL",
 			"value": "test+1@test.de"
 		},
 		{
-			"id": "4577d9c6-367c-4a42-b01e-1ec336b6c96e",
+			"id": "0acbb519-5edd-4fd0-8dce-71306805bb26",
 			"key": "USER_2_EMAIL",
 			"value": "test+2@test.de"
 		},
 		{
-			"id": "0ad04ea0-0b19-47d8-97ff-b4b62445f036",
+			"id": "ebd82ed1-5335-4b1f-b1d3-3845862d5b2d",
 			"key": "USER_1_PASSWORD",
 			"value": "test+1@test.de"
 		},
 		{
-			"id": "51207a38-c814-48c8-b16a-de984266abca",
+			"id": "73011190-285d-42e6-8ccd-990aeacc10d6",
 			"key": "USER_2_PASSWORD",
 			"value": "test+2@test.de"
 		},
 		{
-			"id": "f2cfbc5e-d634-4f08-ad38-f788d768950e",
+			"id": "2833011b-8721-41dc-b3ae-5bc4d40eed94",
 			"key": "USER_1_SUBSCRIPTION",
 			"value": "010e78af828742df91cf8145b8c05a92"
 		},
 		{
-			"id": "93a01b26-7807-429b-bdbe-3e5124beae29",
+			"id": "a0873ebb-4bb2-4564-b432-ba9d83ea0741",
 			"key": "USER_2_SUBSCRIPTION",
 			"value": "c88a5286b5d24480a65295b9a8c01e0a"
 		},
 		{
-			"id": "3f9abc99-cd4f-402d-b3f3-418c694ac9be",
+			"id": "5b778d3a-9342-4fca-9ed9-0171e282da3e",
 			"key": "AUTH_URL",
 			"value": "http://localhost:7070"
 		}

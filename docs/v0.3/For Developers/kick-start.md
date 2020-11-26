@@ -22,11 +22,11 @@ Based on decentralized identifiers (DIDs) it opens a secure, open and decentrali
 
 ## DIDComm and TRUST&RACE
 
-TRUST&TRACE uses the DIDComm messaging protocol for every cross principal communication. So internal and also external communication is handled via DIDComm, to provide a full separated, secure and open data management.
+TRUST&TRACE uses the DIDComm messaging protocol for every cross principal communication. So internal and also external communication is handled via DIDComm, to provide a full separated, secure and open data management. With the capability of acting as DIDComm-Agent, TRUST&TRACE is open for any external systems that support the DIDComm message protocol. Companies can send requests to their partners as DIDComm message to get a specific proof. The partner uses its existing system to communicate with TRUST&TRACE. With this the verifying partner can use its existing tools and services to process the request. At the end, the requesting company gets back the verified proof via the message protocol. This verified proof can be processed on TRUST&TRACE or can also be sent to other external systems.
 
 ## Relay
 
-To implement the protocol fully, is sometimes quite stressful. TRUST&TRACE offers the possibility to manage identities within the system and TRUST&TRACE will notify a specified server about incoming DIDComm messages. So the secure messaging and did exchange layer is handled by TRUST&TRACE and the partner agent can just consume the incoming information.
+To implement the protocol fully, is sometimes quite stressful. TRUST&TRACE offers the possibility to manage identities within the system and TRUST&TRACE will notify a specified server about incoming DIDComm messages. So the secure messaging and did exchange layer is handled by TRUST&TRACE and the partner agent can just consume the incoming information. So they can manage their identities and partners on the TRUST&TRACE platform and can register an external system that shall be requested on incoming DIDComm messages. As a result of this, the external system does not need to implement any identity, DID-exchange or encryption handling logic. It can just consume data forwarded from the TRUST&TRACE system.
 
 ## DIDComm as externals
 
@@ -77,10 +77,13 @@ The following section will shortly explain the basic concepts and functionalitie
 Tbd.
 
 ## Schemas - Data Formats
-Tbd.
+
+To be able to create credentials on TRUST&TRACE you will always need a base data format specification, a so called "Credential Schema" (or sometimes "Credential Template"). With this, you can design and distribute data exchange formats for generalized data exchange.
 
 ## Asset-Data: Credentials & Presentations
-Tbd.
+
+Based on this schemas, you can create credential definitions
+
 
 [Contacts and Identities]: ./contacts-and-identities
 [generate a technical user]: ./login-and-auth

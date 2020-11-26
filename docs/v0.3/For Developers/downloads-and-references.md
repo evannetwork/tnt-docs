@@ -23,7 +23,7 @@ To get a quick and easy start in TRUST&TRACE with some prebuilt helper functions
 - auto ensuring credential templates and credential definitions
 - plugin handling
 
-[POSTMAN collection]: https://github.com/evannetwork/tnt-docs/tree/develop/docs/v0.3/For%20Developers/downloads-and-references/TRUST&TRACE%20-%20API%20Collectionpostman_collection.json
+[POSTMAN collection]: https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/downloads-and-references/TRUST%26TRACE%20-%20API%20Collection.postman_collection.json
 [requests based on nodejs]: https://github.com/evannetwork/tnt-docs/tree/develop/docs/v0.3/For%20Developers/trusttrace-a-love-story-from-b2b/scripts
 [TRUST&TRACE - A love story from B2B]: ./trusttrace-a-love-story-from-b2b
 [kick start project]: https://github.com/evannetwork/tnt-agent

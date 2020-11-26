@@ -1,4 +1,4 @@
-const sendAndLogRequest = ({ url, method, payload, headers }) => {
+const sendAndLogRequest = async ({ url, method, body, headers }) => {
   const fetch = require('node-fetch');
   const result = await fetch(url, {
     method,
@@ -7,7 +7,7 @@ const sendAndLogRequest = ({ url, method, payload, headers }) => {
       'Content-Type': 'application/json',
       ...headers,
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(body),
   });
   console.log(JSON.stringify(await result.json(), null, 2));
 };

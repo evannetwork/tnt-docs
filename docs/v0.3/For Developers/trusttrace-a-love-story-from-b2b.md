@@ -27,6 +27,12 @@ So you're logged in and got a business partner to interact with. Now we can star
 
 # Before you start
 
+## Event handling and Credential, Presentation Updates
+
+In this examples we focus on the explanation of the API service endpoints. Listening for incoming data and for events, when DRAFT entities switches to ACTIVE state, is handled in a separate section. In the examples we will just assume, that the data processing has finished or has already arrived the other party.
+
+If you want to know, how to deal with TRUST&TRACE relay functionality, please head over to [TRUST&TRACE relay].
+
 ## Alice and Bob
 
 We shall be using Alice and Bob, as the two parties, in the examples presented in this document.
@@ -36,7 +42,7 @@ We shall be using Alice and Bob, as the two parties, in the examples presented i
 The complete sample code is built to work in nodejs. To make the documentation better readable, only the parameters and endpoint configuration is added into the text. Please copy this function into your runtime to use the examples.
 
 ```js
-const sendAndLogRequest = ({ url, method, payload, headers }) => {
+const sendAndLogRequest = async ({ url, method, body, headers }) => {
   const fetch = require('node-fetch');
   const result = await fetch(url, {
     method,
@@ -45,7 +51,7 @@ const sendAndLogRequest = ({ url, method, payload, headers }) => {
       'Content-Type': 'application/json',
       ...headers,
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(body),
   });
   console.log(JSON.stringify(await result.json(), null, 2));
 };
@@ -64,3 +70,4 @@ When you are not that familiar with nodejs, you can download our [Postman collec
 [register]: https://app.trust-trace.com/register
 [Send it to a Contact]: ./contacts#send-invitation-via-mail
 [TRUST&TRACE]: https://app.trust-trace.com
+[TRUST&TRACE relay]: ./relay

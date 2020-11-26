@@ -265,12 +265,14 @@ sendAndLogRequest({
         '@id': '932677bc-ba47-45e3-9cdf-ee090e27b0ce',
         serviceEndpoint: 'http://localhost:7070/api/didcomm'
       },
-      invitationId: 'bf736cab-a735-4a77-9580-7494cfb71fc4'
+      invitationId: 'bf736cab-a735-4a77-9580-7494cfb71fc4',
+    },
   },
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
   },
 });
+
 ```
 
 Which also returns an invitation action:
