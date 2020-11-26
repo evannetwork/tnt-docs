@@ -10,19 +10,19 @@ When working with credentials, we will mostly encounter the following use cases.
 
 ### Credential vs. Presentation
 
-There is a difference between credentials and presentations. All credentials hold always the complete information and everyone can verify, who created it. A presentation on the other side, can expose information without revealing the any information about the issuer. Also, one presentation can include multiple credentials that are shared with one user.
+Please have always in mind, that there is a huge difference between credentials and presentations. All credentials hold always the complete information and everyone can verify, who created it. A presentation on the other side, is created out of a credential and can expose information without revealing any information about the issuer. Furthermore, one presentation can include multiple credentials that are shared with one user.
 
 If you want to read more a bout presentations, please head over to the [presentation section]. But keep in mind, a presentation is **always** created out of a credential.
 
-### [Create a Self Signed Credential](./create-a-credential)
+### [Create a Self Signed Credential](#create-a-credential)
 
 Alice can create credential for here self, so called, self signed credentials. One example for this could be, that Alice creates a credential that she really payed a bill.
 
-### [Sharing a existing credential](./share-a-credential)
+### [Sharing a existing credential](#share-a-credential)
 
 Alice has already a Credential from Bob and wants to share this bill also with third party.
 
-### [Request and create a credential](./request-a-credential)
+### [Request and create a credential](#request-a-credential)
 
 Lets assume, Bob works for a bank company. Alice alice wants to have a credential, where Bob ensures the correctness of Alice payed bill.
 
@@ -30,7 +30,7 @@ Lets assume, Bob works for a bank company. Alice alice wants to have a credentia
 2. Bob receives the payment information including the payload of the data to verify.
 3. Bob creates a credential for Alice and sends this back via DIDComm.
 
-### [Export a Credential](./export-a-credential)
+### [Export a Credential](#export-a-credential)
 
 Alice wants to download a credential and pack it on her mobile phone, so she can use it to unlock a shared car, with a credential that includes here bill, without any internet connection.
 
@@ -310,7 +310,7 @@ sendAndLogRequest({
 
 # Request and create a credential
 
-To request a credential, you need to send a credential request to your partner. To to do this easy, you can again use the generic [didcomm endpoint] of TRUST&TRACE to attach the credential information that should be proofed.
+To request a credential, you need to send a credential request to your partner. To to do this easy, you can again use the generic [didcomm endpoint] of TRUST&TRACE using the [Issue Credential Protocol] to attach the credential information that should be proofed.
 
 ```js
 const credential = JSON.parse(result.hits[0].value);

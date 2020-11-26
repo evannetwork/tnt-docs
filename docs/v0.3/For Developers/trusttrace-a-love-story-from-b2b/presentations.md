@@ -5,38 +5,29 @@ hidden: false
 createdAt: "2020-11-23T07:45:08.325Z"
 updatedAt: "2020-11-23T07:52:12.680Z"
 ---
-[block:api-header]
-{
-  "title": "Request a Presentation"
-}
-[/block]
 
-# Request a Credential
+Alice and Bob now created credentials for them selfs and for the other party. Now they want to expose this information to any other party, without revealing the issuer information. Todo so, you need to request a presentation for a specific schema.
 
-Now Alice can request a credential from Bob (referenced by the entry in our contact list).
+**Note**: The complete communication between the users will be done within the endpoints, because each action needs cryptographically created proofs. To make the process easier, request-proof and presentation endpoints will directly share the presentation.
+
+# Request a Presentation"
+
+At first, Alice needs to send a proof request to Bob (referenced by the entry in our contact list).
 
 ```js
-const data = JSON.stringify({
-  "verifierContactUuid": "37f657b8-dc2f-4f1d-8d20-927393101e74",
-  "proverIdentityUuid": "046973cf-2190-49b0-b668-7ff46ba8495b",
-  "schemaId": "did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98",
-  "revealedAttributes": [ "name" ]
+sendAndLogRequest({
+  url: 'http://localhost:7070/proof-request',
+  method: 'POST',
+  body: {
+    verifierContactId: '37f657b8-dc2f-4f1d-8d20-927393101e74',
+    proverIdentityId: '046973cf-2190-49b0-b668-7ff46ba8495b',
+    schemaId: 'did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98',
+    revealedAttributes: [ 'name' ]
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
 });
-
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
-});
-
-xhr.open("POST", "https://api.trust-trace.com/api/v1/request-presentation");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("tnt-subscription-key", "$ALICE_SUBSCRIPTION_KEY");
-xhr.setRequestHeader("content-type", "application/json");
-
-xhr.send(data);
 ```
 
 Which will return:
@@ -109,48 +100,29 @@ Which will return:
 
 The `uuid` from this points to the Alice's side of the request. A similar request with a different `uuid` has been created on Bob's side.
 
-[CSR assessment]: https://dev.trust-trace.com/csr-assessment
-[Schema's POST]: ref:post_schema
-[Schema's GET]: ref:get_schema-uuid
-[TRUST&TRACE UI]: https://app.trust-trace.com
+# Create a Credential
 
-[block:api-header]
-{
-  "title": "Create a Credential"
-}
-[/block]
-In this section we will respond to the credential request with Bob (the one we invited as `account2@example.com`).
+Next part would be the creation of a credential. Please read [this section](./credential) how you can create a credential.
 
-[block:api-header]
-{
-  "title": "Create a Presentation"
-}
-[/block]
+# Create a Presentation
+
 Now we will create a presentation of our credential, that only reveals a part of the credential created in the last step but we will only reveal `paymentAmount` and `paymentDate`. `invoiceId` will be kept secret. For this we use the [presentation's POST] endpoint:
 
 ```js
-const data = JSON.stringify({
-  "revealedAttributes": ["payedAmount", "paymentDate"],
-  "targetContactUuid": "1e86afa4-a468-49f0-8b8a-7ce97c314ea7",
-  "identityUuid": "707d87b2-262a-4903-98e6-bd7969acaaeb",
-  "vcAssetDataUuid": "40f35433-956e-40b2-94a1-8d33d0e11ee2",
-  "proofRequestUuid": "b86211e1-9651-4f20-9431-c453c16ff3b5"
+sendAndLogRequest({
+  url: 'http://localhost:7070/presentation',
+  method: 'POST',
+  body: {
+    revealedAttributes: ['payedAmount', 'paymentDate'],
+    targetContactUuid: '1e86afa4-a468-49f0-8b8a-7ce97c314ea7',
+    identityUuid: '707d87b2-262a-4903-98e6-bd7969acaaeb',
+    vcAssetDataUuid: '40f35433-956e-40b2-94a1-8d33d0e11ee2',
+    proofRequestUuid: 'b86211e1-9651-4f20-9431-c453c16ff3b5'
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
 });
-
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
-});
-
-xhr.open("POST", "https://api.trust-trace.com/api/v1/presentation");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("tnt-subscription-key", "$BOB_SUBSCRIPTION_KEY");
-xhr.setRequestHeader("content-type", "application/json");
-
-xhr.send(data);
 ```
 
 This will return our presentation:
@@ -292,24 +264,16 @@ This will return our presentation:
 }
 ```
 
-This presentation is currently in `DRAFT` state, so don't be confused that the `invoiceId` is still visible in the result above, it won't be in the final presentation.  As soon as it has been completed, the final presentation can be retrieved with [presentation's GET] endpoint, as shown below.
+This presentation is currently in `DRAFT` state, so don't be confused that the `invoiceId` is still visible in the result above, it won't be in the final presentation.  As soon as it has been completed, the final presentation can be retrieved with [presentation's GET] endpoint, as shown below. If you replace the uuid with `all`, you could also load all presentations for your principal.
 
 ```js
-const data = null;
-
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
+sendAndLogRequest({
+  url: 'http://localhost:7070/presentation/bf73b02b-4597-4d31-9ba5-b2a4ced3fdaf',
+  method: 'Get',
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
 });
-
-xhr.open("GET", "https://api.trust-trace.com/api/v1/presentation/bf73b02b-4597-4d31-9ba5-b2a4ced3fdaf");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("tnt-subscription-key", "$BOB_SUBSCRIPTION_KEY");
-
-xhr.send(data);
 ```
 
 Which returns:
@@ -334,39 +298,9 @@ Which returns:
 }
 ```
 
-We can now verify this presentation with [presentation's GET] endpoint:
-
-```js
-const data = null;
-
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
-});
-
-xhr.open("GET", "https://api.trust-trace.com/api/v1/presentation?proofRequestUuid=b86211e1-9651-4f20-9431-c453c16ff3b5&presentationUuid=bf73b02b-4597-4d31-9ba5-b2a4ced3fdaf");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("tnt-subscription-key", "$BOB_SUBSCRIPTION_KEY");
-
-xhr.send(data);
-```
-
-This will then return:
-
-```json
-{
-  "presentedProof": "37f3a24f-03a7-4be8-a4ee-0ae495ba5f0b",
-  "status": "verified"
-}
-```
-
 [presentation's GET]: ref:get_presentation
 [presentation's POST]: ref:post_presentation
-[block:api-header]
-{
-  "title": "Export a Presentation"
-}
-[/block]
+[CSR assessment]: https://dev.trust-trace.com/csr-assessment
+[Schema's POST]: ref:post_schema
+[Schema's GET]: ref:get_schema-uuid
+[TRUST&TRACE UI]: https://app.trust-trace.com

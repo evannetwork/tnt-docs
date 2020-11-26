@@ -5,29 +5,23 @@ hidden: false
 createdAt: "2020-11-23T07:52:53.035Z"
 updatedAt: "2020-11-23T07:53:04.598Z"
 ---
+
 Back at our first account, we can now get the values from our contact and verify them.
 
 To get the credential values we can use [Proof Request] endpoint again. Notice, that we use the `uuid` of the original request on our first accounts side:
 
 ```js
-const data = null;
-
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
+sendAndLogRequest({
+  url: 'http://localhost:7070/proof-request/6d866fa4-929f-4546-bdf2-db91b7cb7241',
+  method: 'Get',
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
 });
-
-xhr.open("GET", "https://api.trust-trace.com/api/v1/proof-request/6d866fa4-929f-4546-bdf2-db91b7cb7241");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("tnt-subscription-key", "$ALICE_SUBSCRIPTION_KEY");
-
-xhr.send(data);
 ```
 
 Which returns:
+
 ```json
 {
   "createdBy": null,
@@ -51,21 +45,13 @@ Which returns:
 Now we can verify this result with [presentation's GET] endpoint:
 
 ```js
-const data = null;
-
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
+sendAndLogRequest({
+  url: 'http://localhost:7070/presentation/6d866fa4-929f-4546-bdf2-db91b7cb7241/verify?proofRequestUuid=6d866fa4-929f-4546-bdf2-db91b7cb7241',
+  method: 'Get',
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
 });
-
-xhr.open("GET", "https://api.trust-trace.com/api/v1/presentation/abe2760d-e0af-4885-a21b-4adf36c4a6a8/verify?proofRequestUuid=6d866fa4-929f-4546-bdf2-db91b7cb7241");
-xhr.setRequestHeader("accept", "object");
-xhr.setRequestHeader("tnt-subscription-key", "$ALICE_SUBSCRIPTION_KEY");
-
-xhr.send(data);
 ```
 
 Which returns:
