@@ -205,8 +205,7 @@
 								"{{API_URL}}"
 							],
 							"path": [
-								"identity",
-								"all"
+								"identity"
 							]
 						}
 					},
@@ -236,13 +235,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/identity",
+							"raw": "{{API_URL}}/contact",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"identity",
-								"all"
+								"contact"
 							]
 						}
 					},
@@ -432,13 +430,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/identity",
+							"raw": "{{API_URL}}/schema/Billing Data",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"identity",
-								"all"
+								"schema",
+								"Billing Data"
 							]
 						}
 					},
@@ -468,13 +466,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/identity",
+							"raw": "{{API_URL}}/schema",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"identity",
-								"all"
+								"schema"
 							]
 						}
 					},
@@ -566,7 +563,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -574,12 +571,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/asset-data",
+							"raw": "{{API_URL}}/credential/all",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"asset-data",
+								"credential",
 								"all"
 							]
 						}
@@ -618,13 +615,328 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Request Credential",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"DIDCOMM\",\n  \"from\": \"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\n  \"to\": \"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\n  \"command\": \"message\",\n  \"data\": {\n    \"message\": {\n      \"@type\": \"request-credential\",\n      \"requests~attach\": [\n        {\n          \"mime-type\": \"application/json\",\n          \"data\": {\n            \"schemaDid\": \"\",\n            \"leiData\": \"\"\n          }\n        }\n      ],\n      \"~thread\": {\n        \"thid\": \"share thread\"\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/action/DIDCOMM",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"action",
+								"DIDCOMM"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Presentations",
-			"item": [],
+			"item": [
+				{
+					"name": "Request Presentation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"verifierContactId\": \"37f657b8-dc2f-4f1d-8d20-927393101e74\",\n    \"proverIdentityId\": \"046973cf-2190-49b0-b668-7ff46ba8495b\",\n    \"schemaId\": \"did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98\",\n    \"revealedAttributes\": [ \"name\" ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/request-presentation",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"request-presentation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create and send Presentation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"revealedAttributes\": [\"payedAmount\", \"paymentDate\"],\n  \"targetContactUuid\": \"1e86afa4-a468-49f0-8b8a-7ce97c314ea7\",\n  \"identityUuid\": \"707d87b2-262a-4903-98e6-bd7969acaaeb\",\n  \"vcAssetDataUuid\": \"40f35433-956e-40b2-94a1-8d33d0e11ee2\",\n  \"proofRequestUuid\": \"b86211e1-9651-4f20-9431-c453c16ff3b5\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/presentation",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"presentation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Presentation",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/presentation/657a6988-741c-4d77-b88e-7d48691a91cb",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"presentation",
+								"657a6988-741c-4d77-b88e-7d48691a91cb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Presentation",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/presentation",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"presentation"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Verify",
+			"item": [
+				{
+					"name": "Get Proof Request",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/proof-request/6d866fa4-929f-4546-bdf2-db91b7cb7241",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"proof-request",
+								"6d866fa4-929f-4546-bdf2-db91b7cb7241"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Presentation",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/presentation/6d866fa4-929f-4546-bdf2-db91b7cb7241/verify?proofRequestUuid=6d866fa4-929f-4546-bdf2-db91b7cb7241",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"presentation",
+								"6d866fa4-929f-4546-bdf2-db91b7cb7241",
+								"verify"
+							],
+							"query": [
+								{
+									"key": "proofRequestUuid",
+									"value": "6d866fa4-929f-4546-bdf2-db91b7cb7241"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "External Signer",
+			"item": [
+				{
+					"name": "Register External Signer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"principalUuid\": \"9bb12ebd-2e17-46f1-a8b1-b009cf79b363\",\n    \"setting\": {\n      \"externalSignerUrl\": \"http://localhost:1337/signer\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/settings/PRINCIPAL_SETTINGS",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"settings",
+								"PRINCIPAL_SETTINGS"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b8855983-ac97-4b55-8d8c-adce3f3f4a43",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "006013bc-73b0-4bc8-ad21-740521d12b88",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
 			"protocolProfileBehavior": {}
 		}
 	],
@@ -652,42 +964,42 @@
 	],
 	"variable": [
 		{
-			"id": "ab20371c-69b9-431f-87d5-91d8e9d724e7",
+			"id": "5643be79-9266-4b14-b6a4-305d50850936",
 			"key": "API_URL",
 			"value": "http://localhost:7070"
 		},
 		{
-			"id": "c862d6db-258d-4f86-a452-bc7e7963273b",
+			"id": "21abeee3-a9aa-44fd-8cc4-3581ba856103",
 			"key": "USER_1_EMAIL",
 			"value": "test+1@test.de"
 		},
 		{
-			"id": "0acbb519-5edd-4fd0-8dce-71306805bb26",
+			"id": "6c45e8cc-b3b0-4755-a4ea-e369b7e9844f",
 			"key": "USER_2_EMAIL",
 			"value": "test+2@test.de"
 		},
 		{
-			"id": "ebd82ed1-5335-4b1f-b1d3-3845862d5b2d",
+			"id": "ea7248b2-135d-4e22-8c93-c1f78a3479ab",
 			"key": "USER_1_PASSWORD",
 			"value": "test+1@test.de"
 		},
 		{
-			"id": "73011190-285d-42e6-8ccd-990aeacc10d6",
+			"id": "b22ca974-b645-4ed9-bc5b-61553e88dab7",
 			"key": "USER_2_PASSWORD",
 			"value": "test+2@test.de"
 		},
 		{
-			"id": "2833011b-8721-41dc-b3ae-5bc4d40eed94",
+			"id": "e34422ed-969a-46d5-9432-a5b87a2cfe89",
 			"key": "USER_1_SUBSCRIPTION",
 			"value": "010e78af828742df91cf8145b8c05a92"
 		},
 		{
-			"id": "a0873ebb-4bb2-4564-b432-ba9d83ea0741",
+			"id": "ebe1d3ae-7770-4a8c-a790-a2c1c2b1d82d",
 			"key": "USER_2_SUBSCRIPTION",
 			"value": "c88a5286b5d24480a65295b9a8c01e0a"
 		},
 		{
-			"id": "5b778d3a-9342-4fca-9ed9-0171e282da3e",
+			"id": "d9930ab8-921e-405e-a873-ac219ae72584",
 			"key": "AUTH_URL",
 			"value": "http://localhost:7070"
 		}
