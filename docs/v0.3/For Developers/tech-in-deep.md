@@ -1,5 +1,5 @@
 ---
-title: "TECH DEEP"
+title: "Deep technical"
 slug: "tech-in-deep"
 hidden: false
 createdAt: "2020-11-27T10:56:21.036Z"

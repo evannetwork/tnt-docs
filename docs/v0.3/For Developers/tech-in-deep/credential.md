@@ -108,7 +108,7 @@ Every issuer needs to create at **least one credential definition per schema** t
 
 ## Credential Issuance
 
-![Issuance flowchart](./img/flowchart_issuance.svg "Issuance flowchart")
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/tech-in-deep/img/flowchart_issuance.svg)
 
 #### 1. Credential Proposal
 
@@ -220,11 +220,11 @@ If Issuer objects to the credential request, e.g. because the provided nonce is 
 The following images depict the data being exchanged and required for the credential issuance workflow
 
 1. Issuance of a credential
-![Issuance data exchange](./img/data_exchange_issuance.svg "Issuance data exchange")
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/tech-in-deep/img/data_exchange_issuance.svg "Issuance data exchange")
 
 ## Verification
 
-![Verification flowchart](./img/flowchart_verification.svg "Verification flowchart")
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/tech-in-deep/img/flowchart_verification.svg "Verification flowchart")
 
 #### 5. Request Proof
 
@@ -312,10 +312,10 @@ or
 The following images depict the data being exchanged and required for the credential verification workflow
 
 1. Verification of a single proof
-![Verification data exchange](./img/data_exchange_verification.svg "Verification data exchange")
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/tech-in-deep/img/data_exchange_verification.svg "Verification data exchange")
 
 2. Verification of multiple proofs
-![Verification data exchange for multiple credentials](./img/data_exchange_verification_multiple.svg "Verification data exchange for multiple credentials")
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/tech-in-deep/img/data_exchange_verification_multiple.svg "Verification data exchange for multiple credentials")
 
 ## Revocation
 
@@ -345,8 +345,3 @@ This part is stored by Issuer and must not be shared with anyone.
 
 Upon verification, Verifier queries the retrieves the revocation registry and revocation public key from the credential definition.
 They can then asses whether the witness is valid.
-
-## Expiration
-
-<-- -->
-TBD: Open to discussion
