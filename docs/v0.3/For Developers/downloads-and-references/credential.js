@@ -45,7 +45,7 @@ sendAndLogRequest({
 
 // find a credential
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential/all',
+  url: 'http://localhost:7070/credential',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
@@ -126,7 +126,7 @@ sendAndLogRequest({
 
 // load all credentials
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential/all',
+  url: 'http://localhost:7070/credential',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',

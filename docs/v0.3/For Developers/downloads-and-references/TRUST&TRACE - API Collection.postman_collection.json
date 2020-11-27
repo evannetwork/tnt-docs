@@ -200,7 +200,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/identity/all",
+							"raw": "{{API_URL}}/identity",
 							"host": [
 								"{{API_URL}}"
 							],
@@ -236,7 +236,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/identity/all",
+							"raw": "{{API_URL}}/identity",
 							"host": [
 								"{{API_URL}}"
 							],
@@ -432,7 +432,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/identity/all",
+							"raw": "{{API_URL}}/identity",
 							"host": [
 								"{{API_URL}}"
 							],
@@ -468,7 +468,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/identity/all",
+							"raw": "{{API_URL}}/identity",
 							"host": [
 								"{{API_URL}}"
 							],
@@ -574,7 +574,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/asset-data/all",
+							"raw": "{{API_URL}}/asset-data",
 							"host": [
 								"{{API_URL}}"
 							],

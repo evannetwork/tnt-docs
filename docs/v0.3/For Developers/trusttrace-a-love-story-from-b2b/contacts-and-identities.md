@@ -36,7 +36,7 @@ Everything that is related to credentials needs a identity to work with. You can
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/identity/all',
+  url: 'http://localhost:7070/identity',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',

@@ -10,7 +10,7 @@ When working with credentials, we will mostly encounter the following use cases.
 
 ### Credential vs. Presentation
 
-Please have always in mind, that there is a huge difference between credentials and presentations. All credentials hold always the complete information and everyone can verify, who created it. A presentation on the other side, is created out of a credential and can expose information without revealing any information about the issuer. Furthermore, one presentation can include multiple credentials that are shared with one user.
+Please have always the difference between credentials and presentations in your mind. All credentials hold always the complete information and everyone can verify, who created it. A presentation on TRUST&TRACE on the other side, is created out of a credential and can expose information without revealing any information about the issuer (because of ZKP structure). Furthermore, one presentation can include multiple credentials that are shared with one user.
 
 If you want to read more a bout presentations, please head over to the [presentation section]. But keep in mind, a presentation is **always** created out of a credential.
 
@@ -240,7 +240,7 @@ If you want to share a credential with another user, you can just send it via di
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential/all',
+  url: 'http://localhost:7070/credential',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
@@ -373,7 +373,7 @@ If you know the asset-data uuid that is attached to the wanted credential, you c
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential/all',
+  url: 'http://localhost:7070/credential',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',

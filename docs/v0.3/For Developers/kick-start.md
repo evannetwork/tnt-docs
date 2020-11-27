@@ -46,7 +46,7 @@ When [registering on TRUST&TRACE], a principal and a account will be created. In
 
 Each principal can manage several identities and give interaction permissions to each account separately. An identity is your acting instance in a principal. If we compare principals to companies, identities are like legal persons in this company, while your account is a natural person. Your account acts as one of those legal persons in the context of the company. Every principal gets a default identity in principals when its created.
 
-Default identities on TRUST&TRACE are created on the evan.network. To read more about the underlying technology, continue at: [Identities on evan.network]. Each identity has a corresponding did and did document. A decentralized identifier, or DID, is a means to claim and manage an identity that is verifiable, decentralized, and independent. The owner of the identity is the only one who can proof ownership over and make changes to this identity. The DID itself is only a reference pointing to a DID document containing the information necessary for authentication. DIDs are very useful in combination with Verifiable Credentials to make and validate claims, e.g. certifications of ownership or usage authorization. For an in-depth explanation of DIDs, please refer to the [W3C DID working draft].
+Default identities on TRUST&TRACE are created on the evan.network. To read more about the underlying technology, continue at: [Identities on evan.network]. Each identity has a corresponding did and did document. A decentralized identifier, or DID, is a means to claim and manage an identity that is verifiable, decentralized, and independent. The owner of the identity is the only one who can proof ownership over and make changes to this identity. The DID itself is only a reference pointing to a DID document containing the information necessary for authentication. DIDs are very useful in combination with Verifiable Credentials to make and validate claims, e.g. certifications of ownership or usage authorization. For an in-depth explanation of DIDs, please refer to the [W3C DID].
 
 TRUST&TRACE manages message signing and identity handling for you, but offers the functionality for fully [self sovereign identities].
 
@@ -61,7 +61,7 @@ Every communication with any partner takes place under one contact within the sy
 Actions representing a capsulated business case or a grouping for different credentials. Once executed, they handle sending of credentials in a specific manner and categorizes the whole communication within one thread. TRUST&TRACE supports currently the following business cases functionalities:
 
 - [CSR] - requesting certificates from your partner
-- [DIDCOMM] - ppen a DIDComm communication channel that handles message decryption / encryption
+- [DIDCOMM] - open a DIDComm communication channel that handles message decryption / encryption
 - [Invitation] - requests a DID exchange for
 - [NCE] - handler for validating and sending [NCE formatted DIDComm messages]
 - [ORDER-TRACING] - NCE formatted for tracing orders
@@ -74,16 +74,37 @@ Calculating cryptographic proofs or identity contracts on a blockchain can take 
 
 The following section will shortly explain the basic concepts and functionalities of credential templates, definitions and the credentials itself.
 
-Tbd.
+- W3C compliant: The whole credential and presentation management is basically built on the following concept: [Credentials W3C](https://www.w3.org/TR/vc-data-model/#what-is-a-verifiable-credential).
+
+- ANONCREDS: TRUST&TRACE credentials and presentations are built based on [anoncreds (for Zero-knowledge proof / ZKP logic)](https://github.com/hyperledger/ursa/blob/master/libursa/docs/anoncreds-design.md), so its possible to create presentations without revealing any information about the issuer.
+
+- VADE: [RUST library](https://docs.rs/vade/0.0.8/vade) for creating and verifying credentials. Can be compiled to run native on many machines.
 
 ## Schemas - Data Formats
 
 To be able to create credentials on TRUST&TRACE you will always need a base data format specification, a so called "Credential Schema" (or sometimes "Credential Template"). With this, you can design and distribute data exchange formats for generalized data exchange.
 
-## Asset-Data: Credentials & Presentations
+### Why Schemas
 
-Based on this schemas, you can create credential definitions
+When creating Verifiable Credentials you can only proof the validity of the signature. This includes then only the proof of the whole payload attached to the vc. The problem for this case is that everybody can issue a given vc that you can then present to other systems.
 
+When you want not only to check the proof for a given vc but you also want to check if the format of the vc data matches a given schema you have currently no possibility to check the presented vc against a defined referenced schema.
+
+A VC Schema defines the structure of the data stored on a vc. The schema is basically a JSON Schema <http://json-schema.org> defined structure which can be proven against given VC Data.
+
+The Given JSON Schema is then attached to the property "credentialSchema" in the given VC. It is referenced either with a given existing VC Id or passed as URL to the appropriate schema associated. It would be also possible to provide the schema of the vc together with the vc itself.
+
+This possibility enables checking of the vc proof itself and checking if the content in the vc is well formed.
+
+## Credential Definitions
+
+In addition to a schema, every issued ZKP also needs to reference a credential definition. A credential definition provides the cryptographic material needed by a verifier to verify signatures and will be referenced in a credential's proof. Additionally, a credential definition contains a revocation registry that holds the revocation status of every credential issued under the use of this credential definition. The registry and the according revocation public key are needed by verifiers to validate the non-revocation proof presented by a prover. The credential definition's proof property binds the credential definition to the issuer. Every issuer needs to create at least one credential definition per schema they plan to issue.
+
+## Credentials & Presentations
+
+A credential is created out of a credential definition and can contain multiple claims. The issuer of the credential is cryptographically verifiable. Please read the credentials section to get some specific examples and to see, how you can create [credentials on TRUST&RACE](./credentials-1).
+
+A presentation is created out of one or more credentials and can be shared separately. Presentations can snapshot a specific part of a credential, so its possible to share only a partial presentation. Also, a presentation can derive specific claims from the parent credential like: Alice has a credential that proofs, that her birthday is at the 01.01.1970. She can now create and share a presentation, that proofs, that she is older than 18. Besides that, TRUST&TRACE has the possibility to hide the presentation issuer with the power of ZKPs.
 
 [Contacts and Identities]: ./contacts-and-identities
 [generate a technical user]: ./login-and-auth
@@ -94,7 +115,7 @@ Based on this schemas, you can create credential definitions
 [registering on Trust&Trace]: https://app.trust-trace.com
 [self sovereign identities]: ./self-sovereign-identities
 [TRUST&TRACE with external partners]: ./talking-didcomm
-[W3C DID working draft]: https://w3c.github.io/did-core/
+[W3C DID]: https://w3c.github.io/did-core/
 [Invitation]: ./login-and-auth
 [Master data]: ../reference#npe
 [CSR]: ../reference#csr

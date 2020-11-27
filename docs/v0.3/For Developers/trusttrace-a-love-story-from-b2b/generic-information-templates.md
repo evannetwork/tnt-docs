@@ -91,7 +91,7 @@ TRUST&TRACE offers a bunch of existing schemas, especially generalized templates
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/schema/all',
+  url: 'http://localhost:7070/schema',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
