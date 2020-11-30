@@ -10,7 +10,9 @@ By registering on TRUST&TRACE a identity on the evan.network and a corresponding
 
 # Preperation
 
-TBD.: ... register identity on evan ...
+To use a external signer you will probably need a identity on evan.network. Please create on by registering on [https://dashboard.evan.network]. When you have registered successfully, you can navigate to the settings page and view the technical information of your [account](https://dashboard.test.evan.network/#/dashboard.vue.evan/settings.evan/account).
+
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/partner-integration/images/tech-info-evan-network.png)
 
 # Configuring an External Signer
 
@@ -36,7 +38,7 @@ Which will return something like this:
   "principalUuid": "b06024d2-dcdd-4b87-8888-61bce894e41c",
   "key": "PRINCIPAL_SETTINGS",
   "setting": {
-      "externalSigningUrl": "http://localhost:1337/signer"
+    "externalSigningUrl": "http://localhost:1337/signer"
   },
   "createdBy": null,
   "updatedBy": null,
@@ -48,4 +50,143 @@ Which will return something like this:
 
 # Configuring Signer endpoint
 
-explain tnt-lei-agent signer url:
+The external signer url is requested on each schema, credential definition, credential and presentation creation. The endpoint is generally requested with the following parameters:
+
+- ``did`` - `string`: did to sign the message for
+- ``message`` - `string`: string sign (usually a stringified object)
+
+## Example signer
+
+*This example is based on a typescript implementation. This can be probably done in every language.*
+
+Please visit the following project for a example signing endpoint: [tnt-agent signer](https://github.com/evannetwork/tnt-agent/blob/feature/develop/src/plugins/signer/signer.ts).
+
+This sample uses ``ECDSA`` (Elliptic Curve Digital Signature) encryption algorithm.
+
+1. Please resolve the original did document to ensure, that the did is really permitted on the underlying document.
+
+```ts
+import { ecsign, toRpcSig } from 'ethereumjs-util';
+import { EvanDIDResolver, EvanDIDDocument } from "@evan.network/did-resolver";
+
+interface PublicKey {
+  id: string;
+  type: string;
+  controller: string;
+  ethereumAddress: string;
+}
+
+interface Proof {
+  type: string;
+  created: Date;
+  proofPurpose: string;
+  verificationMethod: string;
+  jws: string;
+}
+
+interface DidDocInterface {
+  id: string;
+  publicKey: PublicKey[];
+  authentication: string[];
+  created: Date;
+  updated: Date;
+  proof: Proof;
+}
+
+
+async function getDid(did: string): Promise<DidDocInterface> {
+  const resolverTestcore = new EvanDIDResolver('https://testcore.evan.network/did');
+  const resolverCore = new EvanDIDResolver('https://core.evan.network/did');
+
+  let didDocument: EvanDIDDocument;
+  if (did.startsWith('did:evan:testcore:')) {
+    didDocument = await resolverTestcore.resolveDid(did);
+  } else {
+    didDocument = await resolverCore.resolveDid(did);
+  }
+  return didDocument as unknown as DidDocInterface;
+}
+```
+
+2. Extract the ethereum address from the did document and check, if the private key is configured for the user.
+
+```ts
+const knownPublicKeys = {
+  '0x123123...': 'PRIVATE_KEY',
+};
+
+// find the ethereum address from publicKey
+let ethereumAddress = (didDoc.publicKey.find(
+  (address) => (address.id === did),
+) as unknown as { ethereumAddress: string }).ethereumAddress;
+ethereumAddress = web3.utils.toChecksumAddress(ethereumAddress);
+
+if (!knownPublicKeys && !knownPublicKeys[ethereumAddress]) {
+  throw new Error(`address is not configured for signing in server: ${ethereumAddress}`);
+}
+```
+
+3. Use the signing function, to sign the message for the public and private key.
+
+```ts
+import Web3 from 'web3';
+
+/**
+ * Sign a specific message with a given private key.
+ *
+ * @param privateKey private key to sign with
+ * @param message stringified object to sign
+ */
+function signMessageRequest(privateKey: string, message: string) {
+  let messageHash;
+  if (!message) {
+    // if no message provided, use timestamp
+    let dateMessage = Date.now().toString(16);
+    // check to see if message length is odd
+    // if odd then concatenate 0x0 else 0x
+    if (dateMessage.length % 2 === 0) {
+      dateMessage = `0x${dateMessage}`;
+    } else {
+      dateMessage = `0x0${dateMessage}`;
+    }
+    messageHash = web3.eth.accounts.hashMessage(dateMessage);
+  } else if (!message.startsWith('0x')) {
+    // if message is a regular string, hash it
+    messageHash = web3.eth.accounts.hashMessage(message);
+  } else {
+    // if message is already a hash, use it as is
+    messageHash = message;
+  }
+
+  // convert messageHash to buffer for signing
+  const digestNew = Buffer.from(web3.utils.hexToBytes(messageHash));
+
+  // convert key to buffer for signing
+  const keyBuffer = Buffer.from(privateKey, 'hex');
+  const signedMessageObject = ecsign(digestNew, keyBuffer);
+
+  // ecsign only returns the r,s,v parameters therefore recover the signature from the parameter
+  const signature = toRpcSig(signedMessageObject.v, signedMessageObject.r, signedMessageObject.s);
+
+  // convert r,s,v parameters to hex strings because web3 recovery expects hex strings
+  const r = (signedMessageObject.r).toString('hex');
+  const s = (signedMessageObject.s).toString('hex');
+  const v = (signedMessageObject.v).toString(16);
+
+  let recoveredPublicKey;
+  // web3 recover function does not work properly when entire signature string is passed,
+  // therefore manually passing r,s,v parameters
+  recoveredPublicKey = web3.eth.accounts.recover({
+    messageHash: `0x${digestNew.toString('hex')}`,
+    v: `0x${v}`,
+    r: `0x${r}`,
+    s: `0x${s}`
+  });
+
+  return {
+    messageHash,
+    signature,
+    signerAddress: recoveredPublicKey,
+  };
+}
+```
