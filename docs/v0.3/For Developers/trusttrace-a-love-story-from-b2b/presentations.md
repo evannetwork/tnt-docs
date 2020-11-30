@@ -16,7 +16,7 @@ At first, Alice needs to send a proof request to Bob (referenced by the entry in
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/proof-request',
+  url: 'https://api.trust-trace.com/api/v1/proof-request',
   method: 'POST',
   body: {
     verifierContactId: '37f657b8-dc2f-4f1d-8d20-927393101e74',
@@ -110,7 +110,7 @@ Now we will create a presentation of our credential, that only reveals a part of
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/presentation',
+  url: 'https://api.trust-trace.com/api/v1/presentation',
   method: 'POST',
   body: {
     revealedAttributes: ['payedAmount', 'paymentDate'],
@@ -268,7 +268,7 @@ This presentation is currently in `DRAFT` state, so don't be confused that the `
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/presentation/bf73b02b-4597-4d31-9ba5-b2a4ced3fdaf',
+  url: 'https://api.trust-trace.com/api/v1/presentation/bf73b02b-4597-4d31-9ba5-b2a4ced3fdaf',
   method: 'Get',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',

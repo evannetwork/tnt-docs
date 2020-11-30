@@ -12,6 +12,8 @@ By registering on TRUST&TRACE a identity on the evan.network and a corresponding
 
 To use a external signer you will probably need a identity on evan.network. Please create on by registering on [https://dashboard.evan.network]. When you have registered successfully, you can navigate to the settings page and view the technical information of your [account](https://dashboard.test.evan.network/#/dashboard.vue.evan/settings.evan/account).
 
+To read more about identities on the evan.network, please read the following: [Identities](https://evannetwork.github.io/docs/developers/concepts/Identities.html).
+
 ![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/partner-integration/images/tech-info-evan-network.png)
 
 # Configuring an External Signer
@@ -20,7 +22,7 @@ Per default, keys are stored a secure Azure vault and TRUST&TRACE has no access 
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/settings/PRINCIPAL_SETTINGS',
+  url: 'https://api.trust-trace.com/api/v1/settings/PRINCIPAL_SETTINGS',
   method: 'POST',
   body: {
     principalUuid: 'my-principal',

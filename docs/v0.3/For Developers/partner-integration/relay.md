@@ -73,7 +73,7 @@ await axios({
 });
 ```
 
-# Receive a webhook"
+# Receive a webhook
 
 The other party will receive the following payload that is requested by the webhook logic:
 

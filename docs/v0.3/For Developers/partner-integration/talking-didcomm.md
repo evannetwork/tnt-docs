@@ -52,7 +52,7 @@ This message can be send easily to the http-transport via REST. You will receive
 const credential = JSON.parse(result.hits[0].value);
 
 sendAndLogRequest({
-  url: 'http://localhost:7070/http-transport',
+  url: 'https://api.trust-trace.com/api/v1/http-transport',
   method: 'POST',
   body: {
     targetPrincipalUuid: 'receiver principal uuid',
@@ -61,6 +61,7 @@ sendAndLogRequest({
 });
 ```
 
+<!--
 # How to do a DID exchange manually
 
-TBD.
+TBD. -->

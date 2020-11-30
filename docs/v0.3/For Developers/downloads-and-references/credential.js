@@ -14,7 +14,7 @@ const sendAndLogRequest = async ({ url, method, body, headers }) => {
 
 // create credential definition
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential-definition',
+  url: 'https://api.trust-trace.com/api/v1/credential-definition',
   method: 'POST',
   body: {
     schemaId: 'Billing Data',
@@ -27,7 +27,7 @@ sendAndLogRequest({
 
 // create self signed credential
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential',
+  url: 'https://api.trust-trace.com/api/v1/credential',
   method: 'POST',
   body: {
     credentialValues: {
@@ -45,7 +45,7 @@ sendAndLogRequest({
 
 // find a credential
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential',
+  url: 'https://api.trust-trace.com/api/v1/credential',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
@@ -54,7 +54,7 @@ sendAndLogRequest({
 
 // share the credential
 sendAndLogRequest({
-  url: 'http://localhost:7070/didcomm',
+  url: 'https://api.trust-trace.com/api/v1/didcomm',
   method: 'POST',
   body: {
     type: 'DIDCOMM',
@@ -81,7 +81,7 @@ sendAndLogRequest({
 
 // request a credential
 sendAndLogRequest({
-  url: 'http://localhost:7070/didcomm',
+  url: 'https://api.trust-trace.com/api/v1/didcomm',
   method: 'POST',
   body: {
     type: 'DIDCOMM',
@@ -111,7 +111,7 @@ sendAndLogRequest({
 
 // create a credential for a partner
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential',
+  url: 'https://api.trust-trace.com/api/v1/credential',
   method: 'POST',
   body: {
     schemaId: 'did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0',
@@ -126,7 +126,7 @@ sendAndLogRequest({
 
 // load all credentials
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential',
+  url: 'https://api.trust-trace.com/api/v1/credential',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',

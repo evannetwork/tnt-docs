@@ -14,7 +14,7 @@ Requesting credential requires a credential schema - you need to have a schema f
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/contact',
+  url: 'https://api.trust-trace.com/api/v1/contact',
   method: 'POST',
   body: {
     "properties": {
@@ -56,7 +56,7 @@ Creating the actual credential may take a while, so the returned returned result
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/schema/Billing Data',
+  url: 'https://api.trust-trace.com/api/v1/schema/Billing Data',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
@@ -91,7 +91,7 @@ TRUST&TRACE offers a bunch of existing schemas, especially generalized templates
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/schema',
+  url: 'https://api.trust-trace.com/api/v1/schema',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',

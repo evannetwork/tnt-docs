@@ -44,7 +44,7 @@ But before she can create the credential it self, she needs a credential definit
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential-definition',
+  url: 'https://api.trust-trace.com/api/v1/credential-definition',
   method: 'POST',
   body: {
     schemaId: 'Billing Data',
@@ -98,7 +98,7 @@ A schema can be used to create an unlimited amount of credentials, that have the
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential',
+  url: 'https://api.trust-trace.com/api/v1/credential',
   method: 'POST',
   body: {
     schemaId: 'Billing Data',
@@ -240,7 +240,7 @@ If you want to share a credential with another user, you can just send it via di
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential',
+  url: 'https://api.trust-trace.com/api/v1/credential',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
@@ -282,7 +282,7 @@ You can now parse the value of this asset data and share this one via the didcom
 const credential = JSON.parse(result.hits[0].value);
 
 sendAndLogRequest({
-  url: 'http://localhost:7070/didcomm',
+  url: 'https://api.trust-trace.com/api/v1/didcomm',
   method: 'POST',
   body: {
     type: 'DIDCOMM',
@@ -316,7 +316,7 @@ To request a credential, you need to send a credential request to your partner. 
 const credential = JSON.parse(result.hits[0].value);
 
 sendAndLogRequest({
-  url: 'http://localhost:7070/didcomm',
+  url: 'https://api.trust-trace.com/api/v1/didcomm',
   method: 'POST',
   body: {
     type: 'DIDCOMM',
@@ -353,7 +353,7 @@ The receiver can then use this credential to issue the credential for the receiv
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential',
+  url: 'https://api.trust-trace.com/api/v1/credential',
   method: 'POST',
   body: {
     schemaId: 'did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0',
@@ -373,7 +373,7 @@ If you know the asset-data uuid that is attached to the wanted credential, you c
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/credential',
+  url: 'https://api.trust-trace.com/api/v1/credential',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',

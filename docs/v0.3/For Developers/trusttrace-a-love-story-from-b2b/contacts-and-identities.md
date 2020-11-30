@@ -36,7 +36,7 @@ Everything that is related to credentials needs a identity to work with. You can
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/identity',
+  url: 'https://api.trust-trace.com/api/v1/identity',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
@@ -77,7 +77,7 @@ To create a new contact, you can use the [Contact] endpoint. Remember that you n
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/contact',
+  url: 'https://api.trust-trace.com/api/v1/contact',
   method: 'POST',
   body: {
     email: 'my.partner@example.com',
@@ -129,7 +129,7 @@ To send a invitation via did, you can use the invitation action. After that, TRU
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/invitation',
+  url: 'https://api.trust-trace.com/api/v1/invitation',
   method: 'POST',
   body: {
     from: '4df8c436-1c5f-4a2b-ba75-4bce37256490',
@@ -181,7 +181,7 @@ Now we can use the `uuid` from our identity to create an invitation:
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/invitation',
+  url: 'https://api.trust-trace.com/api/v1/invitation',
   method: 'POST',
   body: {
     config: {
@@ -211,7 +211,7 @@ Which returns an invitation action:
   "config": "{\"authorization\":\"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InV1aWQiOiIyYzliZTUzYS1kYjc4LTRmY2MtYTQ1Yi1kZWRhYzkwZTI5NDciLCJwcmluY2lwYWxVdWlkIjoiOTkwY2NkNDgtOTRkYy00YzIxLTg1ODktN2Q2MDIzMjI1MTdlIn0sImlhdCI6MTYwMDY5NDg0MywiZXhwIjoxNjAwNzgxMjQzfQ.vrl-sh2btd16yoKZeZtyqVf8icD5z6RW6TEL1JDjLH8\",\"contactUuid\":\"44c5d3b0-3437-487b-ae24-398c19a230ea\",\"email\":\"account2@example.com\",\"inviteName\":\"Account 2\"}",
   "status": "ACTIVE",
   "typeStatus": "",
-  "data": "{\"endpoint\": \"account2@example.com\",\"invitation\": {\"recipientKeys\": [\"2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa\"],\"from\": \"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\"@id\": \"932677bc-ba47-45e3-9cdf-ee090e27b0ce\",\"serviceEndpoint\": \"http://localhost:7070/api/didcomm\"},\"invitationId\": \"bf736cab-a735-4a77-9580-7494cfb71fc4\",\"parentthreadid\": \"932677bc-ba47-45e3-9cdf-ee090e27b0ce\",\"protocol\": \"DIDCOMM\"}*,
+  "data": "{\"endpoint\": \"account2@example.com\",\"invitation\": {\"recipientKeys\": [\"2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa\"],\"from\": \"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\"@id\": \"932677bc-ba47-45e3-9cdf-ee090e27b0ce\",\"serviceEndpoint\": \"https://api.trust-trace.com/api/v1/api/didcomm\"},\"invitationId\": \"bf736cab-a735-4a77-9580-7494cfb71fc4\",\"parentthreadid\": \"932677bc-ba47-45e3-9cdf-ee090e27b0ce\",\"protocol\": \"DIDCOMM\"}*,
   "createdBy": null,
   "updatedBy": null,
   "tags": null,
@@ -238,7 +238,7 @@ When having a look at the `data` part of the result from [invitation], the data 
     ],
     "from": "did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483",
     "@id": "932677bc-ba47-45e3-9cdf-ee090e27b0ce",
-    "serviceEndpoint": "http://localhost:7070/api/didcomm"
+    "serviceEndpoint": "https://api.trust-trace.com/api/v1/api/didcomm"
   },
   "invitationId": "bf736cab-a735-4a77-9580-7494cfb71fc4",
   "parentthreadid": "932677bc-ba47-45e3-9cdf-ee090e27b0ce",
@@ -252,7 +252,7 @@ The other party (`account2@example.com`), can use this information to request th
 
 ```js
 sendAndLogRequest({
-  url: 'http://localhost:7070/invitation',
+  url: 'https://api.trust-trace.com/api/v1/invitation',
   method: 'POST',
   body: {
     config: {
@@ -263,7 +263,7 @@ sendAndLogRequest({
         ],
         from: 'did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483',
         '@id': '932677bc-ba47-45e3-9cdf-ee090e27b0ce',
-        serviceEndpoint: 'http://localhost:7070/api/didcomm'
+        serviceEndpoint: 'https://api.trust-trace.com/api/v1/api/didcomm'
       },
       invitationId: 'bf736cab-a735-4a77-9580-7494cfb71fc4',
     },
@@ -291,10 +291,10 @@ Which also returns an invitation action:
   "typeVersion": 1,
   "direction": "INCOMING",
   "referenceID": "2ee4d67a-8b04-46cd-abed-10d133d8947c",
-  "config": "{\"authorization\":\"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InV1aWQiOiIxMDNkOTU4MS1kOTY0LTQ2M2QtYWFhOS05NmNlYTc0OTI4NDUiLCJwcmluY2lwYWxVdWlkIjoiNGVmMGJlZGItZmI0ZS00ZWM0LWJkNDctMDA5M2MwYzg4MjVkIn0sImlhdCI6MTYwMDY4OTM1MSwiZXhwIjoxNjAwNzc1NzUxfQ.FUo9qfjckUbXD5PQwOsOhehzmE2lsLatzmviqwCFXgg\",\"contactUuid\":\"1e86afa4-a468-49f0-8b8a-7ce97c314ea7\",\"vcAssetDataUuids\":[\"6b228a75-1101-4a2e-b9f1-c07b4b8c1c67\"],\"invitation\":{\"recipientKeys\":[\"D3JNitvx4WLeKUnxHWYEFCo6YzchUMYEpiCYfGePsHZJ\"],\"from\":\"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\"@id\":\"2ee4d67a-8b04-46cd-abed-10d133d8947c\",\"serviceEndpoint\":\"http://localhost:7070/api/didcomm\"},\"invitationId\":\"22bf78f0-7916-4b53-bbc2-1ff4830754bd\"}",
+  "config": "{\"authorization\":\"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InV1aWQiOiIxMDNkOTU4MS1kOTY0LTQ2M2QtYWFhOS05NmNlYTc0OTI4NDUiLCJwcmluY2lwYWxVdWlkIjoiNGVmMGJlZGItZmI0ZS00ZWM0LWJkNDctMDA5M2MwYzg4MjVkIn0sImlhdCI6MTYwMDY4OTM1MSwiZXhwIjoxNjAwNzc1NzUxfQ.FUo9qfjckUbXD5PQwOsOhehzmE2lsLatzmviqwCFXgg\",\"contactUuid\":\"1e86afa4-a468-49f0-8b8a-7ce97c314ea7\",\"vcAssetDataUuids\":[\"6b228a75-1101-4a2e-b9f1-c07b4b8c1c67\"],\"invitation\":{\"recipientKeys\":[\"D3JNitvx4WLeKUnxHWYEFCo6YzchUMYEpiCYfGePsHZJ\"],\"from\":\"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\"@id\":\"2ee4d67a-8b04-46cd-abed-10d133d8947c\",\"serviceEndpoint\":\"https://api.trust-trace.com/api/v1/api/didcomm\"},\"invitationId\":\"22bf78f0-7916-4b53-bbc2-1ff4830754bd\"}",
   "status": "ACTIVE",
   "typeStatus": "",
-  "data": "{\"protocol\": \"DIDCOMM\",\"publicKey\": \"D3JNitvx4WLeKUnxHWYEFCo6YzchUMYEpiCYfGePsHZJ\",\"endpoint\": \"http://localhost:7070/api/didcomm\",\"parentthreadid\": \"2ee4d67a-8b04-46cd-abed-10d133d8947c\"}",
+  "data": "{\"protocol\": \"DIDCOMM\",\"publicKey\": \"D3JNitvx4WLeKUnxHWYEFCo6YzchUMYEpiCYfGePsHZJ\",\"endpoint\": \"https://api.trust-trace.com/api/v1/api/didcomm\",\"parentthreadid\": \"2ee4d67a-8b04-46cd-abed-10d133d8947c\"}",
   "tags": ""
 }
 ```

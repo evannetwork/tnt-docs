@@ -14,7 +14,7 @@ const sendAndLogRequest = async ({ url, method, body, headers }) => {
 
 // create schema
 sendAndLogRequest({
-  url: 'http://localhost:7070/schema',
+  url: 'https://api.trust-trace.com/api/v1/schema',
   method: 'POST',
   body: {
     "properties": {
@@ -34,7 +34,7 @@ sendAndLogRequest({
 
 // get schema
 sendAndLogRequest({
-  url: 'http://localhost:7070/schema/Billing Data',
+  url: 'https://api.trust-trace.com/api/v1/schema/Billing Data',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
@@ -43,7 +43,7 @@ sendAndLogRequest({
 
 // get all schema
 sendAndLogRequest({
-  url: 'http://localhost:7070/schema',
+  url: 'https://api.trust-trace.com/api/v1/schema',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',

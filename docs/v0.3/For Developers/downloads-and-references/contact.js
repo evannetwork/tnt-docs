@@ -14,7 +14,7 @@ const sendAndLogRequest = async ({ url, method, body, headers }) => {
 
 // get identities
 sendAndLogRequest({
-  url: 'http://localhost:7070/identity',
+  url: 'https://api.trust-trace.com/api/v1/identity',
   method: 'GET',
   headers: {
     'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
@@ -23,7 +23,7 @@ sendAndLogRequest({
 
 // create contact
 sendAndLogRequest({
-  url: 'http://localhost:7070/contact',
+  url: 'https://api.trust-trace.com/api/v1/contact',
   method: 'POST',
   body: {
     email: 'my.partner@example.com',
@@ -37,7 +37,7 @@ sendAndLogRequest({
 
 // send invitation for did
 sendAndLogRequest({
-  url: 'http://localhost:7070/invitation',
+  url: 'https://api.trust-trace.com/api/v1/invitation',
   method: 'POST',
   body: {
     from: '4df8c436-1c5f-4a2b-ba75-4bce37256490',
@@ -54,7 +54,7 @@ sendAndLogRequest({
 
 // send invitation via email
 sendAndLogRequest({
-  url: 'http://localhost:7070/invitation',
+  url: 'https://api.trust-trace.com/api/v1/invitation',
   method: 'POST',
   body: {
     config: {
@@ -71,7 +71,7 @@ sendAndLogRequest({
 
 // accept invitation
 sendAndLogRequest({
-  url: 'http://localhost:7070/invitation',
+  url: 'https://api.trust-trace.com/api/v1/invitation',
   method: 'POST',
   body: {
     config: {
@@ -82,7 +82,7 @@ sendAndLogRequest({
         ],
         from: 'did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483',
         '@id': '932677bc-ba47-45e3-9cdf-ee090e27b0ce',
-        serviceEndpoint: 'http://localhost:7070/api/didcomm'
+        serviceEndpoint: 'https://api.trust-trace.com/api/v1/api/didcomm'
       },
       invitationId: 'bf736cab-a735-4a77-9580-7494cfb71fc4',
     },

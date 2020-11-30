@@ -325,7 +325,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"config\": {\n      \"contactUuid\": \"1e86afa4-a468-49f0-8b8a-7ce97c314ea7\",\n      \"invitation\": {\n        \"recipientKeys\": [\n          \"2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa\"\n        ],\n        \"from\": \"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\n        \"@id\": \"932677bc-ba47-45e3-9cdf-ee090e27b0ce\",\n        \"serviceEndpoint\": \"http://localhost:7070/api/didcomm\"\n      },\n      \"invitationId\": \"bf736cab-a735-4a77-9580-7494cfb71fc4\"\n    },\n    \"from\": \"707d87b2-262a-4903-98e6-bd7969acaaeb\"\n  }",
+							"raw": "{\n   \"config\": {\n      \"contactUuid\": \"1e86afa4-a468-49f0-8b8a-7ce97c314ea7\",\n      \"invitation\": {\n        \"recipientKeys\": [\n          \"2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa\"\n        ],\n        \"from\": \"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\n        \"@id\": \"932677bc-ba47-45e3-9cdf-ee090e27b0ce\",\n        \"serviceEndpoint\": \"https://api.trust-trace.com/api/v1/api/didcomm\"\n      },\n      \"invitationId\": \"bf736cab-a735-4a77-9580-7494cfb71fc4\"\n    },\n    \"from\": \"707d87b2-262a-4903-98e6-bd7969acaaeb\"\n  }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -966,7 +966,7 @@
 		{
 			"id": "5643be79-9266-4b14-b6a4-305d50850936",
 			"key": "API_URL",
-			"value": "http://localhost:7070"
+			"value": "https://api.trust-trace.com/api/v1"
 		},
 		{
 			"id": "21abeee3-a9aa-44fd-8cc4-3581ba856103",
@@ -1001,7 +1001,7 @@
 		{
 			"id": "d9930ab8-921e-405e-a873-ac219ae72584",
 			"key": "AUTH_URL",
-			"value": "http://localhost:7070"
+			"value": "https://api.trust-trace.com/api/v1"
 		}
 	],
 	"protocolProfileBehavior": {}
