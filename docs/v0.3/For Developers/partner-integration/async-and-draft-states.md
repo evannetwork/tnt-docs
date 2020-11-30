@@ -6,7 +6,9 @@ createdAt: "2020-11-23T07:57:47.707Z"
 updatedAt: "2020-11-23T08:02:29.703Z"
 ---
 
-As you may already recognized, some endpoints return the entity directly with status `DRAFT`, without the final computed information. This makes the usage of the API much easier and save to use. You can just pass draft entities in the endpoints and they will start the computing after all depending entities are set to `ACTIVE`. Please keep in mind, that some entities are based on each other. So the resulting `DRAFT` states can postpone recursively.
+As you may already recognized, some endpoints return the entity directly with status `DRAFT`, without including the final computed information. This makes the usage of the API much easier and save to use. You can just pass draft entities in the endpoints and they will start the computing after all depending entities are set to `ACTIVE`.
+
+Please keep in mind, that some entities are based on each other. So the resulting `DRAFT` states can postpone recursively.
 
 ## Entities with DRAFT states
 
@@ -140,7 +142,7 @@ Things to be careful about: Do not poll to fast! It could be possible, that you 
 - identity: Can be polled every 15 seconds
 - contact: Should not be polled. Can take days.
 
-You can take the following function to resolve, when a credential is finished. The function takes the same arguments than the ``sendAndLogRequest`` of the previous examples.
+You can take the following function to wait until a credential is finished. The function takes the same arguments than the ``sendAndLogRequest`` of the previous examples.
 
 ```js
 const fetch = require('node-fetch');
@@ -196,6 +198,36 @@ const loadAndPoll = async ({ url, method, body, headers }) => {
 ```
 
 ### Webhook
+
+When you are working with a agent that already listen for webhooks, you can just register a second one to get notified on finished processes:
+
+```js
+import axios from 'axios';
+
+await axios({
+  url: 'https://api.trust-trace.com/api/v1/settings/TASK_WEBHOOK',
+  method: 'PUT',
+  data: {
+    setting: [
+      {
+        url: 'http://localhost:8080',
+        method: 'POST',
+        match: 'credential',
+      },
+      {
+        url: 'http://localhost:8080',
+        method: 'POST',
+        match: 'schema',
+      },
+    ],
+  },
+});
+```
+
+Which will call the endpoint with the following data:
+
+- ``type`` - ``string``: type of the entity that was finished (will match the endpoint specification, e.g.: 'identity', 'credential', ...)
+- ``uuid`` - ``string``: uuid of the element
 
 [Contact API ↗]: ../reference#contact-1
 [INVITATION API ↗]: .../reference#invitation

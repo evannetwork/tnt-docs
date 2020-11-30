@@ -48,13 +48,11 @@ export class DIDCommWebhookSetting {
 
 ## Configure webhook using typescript
 
-```typescript
-import axios from 'axios';
-
-await axios({
+```js
+sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/settings/DIDCOMM_WEBHOOK',
   method: 'PUT',
-  data: {
+  body: {
     setting: [
       {
         url: 'http://localhost:8080',
@@ -68,7 +66,9 @@ await axios({
         match: 'test1',
       },
     ],
-    principalUuid: '56b1781a-7a96-4e96-b90a-3290ef39472b',
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
   },
 });
 ```
@@ -81,7 +81,8 @@ The other party will receive the following payload that is requested by the webh
 {
   "message": {
     "@type": "https://didcomm.org/didexchange/1.0/request",
-    "~thread": { thid: testAction.referenceID },
+    "~thread": { "thid": "reference id" },
+    "any~attach": []
   }
 }
 ```
