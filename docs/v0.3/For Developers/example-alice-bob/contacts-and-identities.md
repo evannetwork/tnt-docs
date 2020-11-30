@@ -121,7 +121,7 @@ Which will return our new contact:
 
 During the invitation process, TRUST&TRACE will handle the following states internally or with an external DIDComm agent.
 
-![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/trusttrace-a-love-story-from-b2b/images/contacts_did_exchange.png)
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/contacts_did_exchange.png)
 
 ## Send DID invitation
 

@@ -127,4 +127,4 @@ A presentation is created out of one or more credentials and can be shared separ
 [credential service]: ../reference#credential
 [swagger]: ./downloads-and-references
 [postman collection]: ./downloads-and-references
-[trough the examples]: ./trusttrace-a-love-story-from-b2b
+[trough the examples]: ./example-alice-bob

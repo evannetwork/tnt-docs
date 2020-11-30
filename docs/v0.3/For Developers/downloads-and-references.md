@@ -10,6 +10,11 @@ updatedAt: "2020-11-23T07:27:06.084Z"
 
 We collected a set of request presets, that matches all usecases explained within the [TRUST&TRACE - A love story from B2B] section.
 
+TODO:
+
+- How to use the postman collection?
+- Which parameters are used?
+
 - Download the [POSTMAN collection]
 - Download all [requests based on nodejs]
 
@@ -24,6 +29,6 @@ To get a quick and easy start in TRUST&TRACE with some prebuilt helper functions
 - plugin handling
 
 [POSTMAN collection]: https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/downloads-and-references/TRUST%26TRACE%20-%20API%20Collection.postman_collection.json
-[requests based on nodejs]: https://github.com/evannetwork/tnt-docs/tree/develop/docs/v0.3/For%20Developers/trusttrace-a-love-story-from-b2b/scripts
-[TRUST&TRACE - A love story from B2B]: ./trusttrace-a-love-story-from-b2b
+[requests based on nodejs]: https://github.com/evannetwork/tnt-docs/tree/develop/docs/v0.3/For%20Developers/example-alice-bob/scripts
+[TRUST&TRACE - A love story from B2B]: ./example-alice-bob
 [kick start project]: https://github.com/evannetwork/tnt-agent

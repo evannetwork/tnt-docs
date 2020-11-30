@@ -1,6 +1,6 @@
 ---
-title: "Example - A love story from B2B"
-slug: "trusttrace-a-love-story-from-b2b"
+title: "Example - Alice & Bob"
+slug: "example-alice-bob"
 hidden: false
 createdAt: "2020-11-23T07:26:01.826Z"
 updatedAt: "2020-11-24T10:07:23.037Z"

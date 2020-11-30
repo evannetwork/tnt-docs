@@ -325,7 +325,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"config\": {\n      \"contactUuid\": \"1e86afa4-a468-49f0-8b8a-7ce97c314ea7\",\n      \"invitation\": {\n        \"recipientKeys\": [\n          \"2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa\"\n        ],\n        \"from\": \"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\n        \"@id\": \"932677bc-ba47-45e3-9cdf-ee090e27b0ce\",\n        \"serviceEndpoint\": \"https://api.trust-trace.com/api/v1/api/didcomm\"\n      },\n      \"invitationId\": \"bf736cab-a735-4a77-9580-7494cfb71fc4\"\n    },\n    \"from\": \"707d87b2-262a-4903-98e6-bd7969acaaeb\"\n  }",
+							"raw": "{\n   \"config\": {\n      \"contactUuid\": \"1e86afa4-a468-49f0-8b8a-7ce97c314ea7\",\n      \"invitation\": {\n        \"recipientKeys\": [\n          \"2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa\"\n        ],\n        \"from\": \"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\n        \"@id\": \"932677bc-ba47-45e3-9cdf-ee090e27b0ce\",\n        \"serviceEndpoint\": \"http://localhost:7070/api/didcomm\"\n      },\n      \"invitationId\": \"bf736cab-a735-4a77-9580-7494cfb71fc4\"\n    },\n    \"from\": \"707d87b2-262a-4903-98e6-bd7969acaaeb\"\n  }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -882,6 +882,39 @@
 			"name": "External Signer",
 			"item": [
 				{
+					"name": "Register External DID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"did\": \"did:evan:$YOUR_DID\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/identity/f8ac9e8b-f060-4aa3-bf25-34b3a2f24c12",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"identity",
+								"f8ac9e8b-f060-4aa3-bf25-34b3a2f24c12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Register External Signer",
 					"request": {
 						"method": "POST",
@@ -964,44 +997,44 @@
 	],
 	"variable": [
 		{
-			"id": "5643be79-9266-4b14-b6a4-305d50850936",
+			"id": "c8bc69ba-f0a3-4d4c-b0e7-fc60ac08d6f7",
 			"key": "API_URL",
-			"value": "https://api.trust-trace.com/api/v1"
+			"value": "http://localhost:7070"
 		},
 		{
-			"id": "21abeee3-a9aa-44fd-8cc4-3581ba856103",
+			"id": "42626ddc-f554-4446-a740-2f2074e839a5",
 			"key": "USER_1_EMAIL",
 			"value": "test+1@test.de"
 		},
 		{
-			"id": "6c45e8cc-b3b0-4755-a4ea-e369b7e9844f",
+			"id": "58fc3398-904c-48c2-a533-7431733cb826",
 			"key": "USER_2_EMAIL",
 			"value": "test+2@test.de"
 		},
 		{
-			"id": "ea7248b2-135d-4e22-8c93-c1f78a3479ab",
+			"id": "1f0cc8e7-bfba-4da2-987d-e1413eec0e05",
 			"key": "USER_1_PASSWORD",
 			"value": "test+1@test.de"
 		},
 		{
-			"id": "b22ca974-b645-4ed9-bc5b-61553e88dab7",
+			"id": "c9aea5e4-6bff-4eaa-9ed2-8ba7b8d30374",
 			"key": "USER_2_PASSWORD",
 			"value": "test+2@test.de"
 		},
 		{
-			"id": "e34422ed-969a-46d5-9432-a5b87a2cfe89",
+			"id": "759a6849-bc58-4b67-a32c-07cf2378feeb",
 			"key": "USER_1_SUBSCRIPTION",
 			"value": "010e78af828742df91cf8145b8c05a92"
 		},
 		{
-			"id": "ebe1d3ae-7770-4a8c-a790-a2c1c2b1d82d",
+			"id": "3494e7f9-3de8-4b21-bd0c-64b93f1b484d",
 			"key": "USER_2_SUBSCRIPTION",
 			"value": "c88a5286b5d24480a65295b9a8c01e0a"
 		},
 		{
-			"id": "d9930ab8-921e-405e-a873-ac219ae72584",
+			"id": "2b62209e-126a-4eff-a11d-0e78a5965202",
 			"key": "AUTH_URL",
-			"value": "https://api.trust-trace.com/api/v1"
+			"value": "http://localhost:7070"
 		}
 	],
 	"protocolProfileBehavior": {}

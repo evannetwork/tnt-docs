@@ -16,6 +16,44 @@ To read more about identities on the evan.network, please read the following: [I
 
 ![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/partner-integration/images/tech-info-evan-network.png)
 
+# Configure your did
+
+When you are registered on TRUST&TRACE and created a identity on the evan.network blockchain, you can register your did for your existing identity. Please use the identity endpoint for this:
+
+```js
+sendAndLogRequest({
+  url: 'https://api.trust-trace.com/api/v1/identity/$YOUR_IDENTITY_UUID',
+  method: 'PUT',
+  body: {
+    did: 'did:evan:$YOUR_DID',
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+  },
+});
+```
+
+Which results he latest identity configuration:
+
+```json
+{
+  "did": "did:evan:$YOUR_DID",
+  "method": "did:evan",
+  "keyMethod": "",
+  "status": "ACTIVE",
+  "tags": "",
+  "displayName": "",
+  "principal": {
+    "uuid": "b06024d2-dcdd-4b87-8888-61bce894e41c"
+  },
+  "createdBy": null,
+  "updatedBy": null,
+  "createdAt": "2020-11-30T08:15:59.443Z",
+  "updatedAt": "2020-11-30T08:15:59.443Z",
+  "uuid": "f8ac9e8b-f060-4aa3-bf25-34b3a2f24c12"
+}
+```
+
 # Configuring an External Signer
 
 Per default, keys are stored a secure Azure vault and TRUST&TRACE has no access to it. If you want to use a external signing system, you can specify your owner signer URL. You can use the principal settings for this:
@@ -25,10 +63,12 @@ sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/settings/PRINCIPAL_SETTINGS',
   method: 'POST',
   body: {
-    principalUuid: 'my-principal',
     setting: {
       externalSigningUrl: 'http://localhost:1337/signer'
     }
+  },
+  headers: {
+    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
   },
 });
 ```
