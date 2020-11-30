@@ -6,7 +6,7 @@ createdAt: "2020-11-23T07:30:21.303Z"
 updatedAt: "2020-11-24T10:41:35.422Z"
 ---
 
-Before Alice and Bob can login, they need to register their account on the [TRUST&TRACE app](https://app.trust-trace.com). After that, they have the possibility to authenticate technically via email and password or with an API token.
+Before Alice and Bob can login, they need to register their account on the [TRUST&TRACE app](https://app.trust-trace.com). After that, they have the possibility to authenticate technically via API token or alternatively email and password.
 
 Usually they want to use a technical API token to not handle login expiration times. But to create such a API token for a account, a JWT token to generate the initial one, is needed. So please login via the [login via email] section, to get your JWT token to be able to [generate a API token](#create-api-token) and to [authenticate with token](#authentication-with-api-token).
 

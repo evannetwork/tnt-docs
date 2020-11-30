@@ -10,11 +10,15 @@ updatedAt: "2020-11-23T07:27:06.084Z"
 
 We collected a set of request presets, that matches all use-cases explained within the [TRUST&TRACE - A love story from B2B] section.
 
-## [Requests based on nodejs]
+## Requests based on nodejs
+
+- Download [Requests based on nodejs]
 
 A set of small javascript functions, that are wrapping the example code.
 
-## [TRUST&TRACE POSTMAN collection]
+## TRUST&TRACE POSTMAN collection
+
+- Download [TRUST&TRACE POSTMAN collection]
 
 POSTMAN is a tool for handing and managing predefined REST API calls. With our postman collection, you will be enabled to easily step through the example section.
 
