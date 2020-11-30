@@ -997,44 +997,44 @@
 	],
 	"variable": [
 		{
-			"id": "c8bc69ba-f0a3-4d4c-b0e7-fc60ac08d6f7",
+			"id": "cf1ee397-35f5-4081-add3-963d3cad9202",
 			"key": "API_URL",
-			"value": "http://localhost:7070"
+			"value": "https://api.trust-trace.com/api/v1"
 		},
 		{
-			"id": "42626ddc-f554-4446-a740-2f2074e839a5",
+			"id": "3985a7f6-dd87-46e4-93d8-5eebfd7dcbbc",
 			"key": "USER_1_EMAIL",
 			"value": "test+1@test.de"
 		},
 		{
-			"id": "58fc3398-904c-48c2-a533-7431733cb826",
+			"id": "98d4bc6a-bcf3-46b9-b17c-45822ace5d9d",
 			"key": "USER_2_EMAIL",
 			"value": "test+2@test.de"
 		},
 		{
-			"id": "1f0cc8e7-bfba-4da2-987d-e1413eec0e05",
+			"id": "dc9bb20d-ae70-4429-ad55-5df6e8949308",
 			"key": "USER_1_PASSWORD",
-			"value": "test+1@test.de"
+			"value": "PW"
 		},
 		{
-			"id": "c9aea5e4-6bff-4eaa-9ed2-8ba7b8d30374",
+			"id": "d450e86d-cfd6-473f-b486-39138158a73c",
 			"key": "USER_2_PASSWORD",
-			"value": "test+2@test.de"
+			"value": "PW"
 		},
 		{
-			"id": "759a6849-bc58-4b67-a32c-07cf2378feeb",
+			"id": "7b0f151a-85a6-4fd0-af0a-13c17430ce39",
 			"key": "USER_1_SUBSCRIPTION",
 			"value": "010e78af828742df91cf8145b8c05a92"
 		},
 		{
-			"id": "3494e7f9-3de8-4b21-bd0c-64b93f1b484d",
+			"id": "bc8af466-dd55-426f-aa26-e756c1f306bd",
 			"key": "USER_2_SUBSCRIPTION",
 			"value": "c88a5286b5d24480a65295b9a8c01e0a"
 		},
 		{
-			"id": "2b62209e-126a-4eff-a11d-0e78a5965202",
+			"id": "3eccc082-3d3f-40f3-b910-2f815bc2cf13",
 			"key": "AUTH_URL",
-			"value": "http://localhost:7070"
+			"value": "https://api.trust-trace.com/auth/v1"
 		}
 	],
 	"protocolProfileBehavior": {}
