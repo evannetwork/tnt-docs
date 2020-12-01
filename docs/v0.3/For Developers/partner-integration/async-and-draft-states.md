@@ -131,9 +131,9 @@ Value is filled with the basic presentation format including the given data of t
 
 ## How to listen for updates
 
-### Clients
+### Implementing a client application
 
-Unfortunately, when you are working in a client without any separated server connection, TRUST&TRACE cannot send any webhook request. If you want to listen for updates, please try to refetch the data by polling the entity from the endpoints, until the `DRAFT` state was switched to `ACTIVE`.
+Unfortunately, when you are developing a client only application without any server connection, you may not receive any webhook requests. If you want to listen for updates, you can try to refetch the data by polling the entity from the endpoints, until the `DRAFT` state was switched to `ACTIVE`.
 
 Things to be careful about: Do not poll to fast! It could be possible, that you get throttled. So keep the polling realistic for the approximated times of each use case. E.g.:
 
@@ -147,7 +147,7 @@ You can take the following function to wait until a credential is finished. The 
 ```js
 const fetch = require('node-fetch');
 
-const loadAndPoll = async ({ url, method, body, headers }) => {
+const loadAndPoll = ({ url, method, body, headers }) => {
   // create promise resolver to be able to wait
   let watchResolve;
   let watchReject;
@@ -199,7 +199,7 @@ const loadAndPoll = async ({ url, method, body, headers }) => {
 
 ### Webhook
 
-When you are working with a agent that already listen for webhooks, you can just register a second one to get notified on finished processes:
+When you are working with a agent that already listen for webhooks, you can just register a second one to get notified on finished processes. Keep in mind to use the ``TASK_WEBHOOK`` type now:
 
 ```js
 import axios from 'axios';
