@@ -165,7 +165,7 @@ When used, API tokens have to be provided as a header, `tnt-subscription-key` or
 
 ```js
 sendAndLogRequest({
-  url: 'https://api.trust-trace.com/api/v1/account/e1d98fe4-091f-4394-b474-cca0b796fd9c',
+  url: 'https://api.trust-trace.com/api/v1/account/$ACCOUNT_ID',
   method: 'GET',
   body: {
     displayName: 'api-key-1',

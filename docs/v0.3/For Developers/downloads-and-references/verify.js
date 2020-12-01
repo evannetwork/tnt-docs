@@ -14,7 +14,7 @@ const sendAndLogRequest = async ({ url, method, body, headers }) => {
 
 // get proof request
 sendAndLogRequest({
-  url: 'https://api.trust-trace.com/api/v1/proof-request/6d866fa4-929f-4546-bdf2-db91b7cb7241',
+  url: 'https://api.trust-trace.com/api/v1/proof-request/$ASSET_DATA_ID',
   method: 'Get',
   headers: {
     'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
@@ -23,7 +23,7 @@ sendAndLogRequest({
 
 // verify presentation
 sendAndLogRequest({
-  url: 'https://api.trust-trace.com/api/v1/presentation/6d866fa4-929f-4546-bdf2-db91b7cb7241/verify?proofRequestUuid=6d866fa4-929f-4546-bdf2-db91b7cb7241',
+  url: 'https://api.trust-trace.com/api/v1/presentation/$ASSET_DATA_ID/verify?proofRequestUuid=$ASSET_DATA_ID',
   method: 'Get',
   headers: {
     'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',

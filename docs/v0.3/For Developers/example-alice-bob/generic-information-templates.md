@@ -103,25 +103,25 @@ Which will return:
 
 ```json
 {
-    "total": {
-        "value": 42
+  "total": {
+      "value": 42
+  },
+  "hits": [
+    {
+      "createdBy": null,
+      "createdAt": "2020-11-26T11:34:13.967Z",
+      "updatedBy": null,
+      "updatedAt": "2020-11-26T11:34:42.274Z",
+      "uuid": "01b1119e-b860-435a-b553-997ce9173e3d",
+      "type": "ZKP",
+      "data": "{\"id\":\"did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0\",\"type\":\"EvanVCSchema\",\"name\":\"Billing Data\",\"author\":\"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\"createdAt\":\"2020-11-26T11:34:24.000Z\",\"description\":\"Details about a payment\",\"properties\":{\"payedAmount\":{\"type\":\"string\"},\"invoiceId\":{\"type\":\"string\"},\"paymentDate\":{\"type\":\"string\"}},\"required\":[\"invoiceId\",\"payedAmount\"],\"additionalProperties\":false,\"proof\":{\"type\":\"EcdsaPublicKeySecp256k1\",\"created\":\"2020-11-26T11:34:24.000Z\",\"proofPurpose\":\"assertionMethod\",\"verificationMethod\":\"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC#key1\",\"jws\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NkstUiJ9.eyJpYXQiOiIyMDIwLTExLTI2VDExOjM0OjI0LjAwMFoiLCJkb2MiOnsiaWQiOiJkaWQ6ZXZhbjp6a3A6MHhjOTgxMjEzZjIxYzI2OTFjM2ViNDc5YmRkMzU4YTI3OWJjNzAxNTdmMTc5MTY5NGNjYTViNzM4M2MwNjcxZmUwIiwidHlwZSI6IkV2YW5WQ1NjaGVtYSIsIm5hbWUiOiJCaWxsaW5nIERhdGEiLCJhdXRob3IiOiJkaWQ6ZXZhbjp0ZXN0Y29yZToweDIxRDMwZDdCRkJiM0VjYzNkYjMwNGM0QWY4RTQxMzI0MDc4MTQ2Y0MiLCJjcmVhdGVkQXQiOiIyMDIwLTExLTI2VDExOjM0OjI0LjAwMFoiLCJkZXNjcmlwdGlvbiI6IkRldGFpbHMgYWJvdXQgYSBwYXltZW50IiwicHJvcGVydGllcyI6eyJwYXllZEFtb3VudCI6eyJ0eXBlIjoic3RyaW5nIn0sImludm9pY2VJZCI6eyJ0eXBlIjoic3RyaW5nIn0sInBheW1lbnREYXRlIjp7InR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbImludm9pY2VJZCIsInBheWVkQW1vdW50Il0sImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZX0sImlzcyI6ImRpZDpldmFuOnRlc3Rjb3JlOjB4MjFEMzBkN0JGQmIzRWNjM2RiMzA0YzRBZjhFNDEzMjQwNzgxNDZjQyJ9.9mzbY4SXFoSvHkf5by66dU7ijeisk60eAqgx7B-4S5jlZPYzESGiGZX0taFamu9TxnTh_H5k0WoowLhZaon03Bw\"}}",
+      "name": "Billing Data",
+      "config": "{\"uiConfig\":[],\"uiSchema\":{\"invoiceId\":{\"type\":\"string\"},\"payedAmount\":{\"type\":\"string\"},\"paymentDate\":{\"type\":\"string\"}},\"displayName\":\"Billing Data\"}",
+      "templateDid": "did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0",
+      "issuer": "did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC",
+      "status": "ACTIVE"
     },
-    "hits": [
-        {
-            "createdBy": null,
-            "createdAt": "2020-11-26T11:34:13.967Z",
-            "updatedBy": null,
-            "updatedAt": "2020-11-26T11:34:42.274Z",
-            "uuid": "01b1119e-b860-435a-b553-997ce9173e3d",
-            "type": "ZKP",
-            "data": "{\"id\":\"did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0\",\"type\":\"EvanVCSchema\",\"name\":\"Billing Data\",\"author\":\"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\"createdAt\":\"2020-11-26T11:34:24.000Z\",\"description\":\"Details about a payment\",\"properties\":{\"payedAmount\":{\"type\":\"string\"},\"invoiceId\":{\"type\":\"string\"},\"paymentDate\":{\"type\":\"string\"}},\"required\":[\"invoiceId\",\"payedAmount\"],\"additionalProperties\":false,\"proof\":{\"type\":\"EcdsaPublicKeySecp256k1\",\"created\":\"2020-11-26T11:34:24.000Z\",\"proofPurpose\":\"assertionMethod\",\"verificationMethod\":\"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC#key1\",\"jws\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NkstUiJ9.eyJpYXQiOiIyMDIwLTExLTI2VDExOjM0OjI0LjAwMFoiLCJkb2MiOnsiaWQiOiJkaWQ6ZXZhbjp6a3A6MHhjOTgxMjEzZjIxYzI2OTFjM2ViNDc5YmRkMzU4YTI3OWJjNzAxNTdmMTc5MTY5NGNjYTViNzM4M2MwNjcxZmUwIiwidHlwZSI6IkV2YW5WQ1NjaGVtYSIsIm5hbWUiOiJCaWxsaW5nIERhdGEiLCJhdXRob3IiOiJkaWQ6ZXZhbjp0ZXN0Y29yZToweDIxRDMwZDdCRkJiM0VjYzNkYjMwNGM0QWY4RTQxMzI0MDc4MTQ2Y0MiLCJjcmVhdGVkQXQiOiIyMDIwLTExLTI2VDExOjM0OjI0LjAwMFoiLCJkZXNjcmlwdGlvbiI6IkRldGFpbHMgYWJvdXQgYSBwYXltZW50IiwicHJvcGVydGllcyI6eyJwYXllZEFtb3VudCI6eyJ0eXBlIjoic3RyaW5nIn0sImludm9pY2VJZCI6eyJ0eXBlIjoic3RyaW5nIn0sInBheW1lbnREYXRlIjp7InR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbImludm9pY2VJZCIsInBheWVkQW1vdW50Il0sImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZX0sImlzcyI6ImRpZDpldmFuOnRlc3Rjb3JlOjB4MjFEMzBkN0JGQmIzRWNjM2RiMzA0YzRBZjhFNDEzMjQwNzgxNDZjQyJ9.9mzbY4SXFoSvHkf5by66dU7ijeisk60eAqgx7B-4S5jlZPYzESGiGZX0taFamu9TxnTh_H5k0WoowLhZaon03Bw\"}}",
-            "name": "Billing Data",
-            "config": "{\"uiConfig\":[],\"uiSchema\":{\"invoiceId\":{\"type\":\"string\"},\"payedAmount\":{\"type\":\"string\"},\"paymentDate\":{\"type\":\"string\"}},\"displayName\":\"Billing Data\"}",
-            "templateDid": "did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0",
-            "issuer": "did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC",
-            "status": "ACTIVE"
-        },
-        ...
-    ],
+    ...
+  ],
 }
 ```

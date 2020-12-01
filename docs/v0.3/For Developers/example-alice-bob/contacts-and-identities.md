@@ -132,10 +132,10 @@ sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/invitation',
   method: 'POST',
   body: {
-    from: '4df8c436-1c5f-4a2b-ba75-4bce37256490',
-    to: 'did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98',
+    from: '$IDENTITY_ID',
+    to: '$CONTACT_DID_UUID',
     config: {
-      did: 'did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98',
+      did: '$CONTACT_DID_UUID',
       contactUuid: 'e2162a9d-07e6-4162-9bb7-62c06ab68ab8'
     }
   },
@@ -155,13 +155,13 @@ This will return the referenced action entity:
   "updatedAt": "2020-11-25T15:24:33.647Z",
   "uuid": "f7e0f650-6a42-4d54-a890-01d8ac50fcbc",
   "principalUuid": "b06024d2-dcdd-4b87-8888-61bce894e41c",
-  "from": "4df8c436-1c5f-4a2b-ba75-4bce37256490",
-  "to": "did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98",
+  "from": "$IDENTITY_ID",
+  "to": "$CONTACT_DID_UUID",
   "type": "INVITATION",
   "typeVersion": "1",
   "direction": "OUTGOING",
   "referenceID": "d5d5e66c-fd71-4e93-bcc2-ce86f06da3ff",
-  "config": "{\"did\":\"did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98\",\"contactUuid\":\"e2162a9d-07e6-4162-9bb7-62c06ab68ab8\"}",
+  "config": "{\"did\":\"$CONTACT_DID_UUID\",\"contactUuid\":\"e2162a9d-07e6-4162-9bb7-62c06ab68ab8\"}",
   "status": "ACTIVE",
   "typeStatus": "",
   "data": "{}",
@@ -185,7 +185,7 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     config: {
-      contactUuid: "797ca7df-4416-4628-9e8c-d01d75c1591c",
+      contactUuid: "$CONTACT_UUID",
       email: "account2@example.com",
       inviteName: "Account 1"
     },
