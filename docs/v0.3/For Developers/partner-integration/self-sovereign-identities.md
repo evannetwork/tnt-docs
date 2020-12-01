@@ -6,19 +6,19 @@ createdAt: "2020-11-23T07:58:23.912Z"
 updatedAt: "2020-11-23T07:58:23.912Z"
 ---
 
-By registering on TRUST&TRACE a identity on the evan.network and a corresponding did documentation is created. TRUST&TRACE handles the complete messages encryption and decryption for you.
+By registering on TRUST&TRACE an identity on the evan.network and a corresponding DID document is created. TRUST&TRACE handles the complete message encryption and decryption for you.
 
 # Preperation
 
-To use a external signer you will probably need a identity on evan.network. Please create on by registering on [https://dashboard.evan.network]. When you have registered successfully, you can navigate to the settings page and view the technical information of your [account](https://dashboard.test.evan.network/#/dashboard.vue.evan/settings.evan/account).
+To use an external signer you will probably need an identity on evan.network. Please create one by registering on [https://dashboard.evan.network]. When you have registered successfully, you can navigate to the settings page and view the technical information of your [account](https://dashboard.test.evan.network/#/dashboard.vue.evan/settings.evan/account).
 
-To read more about identities on the evan.network, please read the following: [Identities](https://evannetwork.github.io/docs/developers/concepts/Identities.html).
+To read more about identities on the evan.network, you can have a look at: [Identities](https://evannetwork.github.io/docs/developers/concepts/Identities.html).
 
 ![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/partner-integration/images/tech-info-evan-network.png)
 
-# Configure your did
+# Configure your DID
 
-When you are registered on TRUST&TRACE and created a identity on the evan.network blockchain, you can register your did for your existing identity. Please use the identity endpoint for this:
+When you are registered on TRUST&TRACE and created an identity on the evan.network blockchain, you can register your DID for your existing identity. Please use the identity endpoint for this:
 
 ```js
 sendAndLogRequest({
@@ -33,7 +33,7 @@ sendAndLogRequest({
 });
 ```
 
-Which results he latest identity configuration:
+Which returns the updated identity configuration:
 
 ```json
 {
@@ -56,7 +56,7 @@ Which results he latest identity configuration:
 
 # Configuring an External Signer
 
-Per default, keys are stored a secure Azure vault and TRUST&TRACE has no access to it. If you want to use a external signing system, you can specify your owner signer URL. You can use the principal settings for this:
+Per default, keys are stored a secure Azure vault and TRUST&TRACE has no access to it. If you want to use an external signing system, you can specify your own signer URL. You can use the principal settings for this:
 
 ```js
 sendAndLogRequest({
@@ -94,18 +94,18 @@ Which will return something like this:
 
 The external signer url is requested on each schema, credential definition, credential and presentation creation. The endpoint is generally requested with the following parameters:
 
-- ``did`` - `string`: did to sign the message for
-- ``message`` - `string`: string sign (usually a stringified object)
+- ``did`` - `string`: DID to sign the message for
+- ``message`` - `string`: text to sign (usually a stringified object)
 
 ## Example signer
 
 *This example is based on a typescript implementation. This can be probably done in every language.*
 
-Please visit the following project for a example signing endpoint: [tnt-agent signer](https://github.com/evannetwork/tnt-agent/blob/feature/develop/src/plugins/signer/signer.ts).
+Please visit the following project for an example signing endpoint: [tnt-agent signer](https://github.com/evannetwork/tnt-agent/blob/feature/develop/src/plugins/signer/signer.ts).
 
 This sample uses ``ECDSA`` (Elliptic Curve Digital Signature) encryption algorithm.
 
-1. Please resolve the original did document to ensure, that the did is really permitted on the underlying document.
+1. Resolve the original DID document to ensure, that the DID is really permitted on the underlying document.
 
 ```ts
 import { ecsign, toRpcSig } from 'ethereumjs-util';
@@ -150,14 +150,14 @@ async function getDid(did: string): Promise<DidDocInterface> {
 }
 ```
 
-2. Extract the ethereum address from the did document and check, if the private key is configured for the user.
+2. Extract the Ethereum address from the DID document and check, if the private key is configured for the user.
 
 ```ts
 const knownPublicKeys = {
   '0x123123...': 'PRIVATE_KEY',
 };
 
-// find the ethereum address from publicKey
+// find the Ethereum address from publicKey
 let ethereumAddress = (didDoc.publicKey.find(
   (address) => (address.id === did),
 ) as unknown as { ethereumAddress: string }).ethereumAddress;

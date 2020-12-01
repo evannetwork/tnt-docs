@@ -6,7 +6,7 @@ createdAt: "2020-11-23T07:57:47.707Z"
 updatedAt: "2020-11-23T08:02:29.703Z"
 ---
 
-As you may already recognized, some endpoints return the entity directly with status `DRAFT`, without including the final computed information. This makes the usage of the API much easier and save to use. You can just pass draft entities in the endpoints and they will start the computing after all depending entities are set to `ACTIVE`.
+As you may already recognized, some endpoints return the entity directly with status `DRAFT` without including the final computed information. This makes the usage of the API much easier and save to use. You can just pass draft entities in the endpoints and they will start the computing after all depending entities are set to `ACTIVE`.
 
 Please keep in mind, that some entities are based on each other. So the resulting `DRAFT` states can postpone recursively.
 

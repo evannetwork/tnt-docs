@@ -35,7 +35,7 @@ sendAndLogRequest({
   },
 });
 
-// send invitation for did
+// send invitation for DID
 sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/invitation',
   method: 'POST',

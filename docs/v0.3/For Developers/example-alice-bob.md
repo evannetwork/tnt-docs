@@ -5,6 +5,7 @@ hidden: false
 createdAt: "2020-11-23T07:26:01.826Z"
 updatedAt: "2020-11-24T10:07:23.037Z"
 ---
+
 This sections covers use cases you may encounter often when working with the TRUST&TRACE API.
 
 Remember, that you will need to have a valid authentication token, so why not start with the [Login and receive a JWT Token]?
@@ -39,7 +40,7 @@ We shall be using Alice and Bob, as the two parties, in the examples presented i
 
 ## Sample Code
 
-The complete sample code is built to work in nodejs. To make the documentation better readable, only the parameters and endpoint configuration is added into the text. Please copy this function into your runtime to use the examples.
+The complete sample code is built to work in Node.js. To make the documentation better readable, only the parameters and endpoint configuration is added into the text. Please copy this function into your runtime to use the examples.
 
 ```js
 const sendAndLogRequest = async ({ url, method, body, headers }) => {
@@ -59,7 +60,7 @@ const sendAndLogRequest = async ({ url, method, body, headers }) => {
 
 ## Postman collection
 
-When you are not that familiar with nodejs, you can download our [Postman collection] to be able to work with the examples simply using REST.
+When you are not that familiar with Node.js, you can download our [Postman collection] to be able to work with the examples simply using REST.
 
 [Create a Contact]: ./contacts-1#create-a-contact-1
 [Create a Credential]: .//credentials-1

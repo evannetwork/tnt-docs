@@ -236,7 +236,7 @@ From this we get the new credential:
 
 # Share a existing credential
 
-If you want to share a credential with another user, you can just send it via didcomm. But at first, you need to find your credential. Use the credential endpoint to query for your credentials:
+If you want to share a credential with another user, you can just send it via DIDComm. But at first, you need to find your credential. Use the credential endpoint to query for your credentials:
 
 ```js
 sendAndLogRequest({
@@ -276,7 +276,7 @@ sendAndLogRequest({
 }
 ```
 
-You can now parse the value of this asset data and share this one via the didcomm action endpoint and the [Issue Credential Protocol]. Important to note at this point is, that the didcomm message is sent via the didcomm [business service endpoint]. This endpoint covers the full contact loading, message encryption and send logic. If you want to do this by your self, please head over to:
+You can now parse the value of this asset data and share this one via the DIDComm action endpoint and the [Issue Credential Protocol]. Important to note at this point is, that the DIDComm message is sent via the DIDComm [business service endpoint]. This endpoint covers the full contact loading, message encryption and send logic. If you want to do this by your self, please head over to:
 
 ```js
 const credential = JSON.parse(result.hits[0].value);
@@ -310,7 +310,7 @@ sendAndLogRequest({
 
 # Request and create a credential
 
-To request a credential, you need to send a credential request to your partner. To to do this easy, you can again use the generic [didcomm endpoint] of TRUST&TRACE using the [Issue Credential Protocol] to attach the credential information that should be proofed.
+To request a credential, you need to send a credential request to your partner. To to do this easy, you can again use the generic [DIDComm endpoint] of TRUST&TRACE using the [Issue Credential Protocol] to attach the credential information that should be proofed.
 
 ```js
 const credential = JSON.parse(result.hits[0].value);
@@ -419,4 +419,4 @@ const credential = JSON.parse(result.hits[0].value);
 
 [Issue Credential Protocol]:https://github.com/hyperledger/aries-rfcs/tree/master/features/0036-issue-credential
 [business service endpoint]: ./talking-didcomm
-[didcomm endpoint]: ../reference#didcomm-2
+[DIDComm endpoint]: ../reference#didcomm-2

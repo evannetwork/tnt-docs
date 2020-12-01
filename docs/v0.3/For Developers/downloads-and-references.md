@@ -8,25 +8,25 @@ updatedAt: "2020-11-23T07:27:06.084Z"
 
 # Sample requests
 
-We collected a set of request presets, that matches all use-cases explained within the [TRUST&TRACE - A love story from B2B] section.
+We collected a set of request presets, that matches all use cases explained within the [TRUST&TRACE - A love story from B2B] section.
 
-## Requests based on nodejs
+## Requests based on Node.js
 
-- Download [Requests based on nodejs]
+- Download [Requests based on Node.js]
 
-A set of small javascript functions, that are wrapping the example code.
+A set of small JavaScript functions, that are wrapping the example code.
 
-## TRUST&TRACE POSTMAN collection
+## TRUST&TRACE Postman collection
 
-- Download [TRUST&TRACE POSTMAN collection]
+- Download [TRUST&TRACE Postman collection]
 
-POSTMAN is a tool for handing and managing predefined REST API calls. With our postman collection, you will be enabled to easily step through the example section.
+Postman is a tool for handing and managing predefined REST API calls. With our Postman collection, you will be enabled to easily step through the example section.
 
-1. download POSTMAN [here](https://www.postman.com)
-2. download [TRUST&TRACE POSTMAN collection]
-3. [import collection into postman](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman)
+1. download Postman [here](https://www.postman.com)
+2. download [TRUST&TRACE Postman collection]
+3. [import collection into Postman](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman)
 
-After importing the postman collection, you will see a bunch of predefined categories and requests. Within this requests, you will often encounter placeholders **{{...}}**. These are dynamic placeholders, that can be adjusted within the postman collection config.
+After importing the Postman collection, you will see a bunch of predefined categories and requests. Within this requests, you will often encounter placeholders **{{...}}**. These are dynamic placeholders, that can be adjusted within the Postman collection config.
 
 ![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/downloads-and-references/images/postman_config.png)
 
@@ -49,8 +49,8 @@ To get a quick and easy start in TRUST&TRACE with some prebuilt helper functions
 - auto ensuring credential templates and credential definitions
 - plugin handling
 
-[TRUST&TRACE POSTMAN collection]: https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/downloads-and-references/TRUST%26TRACE%20-%20API%20Collection.postman_collection.json
-[requests based on nodejs]: https://github.com/evannetwork/tnt-docs/tree/develop/docs/v0.3/For%20Developers/example-alice-bob/scripts
+[TRUST&TRACE Postman collection]: https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/downloads-and-references/TRUST%26TRACE%20-%20API%20Collection.postman_collection.json
+[requests based on Node.js]: https://github.com/evannetwork/tnt-docs/tree/develop/docs/v0.3/For%20Developers/example-alice-bob/scripts
 [TRUST&TRACE - A love story from B2B]: ./example-alice-bob
 [kick start project]: https://github.com/evannetwork/tnt-agent
 [generating token]: ./login-and-auth#using-api-token

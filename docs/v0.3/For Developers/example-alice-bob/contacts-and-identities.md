@@ -10,18 +10,18 @@ Contacts are your business partners, that you can communicate with via the DIDCO
 
 ### Invitation via DID
 
-If you know your partners DID address, you can simply send a invitation request to this user. If the other party is also managed on TRUST&TRACE, the system will handle the did exchange and key pair generation by its self. If the other party is managed by an external didcomm provider, TRUST&TRACE will exchange didcomm messages for did exchange with the external agent for you. [Continue here](https://github.com/hyperledger/aries-rfcs/tree/master/features/0023-did-exchange), to read more about the protocol.
+If you know your partners DID address, you can simply send a invitation request to this user. If the other party is also managed on TRUST&TRACE, the system will handle the DID exchange and key pair generation by its self. If the other party is managed by an external DIDComm provider, TRUST&TRACE will exchange DIDComm messages for DID exchange with the external agent for you. [Continue here](https://github.com/hyperledger/aries-rfcs/tree/master/features/0023-DID-exchange), to read more about the protocol.
 
-1. [Get my identity] - Whats a identity on TRUST&TRACE and how can i work with it?
+1. [Get my identity] - Whats an identity on TRUST&TRACE and how can i work with it?
 2. [Create a Contact] - entry for you (which is basically like an entry in your mobile phone's address book)
 3. [Send DID invitation] - you use the TRUST&TRACE invitation logic to send a DIDComm message invitation
-4. [Listen for accepts] - short introduction in listening for didcomm messages
+4. [Listen for accepts] - short introduction in listening for DIDComm messages
 
 ### Invitation via Email
 
 If you don't know the partners DID, you can use the TRUST&TRACE email invitation service. A invitation mail including an invitationId is sent to the other party. You can also provide this invitationId directly to your partner or to an external system, if you need a more automated invitation process.
 
-1. [Get my identity] - Whats a identity on TRUST&TRACE and how can i work with it?
+1. [Get my identity] - Whats an identity on TRUST&TRACE and how can i work with it?
 2. [Create a Contact]: entry for you (which is basically like an entry in your mobile phone's address book)
 3. [Send invitation]: you send a business partner an invitation, signalling that you want to cooperate with him or her: [Invite a Contact] (which could be compared to giving your phone number to someone)
 4. [Answer invitation]: the partner accepts the invitation, which allows secure communication between you two, this can only be done from the [TRUST&TRACE UI] at the moment (continuing with the mobile phone example, your business partner adds you to his or her address book)
@@ -32,7 +32,7 @@ If you don't know the partners DID, you can use the TRUST&TRACE email invitation
 
 For a general description about identities, please read the [identities on TRUST&TRACE] section. Each principal can manage several identities and give interaction permissions to each account separatly. An identity is your acting instance in a principal. If we compare principals to companies, identities are like legal persons in this company, while your account is a natural person. Your account acts as one of those legal persons in the context of the company. As every account gets a default identity in principals created by it, we just have to fetch it.
 
-Everything that is related to credentials needs a identity to work with. You can either pass the identity did or the internal TRUST&TRACE identifier to pass into `identityId` parameter for the respective API calls. In the whole following examples we will use identity did to work with the API. Use the following functionality to load all your registered identities:
+Everything that is related to credentials needs an identity to work with. You can either pass the identity DID or the internal TRUST&TRACE identifier to pass into `identityId` parameter for the respective API calls. In the whole following examples we will use identity DID to work with the API. Use the following functionality to load all your registered identities:
 
 ```js
 sendAndLogRequest({
@@ -71,7 +71,7 @@ Which will return our (only) identity in this principal.
 
 ## Create a Contact
 
-First step before you are able to work with your partners is a contact instances, where the invitation logic can work on. If you already know your partners did, you can directly use it for the contact creation. DID will be also filled up after finishing the did exchange. Keep in mind, like for the identities, we will we will use the contacts did as reference for API calls in the other sections.
+First step before you are able to work with your partners is a contact instances, where the invitation logic can work on. If you already know your partners DID, you can directly use it for the contact creation. DID will be also filled up after finishing the DID exchange. Keep in mind, like for the identities, we will we will use the contacts DID as reference for API calls in the other sections.
 
 To create a new contact, you can use the [Contact] endpoint. Remember that you need to have a valid authentication token as described in [Login and receive a JWT Token].
 
@@ -125,7 +125,7 @@ During the invitation process, TRUST&TRACE will handle the following states inte
 
 ## Send DID invitation
 
-To send a invitation via did, you can use the invitation action. After that, TRUST&TRACE will handle your request internally and you can start requesting services with the internal contact id or with the did. All interactions that requires a finished did exchange, like sending didcomm messages, will be on hold and automatically sent out, when the did exchange has finished.
+To send a invitation via DID, you can use the invitation action. After that, TRUST&TRACE will handle your request internally and you can start requesting services with the internal contact id or with the DID. All interactions that requires a finished DID exchange, like sending DIDComm messages, will be on hold and automatically sent out, when the DID exchange has finished.
 
 ```js
 sendAndLogRequest({
@@ -171,7 +171,7 @@ This will return the referenced action entity:
 
 ## Listen for accepts
 
-If Bob has a external didcomm agent or wants to use TRUST&TRACE to react for incoming didcomm messages, he can register a webhook. Please have a look at this section: [Webhooks].
+If Bob has a external DIDComm agent or wants to use TRUST&TRACE to react for incoming DIDComm messages, he can register a webhook. Please have a look at this section: [Webhooks].
 
 # Invitation via Email
 
@@ -299,7 +299,7 @@ Which also returns an invitation action:
 }
 ```
 
-Afterwards, the invitation action status will be set to DONE and the did field within the contact will be filled with the corresponding identity did.
+Afterwards, the invitation action status will be set to DONE and the DID field within the contact will be filled with the corresponding identity did.
 
 [Answer invitation]: #answer-invitation
 [Create a Contact]: #create-a-contact

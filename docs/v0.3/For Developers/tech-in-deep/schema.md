@@ -26,7 +26,7 @@ This document aims to introduce a showcase scenario for such a flow and explains
 
 ## Real world example
 
-Mr. Random wants to pass a gate to a factory with his car. The security officer in front of the gate now issues a vc for mr. randoms did for passing the gate.
+Mr. Random wants to pass a gate to a factory with his car. The security officer in front of the gate now issues a vc for mr. randoms DID for passing the gate.
 
 The VC also contains a "credentialSchema" field to check the data format of the issued vc.
 
@@ -64,8 +64,8 @@ The schema verification improves the one to one relationship check in many ways.
 
 To achieve this the concept of the schemas can be reused to get the validity of a whole chain of vcs that has to be presented.
 
-The gate in the example above has the did id from the employer of the security officer hard coded in his source code for checking the validity of vcs. Now when the security officer creates a vc for the driver, he also attaches an evidence vc or vp of his employer.
+The gate in the example above has the DID id from the employer of the security officer hard coded in his source code for checking the validity of vcs. Now when the security officer creates a vc for the driver, he also attaches an evidence vc or vp of his employer.
 
-With this VC the gate can now check and prove the hierarchy "gateOpenVC" ----issuedBy----> "securityOfficerGateVC" ----issuedBy----> employerDid. And because the securityOfficerGateVC is valid and not revoked, the gate will open because the issuer did matches the one which has been hardcoded in the sourcecode of the gate.
+With this VC the gate can now check and prove the hierarchy "gateOpenVC" ----issuedBy----> "securityOfficerGateVC" ----issuedBy----> employerDid. And because the securityOfficerGateVC is valid and not revoked, the gate will open because the issuer DID matches the one which has been hardcoded in the sourcecode of the gate.
 
 This solution gives us the possibility to check also hierarchies of vcs and vps, but the problem is there is no formal definition of checking a vc hierarchy.

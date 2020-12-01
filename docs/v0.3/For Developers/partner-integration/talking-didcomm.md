@@ -14,11 +14,11 @@ TRUST&TRACE has one specific endpoint to send messages to:
 
   <https://api-trust.trace/http-transport>
 
-Please keep in mind, that only encrypted messages are allowed (besides for did exchange requests).
+Please keep in mind, that only encrypted messages are allowed (besides for DID exchange requests).
 
 # How to send a message
 
-When you have done a [did exchange](https://github.com/hyperledger/aries-rfcs/tree/master/features/0023-did-exchange) exchange with a did managed on TRUST&TRACE, you can use the [DIDComm library](https://github.com/decentralized-identity/DIDComm-js) to pack a message for sending:
+When you have done a [DID exchange](https://github.com/hyperledger/aries-rfcs/tree/master/features/0023-did-exchange) exchange with a DID managed on TRUST&TRACE, you can use the [DIDComm library](https://github.com/decentralized-identity/DIDComm-js) to pack a message for sending:
 
 ```js
   const didcomm = new DIDComm();
@@ -46,7 +46,7 @@ When you have done a [did exchange](https://github.com/hyperledger/aries-rfcs/tr
   );
 ```
 
-This message can be send easily to the http-transport via REST. You will receive the target principal uuid out of the did exchange communication endpoint during the did exchange flow.
+This message can be send easily to the http-transport via REST. You will receive the target principal uuid out of the DID exchange communication endpoint during the DID exchange flow.
 
 ```js
 const credential = JSON.parse(result.hits[0].value);

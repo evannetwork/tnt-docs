@@ -6,11 +6,11 @@ createdAt: "2020-11-23T07:57:47.707Z"
 updatedAt: "2020-11-23T08:02:29.703Z"
 ---
 
-TRUST&TRACE uses webhooks to notify your application when an event happens in your account. Webhooks are particularly useful for asynchronous events like when a contact request occures, a CSR request is answered, a master data verifications is received and many many more...
+TRUST&TRACE uses webhooks to notify your application when an event happens in your account. Webhooks are particularly useful for asynchronous events like when a contact request occurs, a CSR request is answered, a master data verifications is received and many many more...
 
 # What are webhooks
 
-Webhooks refers to a combination of elements that collectively create a notification and reaction system within a larger integration.
+Webhooks refer to a combination of elements that collectively create a notification and reaction system within a larger integration.
 
 Metaphorically, webhooks are like a phone number that TRUST&TRACE calls to notify you of activity in your TRUST&TRACE account. The activity could be the creation of a new customer or the payout of funds to your bank account. The webhook endpoint is the person answering that call who takes actions based upon the specific information it receives.
 
@@ -41,7 +41,7 @@ export class DIDCommWebhookSetting {
   // get, post, put, delete, ...
   method: string;
 
-  // regex that matches the didcomm message type or one decorator key
+  // regex that matches the DIDComm message type or one decorator key
   match: string;
 }
 ```
