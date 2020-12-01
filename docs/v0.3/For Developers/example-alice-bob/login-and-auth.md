@@ -23,8 +23,8 @@ sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/login',
   method: 'POST',
   body: {
-    email: 'test+1@test.de',
-    password: 'test+1@test.de',
+    email: '$YOUR_EMAIL',
+    password: '$YOUR_PASSWORD',
   }
 });
 
@@ -171,7 +171,7 @@ sendAndLogRequest({
     displayName: 'api-key-1',
   },
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92';
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY';
   },
 });
 ```

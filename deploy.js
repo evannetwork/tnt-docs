@@ -56,7 +56,7 @@ const deployDocs = async () => {
     execSync([
       `rdme docs "${foldersToDeploy[i]}"`,
       `--version=${version}`,
-      '--key=F5UuRPWqqCMTYR6DHKg1VYnOeG8SqTq2',
+      `--key=${process.env.SWAGGER_DEPLOY_KEY}`,
     ].join(' '));
   }
 };

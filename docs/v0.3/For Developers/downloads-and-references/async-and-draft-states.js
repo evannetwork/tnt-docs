@@ -39,10 +39,10 @@ const loadAndPoll = async ({ url, method, body, headers }) => {
 
 (async () => {
   const credential = await loadAndPoll({
-    url: 'http://localhost:7070/credential/657a6988-741c-4d77-b88e-7d48691a91cb',
+    url: 'http://localhost:7070/credential/$YOUR_CREDENTIAL_ID',
     method: 'GET',
     headers: {
-      'tnt-subscription-key': '463dc63d5b8d4dc29151a77c3a5be8a3',
+      'tnt-subscription-key': '$YOUR_SUBSCRIPTIO_KEY',
     },
   });
   // credential will be now finished

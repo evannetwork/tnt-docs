@@ -18,10 +18,10 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     schemaId: 'Billing Data',
-    identityId: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC'
+    identityId: 'IDENTITY_DID'
   },
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });
 
@@ -36,10 +36,10 @@ sendAndLogRequest({
       paymentDate: '2020-01-23'
     },
     schemaId: 'Billing Data',
-    identityId: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC'
+    identityId: 'IDENTITY_DID'
   },
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });
 
@@ -48,7 +48,7 @@ sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/credential',
   method: 'GET',
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });
 
@@ -58,8 +58,8 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     type: 'DIDCOMM',
-    from: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
-    to: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
+    from: 'IDENTITY_DID',
+    to: 'IDENTITY_DID',
     command: 'message',
     data: {
       message: {
@@ -75,7 +75,7 @@ sendAndLogRequest({
     },
   },
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });
 
@@ -85,8 +85,8 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     type: 'DIDCOMM',
-    from: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
-    to: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
+    from: 'IDENTITY_DID',
+    to: 'IDENTITY_DID',
     command: 'message',
     data: {
       message: {
@@ -105,7 +105,7 @@ sendAndLogRequest({
     },
   },
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });
 
@@ -115,12 +115,12 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     schemaId: 'did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0',
-    identityId: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
-    contactId: 'did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC',
+    identityId: 'IDENTITY_DID',
+    contactId: 'IDENTITY_DID',
     credentialValues: attachment.credentialValues,
   },
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });
 
@@ -129,6 +129,6 @@ sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/credential',
   method: 'GET',
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });

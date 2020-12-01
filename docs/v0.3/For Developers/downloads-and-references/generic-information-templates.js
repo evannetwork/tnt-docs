@@ -24,11 +24,11 @@ sendAndLogRequest({
     },
     "name": "Billing Data",
     "description": "Details about a payment",
-    "identityId": "046973cf-2190-49b0-b668-7ff46ba8495b",
+    "identityId": "$IDENTITY_ID",
     "requiredProperties": ["invoiceId", "payedAmount"]
   },
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });
 
@@ -37,7 +37,7 @@ sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/schema/Billing Data',
   method: 'GET',
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });
 
@@ -46,6 +46,6 @@ sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/schema',
   method: 'GET',
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });

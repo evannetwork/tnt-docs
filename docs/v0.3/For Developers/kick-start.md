@@ -63,8 +63,8 @@ Actions represent an encapsulated business case or a grouping for different cred
 - [CSR] - requests certificates from your partner
 - [DIDCOMM] - opens a DIDComm communication channel that handles message decryption / encryption
 - [Invitation] - requests a DID exchange for
-- [NCE] - handler for validating and sending [NCE formatted DIDComm messages]
-- [ORDER-TRACING] - NCE formatted for tracing orders
+- [NPE] - handler for validating and sending [NPE formatted DIDComm messages]
+- [ORDER-TRACING] - NPE formatted for tracing orders
 
 ## Asynchronous Workers
 
@@ -122,8 +122,8 @@ A presentation is created out of one or more credentials and can be shared separ
 [login via API]: ./login-and-auth
 [Master data]: ../reference#npe
 [messaging protocol]: https://identity.foundation/didcomm-messaging/spec
-[NCE formatted DIDComm messages]: https://github.com/evannetwork/public-concepts/blob/master/Negotiated%20Credential%20Exchange/negotiated_credential_exchange.md
-[NCE]: ../reference#npe
+[NPE formatted DIDComm messages]: https://github.com/evannetwork/public-concepts/blob/master/Negotiated%20Credential%20Exchange/negotiated_credential_exchange.md
+[NPE]: ../reference#npe
 [ORDER-TRACING]: ../reference#npe
 [postman collection]: ./downloads-and-references
 [registering on Trust&Trace]: https://app.trust-trace.com

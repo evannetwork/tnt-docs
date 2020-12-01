@@ -19,13 +19,13 @@ sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/proof-request',
   method: 'POST',
   body: {
-    verifierContactId: '37f657b8-dc2f-4f1d-8d20-927393101e74',
-    proverIdentityId: '046973cf-2190-49b0-b668-7ff46ba8495b',
+    verifierContactId: '$CONTACT_ID',
+    proverIdentityId: '$IDENTITY_ID',
     schemaId: 'did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98',
     revealedAttributes: [ 'name' ]
   },
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });
 ```
@@ -39,13 +39,13 @@ Which will return:
   "assetRefId": "e0da9d00-1926-44e0-beae-1ab540e441b7",
   "type": "PROOF_REQUEST",
   "value": "{\"eventId\":\"e72a0a7e-088c-4c0a-b180-ccada0aea8f3\",\"subProofRequests\":[{\"schema\":\"did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98\"}]}",
-  "subject": "046973cf-2190-49b0-b668-7ff46ba8495b",
-  "issuer": "046973cf-2190-49b0-b668-7ff46ba8495b",
+  "subject": "$IDENTITY_ID",
+  "issuer": "$IDENTITY_ID",
   "asset": [
     {
       "uuid": "cf7b73b5-123a-4cda-9a18-ff2403ce319d",
       "principalUuid": "990ccd48-94dc-4c21-8589-7d602322517e",
-      "issuer": "046973cf-2190-49b0-b668-7ff46ba8495b",
+      "issuer": "$IDENTITY_ID",
       "referenceUri": {
         "@id": "e72a0a7e-088c-4c0a-b180-ccada0aea8f3",
         "@type": "presentation",
@@ -73,7 +73,7 @@ Which will return:
       }
     }
   ],
-  "verifier": "37f657b8-dc2f-4f1d-8d20-927393101e74",
+  "verifier": "$CONTACT_ID",
   "credentialTemplate": {
     "createdBy": null,
     "createdAt": "2020-09-22T04:13:21.779Z",
@@ -120,7 +120,7 @@ sendAndLogRequest({
     proofRequestUuid: 'b86211e1-9651-4f20-9431-c453c16ff3b5'
   },
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });
 ```
@@ -129,7 +129,7 @@ This will return our presentation:
 
 ```js
 {
-  "uuid": "bf73b02b-4597-4d31-9ba5-b2a4ced3fdaf",
+  "uuid": "$PRESENATION_ID",
   "principalUuid": "4ef0bedb-fb4e-4ec4-bd47-0093c0c8825d",
   "assetRefId": "4e697fb5-b831-4338-837c-c21f7b4686fd",
   "type": "VP",
@@ -268,10 +268,10 @@ This presentation is currently in `DRAFT` state, so don't be confused that the `
 
 ```js
 sendAndLogRequest({
-  url: 'https://api.trust-trace.com/api/v1/presentation/bf73b02b-4597-4d31-9ba5-b2a4ced3fdaf',
+  url: 'https://api.trust-trace.com/api/v1/presentation/$PRESENATION_ID',
   method: 'Get',
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });
 ```
@@ -284,7 +284,7 @@ Which returns:
   "createdAt": "2020-09-22T07:01:02.929Z",
   "updatedBy": null,
   "updatedAt": "2020-09-22T07:01:04.896Z",
-  "uuid": "bf73b02b-4597-4d31-9ba5-b2a4ced3fdaf",
+  "uuid": "$PRESENATION_ID",
   "principalUuid": "4ef0bedb-fb4e-4ec4-bd47-0093c0c8825d",
   "assetRefId": "37f3a24f-03a7-4be8-a4ee-0ae495ba5f0b",
   "type": "VP",

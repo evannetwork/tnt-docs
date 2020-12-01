@@ -28,7 +28,7 @@ sendAndLogRequest({
     did: 'did:evan:$YOUR_DID',
   },
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });
 ```
@@ -68,7 +68,7 @@ sendAndLogRequest({
     }
   },
   headers: {
-    'tnt-subscription-key': '010e78af828742df91cf8145b8c05a92',
+    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
   },
 });
 ```
