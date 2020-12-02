@@ -48,7 +48,7 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     schemaId: 'Billing Data',
-    identityId: '$IDENTITY_DID'
+    identityId: '$ALICE_DID'
   },
   headers: {
     'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
@@ -102,7 +102,7 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     schemaId: 'Billing Data',
-    identityId: '$IDENTITY_DID'
+    identityId: '$ALICE_DID'
   },
   headers: {
     'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
@@ -286,8 +286,8 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     type: 'DIDCOMM',
-    from: '$IDENTITY_DID',
-    to: '$IDENTITY_DID',
+    from: '$ALICE_DID',
+    to: '$BOB_DID',
     command: 'message',
     data: {
       message: {
@@ -320,8 +320,8 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     type: 'DIDCOMM',
-    from: '$IDENTITY_DID',
-    to: '$IDENTITY_DID',
+    from: '$ALICE_DID',
+    to: '$BOB_DID',
     command: 'message',
     data: {
       message: {
@@ -357,8 +357,8 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     schemaId: 'did:evan:zkp:0xc981213f21c2691c3eb479bdd358a279bc70157f1791694cca5b7383c0671fe0',
-    identityId: '$IDENTITY_DID',
-    contactId: '$IDENTITY_DID',
+    identityId: '$ALICE_DID',
+    contactId: '$ALICE_DID',
     credentialValues: attachment.credentialValues,
   },
   headers: {

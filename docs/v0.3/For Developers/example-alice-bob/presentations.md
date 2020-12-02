@@ -19,8 +19,8 @@ sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/proof-request',
   method: 'POST',
   body: {
-    verifierContactId: '$CONTACT_ID',
-    proverIdentityId: '$IDENTITY_ID',
+    verifierContactId: '$BOB_ID',
+    proverIdentityId: '$ALICE_ID',
     schemaId: 'did:evan:zkp:0xfc60735879e2fdacc9327215f844c7d4590677215d679bd082b9b4c55c1c5e98',
     revealedAttributes: [ 'name' ]
   },
@@ -114,10 +114,10 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     revealedAttributes: ['payedAmount', 'paymentDate'],
-    targetContactUuid: '1e86afa4-a468-49f0-8b8a-7ce97c314ea7',
-    identityUuid: '707d87b2-262a-4903-98e6-bd7969acaaeb',
-    vcAssetDataUuid: '40f35433-956e-40b2-94a1-8d33d0e11ee2',
-    proofRequestUuid: 'b86211e1-9651-4f20-9431-c453c16ff3b5'
+    targetContactId: '$BOB_ID',
+    identityId: '$BOB_ID',
+    vcAssetDataUuid: '$ASSET_DATA_UUID',
+    proofRequestUuid: '$ASSET_DATA_UUID'
   },
   headers: {
     'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',

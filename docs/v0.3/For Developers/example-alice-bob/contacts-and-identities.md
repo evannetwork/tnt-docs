@@ -39,7 +39,7 @@ sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/identity',
   method: 'GET',
   headers: {
-    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
+    'tnt-subscription-key': '$ALICE_SUBSCRIPTION_KEY',
   },
 });
 ```
@@ -81,11 +81,11 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     email: 'my.partner@example.com',
-    displayName: 'My Partner',
+    displayName: 'Bob',
     internalRef: 'reference-to-this-partner-in-my-system-eg-customer123'
   },
   headers: {
-    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
+    'tnt-subscription-key': '$ALICE_SUBSCRIPTION_KEY',
   },
 });
 ```
@@ -95,8 +95,8 @@ Which will return our new contact:
 ```json
 {
   "type": "COMPANY",
-  "displayName": "My Partner",
-  "email": "my.partner@example.com",
+  "displayName": "Bob",
+  "email": "bob@example.com",
   "status": "REQUESTED",
   "internalRef": "reference-to-this-partner-in-my-system-eg-customer123",
   "principal": "9bb12ebd-2e17-46f1-a8b1-b009cf79b363",
@@ -132,11 +132,11 @@ sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/invitation',
   method: 'POST',
   body: {
-    from: '$IDENTITY_ID',
-    to: '$CONTACT_DID_UUID',
+    from: '$ALICE_IDENTITY',
+    to: '$BOB_DID',
     config: {
-      did: '$CONTACT_DID_UUID',
-      contactUuid: 'e2162a9d-07e6-4162-9bb7-62c06ab68ab8'
+      did: '$BOB_DID',
+      contactUuid: '$BOB_CONTACT_UUID'
     }
   },
   headers: {
@@ -185,11 +185,11 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     config: {
-      contactUuid: "$CONTACT_UUID",
+      contactUuid: "$BOB_CONTACT_UUID",
       email: "account2@example.com",
       inviteName: "Account 1"
     },
-    from: "046973cf-2190-49b0-b668-7ff46ba8495b"
+    from: "$ALICE_IDENTITY"
   },
   headers: {
     'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
@@ -256,12 +256,12 @@ sendAndLogRequest({
   method: 'POST',
   body: {
     config: {
-      contactUuid: '1e86afa4-a468-49f0-8b8a-7ce97c314ea7',
+      contactUuid: '$ALICE_CONTACT_UUID',
       invitation: {
         recipientKeys: [
           '2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa'
         ],
-        from: 'did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483',
+        from: '$ALICE_DID',
         '@id': '932677bc-ba47-45e3-9cdf-ee090e27b0ce',
         serviceEndpoint: 'https://api.trust-trace.com/api/v1/api/didcomm'
       },
