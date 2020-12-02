@@ -23,8 +23,8 @@ sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/login',
   method: 'POST',
   body: {
-    email: '$YOUR_EMAIL',
-    password: '$YOUR_PASSWORD',
+    email: '$ALICE_EMAIL',
+    password: '$ALICE_PASSWORD',
   }
 });
 
@@ -165,7 +165,7 @@ When used, API tokens have to be provided as a header, `tnt-subscription-key` or
 
 ```js
 sendAndLogRequest({
-  url: 'https://api.trust-trace.com/api/v1/account/$ACCOUNT_ID',
+  url: 'https://api.trust-trace.com/api/v1/account/$ALICE_ACCOUNT_ID',
   method: 'GET',
   body: {
     displayName: 'api-key-1',
