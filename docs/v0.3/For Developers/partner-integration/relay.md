@@ -46,7 +46,14 @@ export class DIDCommWebhookSetting {
 }
 ```
 
-## Configure webhook using typescript
+## Configure webhook
+
+Webhooks can be configured for the following use cases:
+
+- ``DIDCOMM_WEBHOOK``: Get notified, when a DIDComm message is incoming
+- ``TASK_WEBHOOK``: Get notified, when a task is finished.
+
+The following example registers a DIDCOMM_WEBHOOK. For a sample for TASK_WEBHOOKs, please read the following article: [TASK_WEBHOOKS].
 
 ```js
 sendAndLogRequest({
@@ -73,6 +80,29 @@ sendAndLogRequest({
 });
 ```
 
+## Available decorators and types
+
+The match property checks the message type and all decorators of incoming messages. TRUST&TRACE processes by default the following values. But keep in mind when your working with external systems, that all DIDComm messages with all decorators and types that are [supported by the protocol], are possible.
+
+- ``message.type``:
+  - spec/negotiated-credential-exchange/1.0/propose-credential-exchange
+  - spec/negotiated-credential-exchange/1.0/adjust-proposal
+  - spec/negotiated-credential-exchange/1.0/complete-proposal
+  - spec/negotiated-credential-exchange/1.0/update-context
+  - spec/negotiated-credential-exchange/1.0/accept-update
+  - spec/negotiated-credential-exchange/1.0/reject-update
+- decorators
+  - requests~attach
+  - credentials~attach
+  - presentations~attach
+  - request_presentations~attach
+  - accept-update~attach
+  - adjust-proposal~attach
+  - complete-proposal~attach
+  - propose-credential-exchange~attach
+  - reject-update~attach
+  - update-context~attach
+
 # Receive a webhook
 
 The other party will receive the following payload that is requested by the webhook logic:
@@ -88,7 +118,8 @@ The other party will receive the following payload that is requested by the webh
 ```
 
 - message: Received, decrypted DIDComm message
-- actionUuid: TRUST&TRACE action uuid. Is basically a thread for grouping messages and interactions.
-- eventUuid: Each DIDComm message will create one event, including the raw payload of the message.
-- assetUuid: Represents the whole DIDComm message within the TRUST&TRACE structure.
-- assetDataUuids: Formatted message attachments (e.g. credential, presentation, presentation-request)
+- from: contact identity uuid / did
+- to: your identity uuid / did
+
+[TASK_WEBHOOKS]: ./async-and-draft-states
+[supported by the protocol]: https://github.com/hyperledger/aries-rfcs

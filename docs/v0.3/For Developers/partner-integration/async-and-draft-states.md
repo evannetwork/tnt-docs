@@ -227,6 +227,22 @@ await axios({
 Which will call the endpoint with the following data:
 
 - ``type`` - ``string``: type of the entity that was finished (will match the endpoint specification, e.g.: 'identity', 'credential', ...)
+  - answer-invitation
+  - contact
+  - create-credential-definition-key
+  - credential-definition.spec
+  - credential-definition
+  - credential-exchange
+  - credential.spec
+  - credential
+  - data-exchange
+  - identity
+  - order-tracing
+  - presentation
+  - proof-request
+  - request-didexchange
+  - schema
+  - send-invitation
 - ``uuid`` - ``string``: uuid of the element
 
 [Contact API ↗]: ../reference#contact-1

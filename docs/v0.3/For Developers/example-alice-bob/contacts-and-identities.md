@@ -171,7 +171,7 @@ This will return the referenced action entity:
 
 ## Listen for accepts
 
-If Bob has a external DIDComm agent or wants to use TRUST&TRACE to react for incoming DIDComm messages, he can register a webhook. Please have a look at this section: [Webhooks].
+If Bob has an external DIDComm agent or wants to use TRUST&TRACE to react for incoming DIDComm messages, he can register a webhook. Please have a look at this section: [Webhooks].
 
 # Invitation via Email
 
