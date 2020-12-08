@@ -12,6 +12,8 @@ Alice and Bob now created credentials for them selfs and for the other party. No
 
 # Request a Presentation"
 
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/request_presentation.png)
+
 At first, Alice needs to send a proof request to Bob (referenced by the entry in our contact list).
 
 ```js
