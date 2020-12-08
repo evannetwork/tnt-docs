@@ -420,3 +420,4 @@ const credential = JSON.parse(result.hits[0].value);
 [Issue Credential Protocol]:https://github.com/hyperledger/aries-rfcs/tree/master/features/0036-issue-credential
 [business service endpoint]: ./talking-didcomm
 [DIDComm endpoint]: ../reference#didcomm-2
+[presentation section]: ./presentations

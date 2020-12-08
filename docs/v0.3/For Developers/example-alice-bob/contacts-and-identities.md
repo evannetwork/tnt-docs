@@ -6,7 +6,11 @@ createdAt: "2020-11-23T07:30:27.283Z"
 updatedAt: "2020-11-23T07:47:57.177Z"
 ---
 
-Contacts are your business partners, that you can communicate with via the DIDCOMM protocol. To share certificates, both parties (sender and receiver) need to have the other party in their contacts. To get connected to any business partner, you have two possibilities:
+Contacts are your business partners, that you can communicate with via the DIDCOMM protocol. Each principal on TRUST&RACE has it's seperated space to work in. Every identity and contact will have a did associated on the evan.network. The Identity did is always managed by the principal and the contact did is just a reference to another identity on a different principal.
+
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/contacts-identities.png)
+
+To share certificates, both parties (sender and receiver) need to have the other party in their contacts. To get connected to any business partner, you have two possibilities.
 
 ### Invitation via DID
 
