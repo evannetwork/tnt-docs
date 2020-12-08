@@ -10,6 +10,8 @@ updatedAt: "2020-11-23T07:46:35.580Z"
 
 If you have tested the [TRUST&TRACE UI] a bit and tried out the [CSR assessment], you might have noticed, that exchanging certificates starts with requesting them instead of just sending them to the contact.
 
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/templates.png)
+
 Requesting credential requires a credential schema - you need to have a schema for the data you are requesting from you contacts. In the [CSR assessment] you can see a list of default credential schemata that you could use, but we are going to create our own schema here with the [Schema's POST] endpoint. In this example we will create a schema to issue credentials with data about payments:
 
 ```js
@@ -125,3 +127,8 @@ Which will return:
   ],
 }
 ```
+
+[TRUST&TRACE UI]: https://app.trust-trace.com
+[CSR assessment]: https://app.trust-trace.com/csr-assessment
+[Schema's POST]: ../reference#post_schema-1
+[Schema's GET]: ../reference#get_schema-identifier

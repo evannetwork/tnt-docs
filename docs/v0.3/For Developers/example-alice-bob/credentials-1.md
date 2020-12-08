@@ -38,6 +38,8 @@ Alice wants to download a credential and pack it on her mobile phone, so she can
 
 Alice wants to create a credential using the previous created `Billing Data` template for her self.
 
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/credential_self_signed.png)
+
 ## Credential Definition
 
 But before she can create the credential it self, she needs a credential definition. The credential definition basically contains cryptographic proofs, in context for the acting identity and the schema you want to use. Based on this credential definition, multiple credentials can be created. Use can use the the credential [Credential Definition] endpoint:
@@ -236,7 +238,11 @@ From this we get the new credential:
 
 # Share a existing credential
 
-If you want to share a credential with another user, you can just send it via DIDComm. But at first, you need to find your credential. Use the credential endpoint to query for your credentials:
+If you want to share a credential with another user, you can just send it via DIDComm.
+
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/credential_share.png)
+
+But at first, you need to find your credential. Use the credential endpoint to query for your credentials:
 
 ```js
 sendAndLogRequest({
@@ -311,6 +317,8 @@ sendAndLogRequest({
 # Request and create a credential
 
 To request a credential, you need to send a credential request to your partner. To to do this easy, you can again use the generic [DIDComm endpoint] of TRUST&TRACE using the [Issue Credential Protocol] to attach the credential information that should be proofed.
+
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/credential_request.png)
 
 ```js
 const credential = JSON.parse(result.hits[0].value);
