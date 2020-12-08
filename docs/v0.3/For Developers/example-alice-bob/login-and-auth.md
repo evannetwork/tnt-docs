@@ -10,6 +10,8 @@ Before Alice and Bob can login, they need to register their account on the [TRUS
 
 Usually they want to use a technical API token to not handle login expiration times. But to create such a API token for an account, a JWT token to generate the initial one, is needed. So please login via the [login via email] section, to get your JWT token to be able to [generate a API token](#create-api-token) and to [authenticate with token](#authentication-with-api-token).
 
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/auth.png)
+
 # Login with email and password
 
 ## Create JWT token

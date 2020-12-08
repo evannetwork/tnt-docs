@@ -6,7 +6,9 @@ createdAt: "2020-11-23T07:26:01.826Z"
 updatedAt: "2020-11-24T10:07:23.037Z"
 ---
 
-This sections covers use cases you may encounter often when working with the TRUST&TRACE API.
+This sections covers use cases you may encounter often when working with the TRUST&TRACE API and will guide you through this example:
+
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/over-all.png)
 
 Remember, that you will need to have a valid authentication token, so why not start with the [Login and receive a JWT Token]?
 

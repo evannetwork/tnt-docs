@@ -10,9 +10,9 @@ Alice and Bob now created credentials for them selfs and for the other party. No
 
 **Note**: The complete communication between the users will be done within the endpoints, because each action needs cryptographically created proofs. To make the process easier, request-proof and presentation endpoints will directly share the presentation.
 
-# Request a Presentation"
+# Request a Presentation
 
-![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/request_presentation.png)
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/presentation_request.png)
 
 At first, Alice needs to send a proof request to Bob (referenced by the entry in our contact list).
 
