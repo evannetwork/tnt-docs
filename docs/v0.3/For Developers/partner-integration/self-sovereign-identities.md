@@ -8,6 +8,8 @@ updatedAt: "2020-11-23T07:58:23.912Z"
 
 By registering on TRUST&TRACE an identity on the evan.network and a corresponding DID document is created. TRUST&TRACE handles the complete message encryption and decryption for you.
 
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/partner-integration/images/self-sovereign.png)
+
 # Preperation
 
 To use an external signer you will probably need an identity on evan.network. Please create one by registering on [https://dashboard.evan.network]. When you have registered successfully, you can navigate to the settings page and view the technical information of your [account](https://dashboard.test.evan.network/#/dashboard.vue.evan/settings.evan/account).
