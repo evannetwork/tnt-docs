@@ -125,7 +125,7 @@ Which will return our new contact:
 
 During the invitation process, TRUST&TRACE will handle the following states internally or with an external DIDComm agent.
 
-![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/contacts_did_exchange.png)
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/invitation-did.png)
 
 ## Send DID invitation
 
@@ -178,6 +178,10 @@ This will return the referenced action entity:
 If Bob has an external DIDComm agent or wants to use TRUST&TRACE to react for incoming DIDComm messages, he can register a webhook. Please have a look at this section: [Webhooks].
 
 # Invitation via Email
+
+The technical background is nearly the same, just with a invitation email at first.
+
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/invitation-did.png)
 
 ## Send invitation
 

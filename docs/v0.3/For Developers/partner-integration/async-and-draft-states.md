@@ -10,6 +10,8 @@ As you may already recognized, some endpoints return the entity directly with st
 
 Please keep in mind, that some entities are based on each other. So the resulting `DRAFT` states can postpone recursively.
 
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/partner-integration/images/draft-states.png)
+
 ## Entities with DRAFT states
 
 ### Identity

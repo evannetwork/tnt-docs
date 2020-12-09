@@ -8,6 +8,8 @@ updatedAt: "2020-11-23T07:57:57.622Z"
 
 TRUST&TRACE has the possibility to work internal and external with the DIDComm protocol.
 
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/partner-integration/images/didcomm.png)
+
 # How to reach TRUST&TRACE
 
 TRUST&TRACE has one specific endpoint to send messages to:
