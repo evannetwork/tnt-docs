@@ -6,9 +6,13 @@ createdAt: "2020-11-23T07:30:27.283Z"
 updatedAt: "2020-11-23T07:47:57.177Z"
 ---
 
-Contacts are your business partners, that you can communicate with via the DIDCOMM protocol. Each principal on TRUST&RACE has it's seperated space to work in. Every identity and contact will have a did associated on the evan.network. The Identity did is always managed by the principal and the contact did is just a reference to another identity on a different principal.
+Contacts are your business partners, that you can communicate with. Each principal on TRUST&RACE has it's seperated space to work in. Every identity and contact will have a did associated on the evan.network. The Identity did is always managed by the principal and the contact did is just a reference to another identity on a different principal.
 
 ![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/contacts-identities.png)
+
+Logically, you can just communicate with the contact instance, that holds the did reference to the foreign identity. Technically, one principal can have multiple identities. Each identity will get it's own connection to the contact by setting up a communication connection. This connection holds the service endpoint and alle communication encryption key pairs.
+
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/connections.png)
 
 To share certificates, both parties (sender and receiver) need to have the other party in their contacts. To get connected to any business partner, you have two possibilities.
 
@@ -17,18 +21,16 @@ To share certificates, both parties (sender and receiver) need to have the other
 If you know your partners DID address, you can simply send a invitation request to this user. If the other party is also managed on TRUST&TRACE, the system will handle the DID exchange and key pair generation by its self. If the other party is managed by an external DIDComm provider, TRUST&TRACE will exchange DIDComm messages for DID exchange with the external agent for you. [Continue here](https://github.com/hyperledger/aries-rfcs/tree/master/features/0023-DID-exchange), to read more about the protocol.
 
 1. [Get my identity] - Whats an identity on TRUST&TRACE and how can i work with it?
-2. [Create a Contact] - entry for you (which is basically like an entry in your mobile phone's address book)
-3. [Send DID invitation] - you use the TRUST&TRACE invitation logic to send a DIDComm message invitation
-4. [Listen for accepts] - short introduction in listening for DIDComm messages
+2. [Create Contact and Invite] - entry for you (which is basically like an entry in your mobile phone's address book)
+3. [Listen for accepts] - short introduction in listening for DIDComm messages
 
 ### Invitation via Email
 
 If you don't know the partners DID, you can use the TRUST&TRACE email invitation service. A invitation mail including an invitationId is sent to the other party. You can also provide this invitationId directly to your partner or to an external system, if you need a more automated invitation process.
 
 1. [Get my identity] - Whats an identity on TRUST&TRACE and how can i work with it?
-2. [Create a Contact]: entry for you (which is basically like an entry in your mobile phone's address book)
-3. [Send invitation]: you send a business partner an invitation, signalling that you want to cooperate with him or her: [Invite a Contact] (which could be compared to giving your phone number to someone)
-4. [Answer invitation]: the partner accepts the invitation, which allows secure communication between you two, this can only be done from the [TRUST&TRACE UI] at the moment (continuing with the mobile phone example, your business partner adds you to his or her address book)
+2. [Create Contact and Invite]: entry for you (which is basically like an entry in your mobile phone's address book)
+3. [Answer invitation]: the partner accepts the invitation, which allows secure communication between you two, this can only be done from the [TRUST&TRACE UI] at the moment (continuing with the mobile phone example, your business partner adds you to his or her address book)
 
 # General
 
@@ -73,6 +75,16 @@ Which will return our (only) identity in this principal.
 }
 ```
 
+# Invition via DID
+
+During the invitation process, TRUST&TRACE will handle the following states internally or with an external DIDComm agent.
+
+![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/invitation-did.png)
+
+## Send DID invitation
+
+To send a invitation via DID, you can just pass your did to your contact creation request. After that, TRUST&TRACE will handle your request internally and you can start requesting services with the internal contact id or with the DID. All interactions that requires a finished DID exchange, like sending DIDComm messages, will be on hold and automatically sent out, when the DID exchange has finished.
+
 ## Create a Contact
 
 First step before you are able to work with your partners is a contact instances, where the invitation logic can work on. If you already know your partners DID, you can directly use it for the contact creation. DID will be also filled up after finishing the DID exchange. Keep in mind, like for the identities, we will we will use the contacts DID as reference for API calls in the other sections.
@@ -84,9 +96,12 @@ sendAndLogRequest({
   url: 'https://api.trust-trace.com/api/v1/contact',
   method: 'POST',
   body: {
-    email: 'my.partner@example.com',
-    displayName: 'Bob',
-    internalRef: 'reference-to-this-partner-in-my-system-eg-customer123'
+    contact: {
+      did: 'did:evan:1234',
+      displayName: 'Bob',
+      internalRef: 'reference-to-this-partner-in-my-system-eg-customer123'
+    },
+    inviteMessage: 'Hey Bob, here is alice. Please add me as your contact.'
   },
   headers: {
     'tnt-subscription-key': '$ALICE_SUBSCRIPTION_KEY',
@@ -98,80 +113,31 @@ Which will return our new contact:
 
 ```json
 {
-  "type": "COMPANY",
-  "displayName": "Bob",
-  "email": "bob@example.com",
-  "status": "REQUESTED",
-  "internalRef": "reference-to-this-partner-in-my-system-eg-customer123",
-  "principal": "9bb12ebd-2e17-46f1-a8b1-b009cf79b363",
-  "createdBy": null,
-  "updatedBy": null,
-  "did": null,
-  "method": null,
-  "plugin": null,
-  "note": null,
-  "inviteMessage": null,
-  "tags": null,
-  "createdAt": "2020-11-25T08:02:12.760Z",
-  "updatedAt": "2020-11-25T08:02:12.760Z",
-  "uuid": "6a46ae03-dcf2-4dee-8b43-bd09081f0c66"
+  "invitationId": "123456-013241....",
+  "contact": {
+    "type": "COMPANY",
+    "displayName": "Bob",
+    "email": "",
+    "status": "REQUESTED",
+    "internalRef": "reference-to-this-partner-in-my-system-eg-customer123",
+    "principal": "9bb12ebd-2e17-46f1-a8b1-b009cf79b363",
+    "createdBy": null,
+    "updatedBy": null,
+    "did": "did:evan:1234",
+    "method": null,
+    "plugin": null,
+    "note": null,
+    "inviteMessage": null,
+    "tags": null,
+    "createdAt": "2020-11-25T08:02:12.760Z",
+    "updatedAt": "2020-11-25T08:02:12.760Z",
+    "uuid": "6a46ae03-dcf2-4dee-8b43-bd09081f0c66"
+  }
 }
 ```
 
 [Contact]: ref:contact
 [Login and receive a JWT Token]: ref:login-and-receive-a-jwt-token
-
-# Invition via DID
-
-During the invitation process, TRUST&TRACE will handle the following states internally or with an external DIDComm agent.
-
-![picture](https://raw.githubusercontent.com/evannetwork/tnt-docs/develop/docs/v0.3/For%20Developers/example-alice-bob/images/invitation-did.png)
-
-## Send DID invitation
-
-To send a invitation via DID, you can use the invitation action. After that, TRUST&TRACE will handle your request internally and you can start requesting services with the internal contact id or with the DID. All interactions that requires a finished DID exchange, like sending DIDComm messages, will be on hold and automatically sent out, when the DID exchange has finished.
-
-```js
-sendAndLogRequest({
-  url: 'https://api.trust-trace.com/api/v1/invitation',
-  method: 'POST',
-  body: {
-    from: '$ALICE_IDENTITY',
-    to: '$BOB_DID',
-    config: {
-      did: '$BOB_DID',
-      contactUuid: '$BOB_CONTACT_UUID'
-    }
-  },
-  headers: {
-    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
-  },
-});
-```
-
-This will return the referenced action entity:
-
-```json
-{
-  "createdBy": "9a8ae067-4992-453c-a5f5-92cf7a1a70a2",
-  "createdAt": "2020-11-25T15:24:33.647Z",
-  "updatedBy": "9a8ae067-4992-453c-a5f5-92cf7a1a70a2",
-  "updatedAt": "2020-11-25T15:24:33.647Z",
-  "uuid": "f7e0f650-6a42-4d54-a890-01d8ac50fcbc",
-  "principalUuid": "b06024d2-dcdd-4b87-8888-61bce894e41c",
-  "from": "$IDENTITY_ID",
-  "to": "$CONTACT_DID_UUID",
-  "type": "INVITATION",
-  "typeVersion": "1",
-  "direction": "OUTGOING",
-  "referenceID": "d5d5e66c-fd71-4e93-bcc2-ce86f06da3ff",
-  "config": "{\"did\":\"$CONTACT_DID_UUID\",\"contactUuid\":\"e2162a9d-07e6-4162-9bb7-62c06ab68ab8\"}",
-  "status": "ACTIVE",
-  "typeStatus": "",
-  "data": "{}",
-  "tags": null
-}
-```
 
 ## Listen for accepts
 
@@ -185,47 +151,50 @@ The technical background is nearly the same, just with a invitation email at fir
 
 ## Send invitation
 
-Now we can use the `uuid` from our identity to create an invitation:
+Just create the contact with an email address instead of a did.
 
 ```js
 sendAndLogRequest({
-  url: 'https://api.trust-trace.com/api/v1/invitation',
+  url: 'https://api.trust-trace.com/api/v1/contact',
   method: 'POST',
   body: {
-    config: {
-      contactUuid: "$BOB_CONTACT_UUID",
-      email: "account2@example.com",
-      inviteName: "Account 1"
+    contact: {
+      email: 'bob@example.com',
+      displayName: 'Bob',
+      internalRef: 'reference-to-this-partner-in-my-system-eg-customer123'
     },
-    from: "$ALICE_IDENTITY"
+    inviteMessage: 'Hey Bob, here is alice. Please add me as your contact.'
   },
   headers: {
-    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
+    'tnt-subscription-key': '$ALICE_SUBSCRIPTION_KEY',
   },
 });
 ```
 
-Which returns an invitation action:
+Which will return our new contact:
 
 ```json
 {
-  "principalUuid": "990ccd48-94dc-4c21-8589-7d602322517e",
-  "from": "046973cf-2190-49b0-b668-7ff46ba8495b",
-  "to": "",
-  "type": "INVITATION",
-  "typeVersion": "1",
-  "direction": "OUTGOING",
-  "referenceID": "932677bc-ba47-45e3-9cdf-ee090e27b0ce",
-  "config": "{\"authorization\":\"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InV1aWQiOiIyYzliZTUzYS1kYjc4LTRmY2MtYTQ1Yi1kZWRhYzkwZTI5NDciLCJwcmluY2lwYWxVdWlkIjoiOTkwY2NkNDgtOTRkYy00YzIxLTg1ODktN2Q2MDIzMjI1MTdlIn0sImlhdCI6MTYwMDY5NDg0MywiZXhwIjoxNjAwNzgxMjQzfQ.vrl-sh2btd16yoKZeZtyqVf8icD5z6RW6TEL1JDjLH8\",\"contactUuid\":\"44c5d3b0-3437-487b-ae24-398c19a230ea\",\"email\":\"account2@example.com\",\"inviteName\":\"Account 2\"}",
-  "status": "ACTIVE",
-  "typeStatus": "",
-  "data": "{\"endpoint\": \"account2@example.com\",\"invitation\": {\"recipientKeys\": [\"2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa\"],\"from\": \"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\"@id\": \"932677bc-ba47-45e3-9cdf-ee090e27b0ce\",\"serviceEndpoint\": \"https://api.trust-trace.com/api/v1/api/didcomm\"},\"invitationId\": \"bf736cab-a735-4a77-9580-7494cfb71fc4\",\"parentthreadid\": \"932677bc-ba47-45e3-9cdf-ee090e27b0ce\",\"protocol\": \"DIDCOMM\"}*,
-  "createdBy": null,
-  "updatedBy": null,
-  "tags": null,
-  "createdAt": "2020-09-21T11:29:30.148Z",
-  "updatedAt": "2020-09-21T11:29:30.148Z",
-  "uuid": "50df59a2-f7a0-4968-a19b-e09de30b5b26"
+  "invitationId": "123456-013241....",
+  "contact": {
+    "type": "COMPANY",
+    "displayName": "Bob",
+    "email": "bob@example.com",
+    "status": "REQUESTED",
+    "internalRef": "reference-to-this-partner-in-my-system-eg-customer123",
+    "principal": "9bb12ebd-2e17-46f1-a8b1-b009cf79b363",
+    "createdBy": null,
+    "updatedBy": null,
+    "did": null,
+    "method": null,
+    "plugin": null,
+    "note": null,
+    "inviteMessage": null,
+    "tags": null,
+    "createdAt": "2020-11-25T08:02:12.760Z",
+    "updatedAt": "2020-11-25T08:02:12.760Z",
+    "uuid": "6a46ae03-dcf2-4dee-8b43-bd09081f0c66"
+  }
 }
 ```
 
@@ -235,79 +204,32 @@ Now the server will send an email to the invited partner. This partner can then 
 
 ## Answer Invitation
 
-When having a look at the `data` part of the result from [invitation], the data object will include the following data.
+When having a look at the `data` part of the result from the [Invitation via Email], the data object includes an invitation id.
 
-```json
-{
-  "endpoint": "account2@example.com",
-  "invitation": {
-    "recipientKeys": [
-      "2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa"
-    ],
-    "from": "did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483",
-    "@id": "932677bc-ba47-45e3-9cdf-ee090e27b0ce",
-    "serviceEndpoint": "https://api.trust-trace.com/api/v1/api/didcomm"
-  },
-  "invitationId": "bf736cab-a735-4a77-9580-7494cfb71fc4",
-  "parentthreadid": "932677bc-ba47-45e3-9cdf-ee090e27b0ce",
-  "protocol": "DIDCOMM"
-}
-```
+To accept the invitation, your invited partner needs the `invitationId`. Usually, this data is sent to the contact via an email, including the information as hashed parameter. To do this technically, you can sent this information to your partner in any format: as text file, over a rest endpoint or even printed out on a sheet of paper.
 
-To accept the invitation, your invited partner needs the `invitationId` and the `invitation` object. Usually, this data is sent to the contact via an email, including the information as hashed parameter. To do this technically, you can sent this information to your partner in any format: as text file, over a rest endpoint or even printed out on a sheet of paper.
-
-The other party (`account2@example.com`), can use this information to request the [invitation answer endpoint] by it self. But first, account 2 also needs to [create a contact], that can be used to accept the invitation. Here we assume, that this step already has been done and created a contact with the `uuid` `1e86afa4-a468-49f0-8b8a-7ce97c314ea7`.
+The other party (`account2@example.com`), can use this information to request the contact endpoint with the invitationId by it self. Automatically, the inviter did and the name is filled within your new contact, and the invitation will be answered using the DIDComm did exchange protocol.
 
 ```js
 sendAndLogRequest({
-  url: 'https://api.trust-trace.com/api/v1/invitation',
+  url: 'https://api.trust-trace.com/api/v1/contact',
   method: 'POST',
   body: {
-    config: {
-      contactUuid: '$ALICE_CONTACT_UUID',
-      invitation: {
-        recipientKeys: [
-          '2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa'
-        ],
-        from: '$ALICE_DID',
-        '@id': '932677bc-ba47-45e3-9cdf-ee090e27b0ce',
-        serviceEndpoint: 'https://api.trust-trace.com/api/v1/api/didcomm'
-      },
-      invitationId: 'bf736cab-a735-4a77-9580-7494cfb71fc4',
+    contact: {
+      email: 'bob@example.com',
+      displayName: 'Bob',
+      internalRef: 'reference-to-this-partner-in-my-system-eg-customer123'
     },
+    inviteMessage: 'Hey Bob, here is alice. Please add me as your contact.'
+    invitationId: '1234-000'
   },
   headers: {
-    'tnt-subscription-key': '$YOUR_SUBSCRIPTION_KEY',
+    'tnt-subscription-key': '$ALICE_SUBSCRIPTION_KEY',
   },
 });
-
 ```
 
-Which also returns an invitation action:
-
-```json
-{
-  "createdBy": "",
-  "createdAt": "2020-09-21 11:57:14.249655",
-  "updatedBy": "",
-  "updatedAt": "2020-09-21 11:57:15.046",
-  "uuid": "8a284b2a-b2da-48e7-ac91-973b0a41be06",
-  "principalUuid": "4ef0bedb-fb4e-4ec4-bd47-0093c0c8825d",
-  "from": "1e86afa4-a468-49f0-8b8a-7ce97c314ea7",
-  "to": "707d87b2-262a-4903-98e6-bd7969acaaeb",
-  "type": "INVITATION",
-  "typeVersion": 1,
-  "direction": "INCOMING",
-  "referenceID": "2ee4d67a-8b04-46cd-abed-10d133d8947c",
-  "config": "{\"authorization\":\"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InV1aWQiOiIxMDNkOTU4MS1kOTY0LTQ2M2QtYWFhOS05NmNlYTc0OTI4NDUiLCJwcmluY2lwYWxVdWlkIjoiNGVmMGJlZGItZmI0ZS00ZWM0LWJkNDctMDA5M2MwYzg4MjVkIn0sImlhdCI6MTYwMDY4OTM1MSwiZXhwIjoxNjAwNzc1NzUxfQ.FUo9qfjckUbXD5PQwOsOhehzmE2lsLatzmviqwCFXgg\",\"contactUuid\":\"1e86afa4-a468-49f0-8b8a-7ce97c314ea7\",\"vcAssetDataUuids\":[\"6b228a75-1101-4a2e-b9f1-c07b4b8c1c67\"],\"invitation\":{\"recipientKeys\":[\"D3JNitvx4WLeKUnxHWYEFCo6YzchUMYEpiCYfGePsHZJ\"],\"from\":\"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\"@id\":\"2ee4d67a-8b04-46cd-abed-10d133d8947c\",\"serviceEndpoint\":\"https://api.trust-trace.com/api/v1/api/didcomm\"},\"invitationId\":\"22bf78f0-7916-4b53-bbc2-1ff4830754bd\"}",
-  "status": "ACTIVE",
-  "typeStatus": "",
-  "data": "{\"protocol\": \"DIDCOMM\",\"publicKey\": \"D3JNitvx4WLeKUnxHWYEFCo6YzchUMYEpiCYfGePsHZJ\",\"endpoint\": \"https://api.trust-trace.com/api/v1/api/didcomm\",\"parentthreadid\": \"2ee4d67a-8b04-46cd-abed-10d133d8947c\"}",
-  "tags": ""
-}
-```
-
-Afterwards, the invitation action status will be set to DONE and the DID field within the contact will be filled with the corresponding identity did.
+Afterwards, the contact status will be set to ACCEPTED and the DID field within the contact will be filled with the corresponding identity did.
 
 [Answer invitation]: #answer-invitation
 [Create a Contact]: #create-a-contact
