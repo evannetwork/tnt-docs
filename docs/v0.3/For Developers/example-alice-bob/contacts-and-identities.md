@@ -220,8 +220,8 @@ sendAndLogRequest({
       displayName: 'Bob',
       internalRef: 'reference-to-this-partner-in-my-system-eg-customer123'
     },
-    inviteMessage: 'Hey Bob, here is alice. Please add me as your contact.'
-    invitationId: '1234-000'
+    identityId: '$YOUR_IDENTITY_ID',
+    invitationId: '$INVIATTION_ID',
   },
   headers: {
     'tnt-subscription-key': '$ALICE_SUBSCRIPTION_KEY',

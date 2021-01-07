@@ -138,44 +138,11 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Contacts & Identities",
 			"item": [
-				{
-					"name": "Create contact",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "tnt-subscription-key",
-								"type": "text",
-								"value": "{{USER_1_SUBSCRIPTION}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"my.partner@example.com\",\n    \"displayName\": \"My Partner\",\n    \"internalRef\": \"reference-to-this-partner-in-my-system-eg-customer123\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_URL}}/contact",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"contact"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "Get identities",
 					"protocolProfileBehavior": {
@@ -247,6 +214,41 @@
 					"response": []
 				},
 				{
+					"name": "Get Connections",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": {\n        \"identityDid\": \"did:evan:testcore:0xa9E1b59aCA1dF64760a365A200E1780715033A6d\",\n        \"contactDid\": \"did:evan:testcore:0x8B5D51883C5b394EF040Cb3C100087dd46Edb44c\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/connection",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"connection"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Invite with did",
 					"request": {
 						"method": "POST",
@@ -259,7 +261,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"from\": \"4df8c436-1c5f-4a2b-ba75-4bce37256490\",\n    \"to\": \"did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98\",\n    \"config\": {\n        \"did\": \"did:evan:testcore:0x7E214391E27092C13E4F52FBf4Db71294e416C98\",\n        \"contactUuid\": \"e2162a9d-07e6-4162-9bb7-62c06ab68ab8\"\n    }\n}",
+							"raw": "{\n    \"contact\": {\n        \"did\": \"did:evan:testcore:0x8B5D51883C5b394EF040Cb3C100087dd46Edb44c\",\n        \"displayName\": \"Bob\",\n        \"internalRef\": \"reference-to-this-partner-in-my-system-eg-customer123\"\n    },\n    \"identityId\": \"fec78955-e5a8-4bc8-a245-01534fa2404b\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -267,13 +269,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/action/INVITATION",
+							"raw": "{{API_URL}}/contact",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"action",
-								"INVITATION"
+								"contact"
 							]
 						}
 					},
@@ -292,7 +293,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"from\": \"f8393822-90fe-4d12-829f-0999b9b4a092\",\n    \"config\": {\n        \"email\": \"test+2@test.de\",\n        \"contactUuid\": \"93989f50-f8c0-4e28-9396-2fb019c1b06d\"\n    }\n}",
+							"raw": "{\n    \"contact\": {\n        \"email\": \"test@test.de\",\n        \"displayName\": \"Bob\",\n        \"internalRef\": \"reference-to-this-partner-in-my-system-eg-customer123\"\n    },\n    \"identityId\": \"fec78955-e5a8-4bc8-a245-01534fa2404b\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -300,13 +301,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/action/invitation",
+							"raw": "{{API_URL}}/contact",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"action",
-								"invitation"
+								"contact"
 							]
 						}
 					},
@@ -325,7 +325,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"config\": {\n      \"contactUuid\": \"1e86afa4-a468-49f0-8b8a-7ce97c314ea7\",\n      \"invitation\": {\n        \"recipientKeys\": [\n          \"2Nv5MeYMQv3k2yHUtSwQ35WToD6d1y8CBDPWb5LAmjLa\"\n        ],\n        \"from\": \"did:evan:testcore:0x6568523CCd0789586E6e3c8246392D829A57f483\",\n        \"@id\": \"932677bc-ba47-45e3-9cdf-ee090e27b0ce\",\n        \"serviceEndpoint\": \"http://localhost:7070/api/didcomm\"\n      },\n      \"invitationId\": \"bf736cab-a735-4a77-9580-7494cfb71fc4\"\n    },\n    \"from\": \"707d87b2-262a-4903-98e6-bd7969acaaeb\"\n  }",
+							"raw": "{\n    \"invitationId\": \"XYZ\",\n    \"identityId\": \"fec78955-e5a8-4bc8-a245-01534fa2404b\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -333,13 +333,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/action/invitation",
+							"raw": "{{API_URL}}/contact",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"action",
-								"invitation"
+								"contact"
 							]
 						}
 					},
@@ -350,7 +349,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "4f907865-0dc8-4f90-b594-6193c63a2fa3",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -360,15 +358,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0ef6b08a-9cc0-421a-8dd0-cbfe142a76a8",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Generic Information Templates",
@@ -477,8 +473,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Credentials",
@@ -571,13 +566,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/credential/all",
+							"raw": "{{API_URL}}/credential",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"credential",
-								"all"
+								"credential"
 							]
 						}
 					},
@@ -649,8 +643,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Presentations",
@@ -771,7 +764,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \"query\": {\n        \"credentialTemplate\": {\n            \"uuid\": \"5ca66f8a-1fb0-41ef-a5b7-94764bf5e358\"\n        },\n        \"type\": \"PRESENTATION\"\n    },\n    \"relations\": [\"credentialTemplate\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -779,19 +772,18 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/presentation",
+							"raw": "{{API_URL}}/asset-data",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"presentation"
+								"asset-data"
 							]
 						}
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Verify",
@@ -875,8 +867,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "External Signer",
@@ -952,7 +943,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "b8855983-ac97-4b55-8d8c-adce3f3f4a43",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -962,22 +952,19 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "006013bc-73b0-4bc8-ad21-740521d12b88",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "f204848f-b94c-4f7b-a8c6-0e9520d4d5ff",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -987,7 +974,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "af89d979-d739-4456-88fd-4bb0d6678a29",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -997,45 +983,36 @@
 	],
 	"variable": [
 		{
-			"id": "cf1ee397-35f5-4081-add3-963d3cad9202",
 			"key": "API_URL",
 			"value": "https://api.trust-trace.com/api/v1"
 		},
 		{
-			"id": "3985a7f6-dd87-46e4-93d8-5eebfd7dcbbc",
 			"key": "USER_1_EMAIL",
 			"value": "test+1@test.de"
 		},
 		{
-			"id": "98d4bc6a-bcf3-46b9-b17c-45822ace5d9d",
 			"key": "USER_2_EMAIL",
 			"value": "test+2@test.de"
 		},
 		{
-			"id": "dc9bb20d-ae70-4429-ad55-5df6e8949308",
 			"key": "USER_1_PASSWORD",
 			"value": "PW"
 		},
 		{
-			"id": "d450e86d-cfd6-473f-b486-39138158a73c",
 			"key": "USER_2_PASSWORD",
 			"value": "PW"
 		},
 		{
-			"id": "7b0f151a-85a6-4fd0-af0a-13c17430ce39",
 			"key": "USER_1_SUBSCRIPTION",
 			"value": "010e78af828742df91cf8145b8c05a92"
 		},
 		{
-			"id": "bc8af466-dd55-426f-aa26-e756c1f306bd",
 			"key": "USER_2_SUBSCRIPTION",
-			"value": "c88a5286b5d24480a65295b9a8c01e0a"
+			"value": "010e78af828742df91cf8145b8c05a92"
 		},
 		{
-			"id": "3eccc082-3d3f-40f3-b910-2f815bc2cf13",
 			"key": "AUTH_URL",
-			"value": "https://api.trust-trace.com/auth/v1"
+			"value": "https://auth.trust-trace.com/auth/v1"
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
