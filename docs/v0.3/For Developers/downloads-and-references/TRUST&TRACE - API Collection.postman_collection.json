@@ -320,12 +320,12 @@
 							{
 								"key": "tnt-subscription-key",
 								"type": "text",
-								"value": "{{USER_1_SUBSCRIPTION}}"
+								"value": "{{USER_2_SUBSCRIPTION}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"invitationId\": \"XYZ\",\n    \"identityId\": \"fec78955-e5a8-4bc8-a245-01534fa2404b\"\n}",
+							"raw": "{\n    \"invitationId\": \"594f5b35-72a1-4b0b-8bac-7a7dbc0376eb\",\n    \"identityId\": \"f4685506-472e-46ae-bf20-525e071cd7f8\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -611,7 +611,7 @@
 					"response": []
 				},
 				{
-					"name": "Request Credential",
+					"name": "Request Credential - DIDComm",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -623,7 +623,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"DIDCOMM\",\n  \"from\": \"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\n  \"to\": \"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\n  \"command\": \"message\",\n  \"data\": {\n    \"message\": {\n      \"@type\": \"request-credential\",\n      \"requests~attach\": [\n        {\n          \"mime-type\": \"application/json\",\n          \"data\": {\n            \"schemaDid\": \"\",\n            \"leiData\": \"\"\n          }\n        }\n      ],\n      \"~thread\": {\n        \"thid\": \"share thread\"\n      }\n    }\n  }\n}",
+							"raw": "{\n  \"type\": \"DIDCOMM\",\n  \"from\": \"{{user_1_identity_uuid}}\",\n  \"to\": \"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\n  \"command\": \"message\",\n  \"data\": {\n    \"message\": {\n      \"@type\": \"request-credential\",\n      \"requests~attach\": [\n        {\n          \"mime-type\": \"application/json\",\n          \"data\": {\n            \"schemaDid\": \"\",\n            \"leiData\": \"\"\n          }\n        }\n      ],\n      \"~thread\": {\n        \"thid\": \"share thread\"\n      }\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -631,13 +631,44 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/action/DIDCOMM",
+							"raw": "{{API_URL}}/action",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"action",
-								"DIDCOMM"
+								"action"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Credential - Via Action",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"config\": {\n    \"requests\": [\n      {\n        \"data\": {\n          \"city\": \"my city\",\n          \"companyName\": \"my companyName\",\n          \"country\": \"my country\",\n          \"message\": \"Please verify, that i am realy living here.\",\n          \"postalCode\": \"my postalCode\",\n          \"region\": \"my region\"\n        },\n        \"template\": \"cert.master-data.address\"\n      }\n    ],\n    \"type\": \"request-credential\"\n  },\n  \"from\": \"$YOUR_IDENTITY_ID\",\n  \"to\": \"$YOUR_CONTACT_ID\",\n  \"type\": \"REQUEST_CERTIFICATE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/action",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"action"
 							]
 						}
 					},
@@ -957,6 +988,75 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "ACKS and Problem-Reports",
+			"item": [
+				{
+					"name": "Sending ACK",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"DIDCOMM\",\n    \"from\": \"{{user_1_identity_uuid}}\",\n    \"to\": \"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\n    \"command\": \"message\",\n    \"data\": {\n        \"message\": {\n            \"@id\": \"$SOME_ID\",\n            \"@type\": \"https://didcomm.org/notification/1.0/ack\",\n            \"~thread\": {\n                \"thid\": \"$YOUR_THREAD_ID/$ACTION_REFERENCE_ID\"\n            },\n            \"ack~attach\": {\n                \"data\": {\n                    \"status\": \"OK\"\n                },\n                \"mime-type\": \"application/json\"\n            },\n            \"status\": \"OK\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/action",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"action"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sending PROBLEM_REPORT",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "tnt-subscription-key",
+								"type": "text",
+								"value": "{{USER_1_SUBSCRIPTION}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"DIDCOMM\",\n    \"from\": \"{{user_1_identity_uuid}}\",\n    \"to\": \"did:evan:testcore:0x21D30d7BFBb3Ecc3db304c4Af8E41324078146cC\",\n    \"command\": \"message\",\n    \"data\": {\n        \"message\": {\n            \"@id\": \"$SOME_ID\",\n            \"@type\": \"https://didcomm.org/report-problem/1.0/problem-report\",\n            \"~thread\": {\n                \"thid\": \"$YOUR_THREAD_ID/$ACTION_REFERENCE_ID\"\n            },\n            \"description\": {\n                \"code\": \"APPLICATION-ERROR\"\n            },\n            \"noticed_time\": \"1611068517285\",\n            \"problem_items\": [\n                {\n                    \"note\": \"msising\",\n                    \"type\": \"PAYMENT\"\n                },\n                {\n                    \"note\": \"STACK X Y Z ...\",\n                    \"type\": \"UNEXPECTED_ERROR\"\n                }\n            ],\n            \"where\": \"my-application\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/action",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"action"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
