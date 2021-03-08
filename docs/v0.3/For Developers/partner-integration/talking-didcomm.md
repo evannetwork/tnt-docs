@@ -197,7 +197,7 @@ After this request was sent, a asset data is created, including the `ack~attach.
 }
 ```
 
-## Sending ACK's
+## Sending problem-report
 
 Sending problem-reports can be done with the same structure than sending acks, with one huge difference: When receiving a problem-report, the action status will move to error and error object is saved within `action.config.error`.
 

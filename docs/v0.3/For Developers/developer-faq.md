@@ -23,3 +23,4 @@ Frequently asked questions:
 - [How can I - listen for DIDComm messages](./talking-didcomm)
 - [How can I - add an external DID to my account](./self-sovereign-identities)
 - [How can I - use an external signer](./self-sovereign-identities)
+- [How can I - send file references](./file-references)
