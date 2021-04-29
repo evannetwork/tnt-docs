@@ -3,9 +3,8 @@ title: "TRUST&TRACE API"
 slug: "trusttrace-api"
 hidden: false
 createdAt: "2020-11-23T08:03:55.711Z"
-updatedAt: "2020-11-23T08:03:55.711Z"
+updatedAt: "2020-11-26T08:14:27.634Z"
 ---
-
 TRUST&TRACE offers many REST endpoints to interact with the system. But don't be scared, we have split it for you into 4 categories.
 
 ### [Auth Services]

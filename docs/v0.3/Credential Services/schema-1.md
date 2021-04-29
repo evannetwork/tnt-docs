@@ -2,6 +2,6 @@
 title: "Schema"
 slug: "schema-1"
 hidden: false
-createdAt: "2020-10-15T09:19:15.929Z"
-updatedAt: "2020-10-15T09:19:15.929Z"
+createdAt: "2021-01-19T14:11:49.556Z"
+updatedAt: "2021-01-19T14:11:49.556Z"
 ---

@@ -4,7 +4,7 @@ slug: "getting-started"
 excerpt: "This page will help you get started with Trust&Trace. You'll be up and running in a jiffy!"
 hidden: false
 createdAt: "2020-09-09T07:02:33.683Z"
-updatedAt: "2020-09-10T08:39:42.151Z"
+updatedAt: "2021-02-03T14:51:55.211Z"
 ---
 ## Whats TRUST&TRACE?
 
@@ -22,7 +22,7 @@ TRUST&TRACE offers its services in two categories: manage trust and trace transa
 
 With Business Identity, data of your own company can be maintained in a secure place to share it later with business partners. Only you have access to your company’s data and the right to determine with whom you would like to share your data.
 
-**Business Connect**
+**Contacts**
 
 Invite your business partners to share data with you. In this way, all cooperation partners always have access to the latest company data, such as master data, quality and environmental certificates or company documents, and can significantly speed up administrative processes in supplier management.
 

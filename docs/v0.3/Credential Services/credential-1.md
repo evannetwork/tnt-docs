@@ -2,6 +2,6 @@
 title: "Credential"
 slug: "credential-1"
 hidden: false
-createdAt: "2020-10-15T09:19:15.921Z"
-updatedAt: "2020-10-15T09:19:15.921Z"
+createdAt: "2021-01-19T14:11:49.552Z"
+updatedAt: "2021-01-19T14:11:49.552Z"
 ---
